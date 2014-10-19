@@ -1,0 +1,14 @@
+-r requirements.txt
+cov-core==1.14.0
+coverage==3.7.1
+flake8==2.2.5
+isort==3.9.0
+mccabe==0.2.1
+natsort==3.5.1
+pep8==1.5.7
+pies==2.6.1
+py==1.4.25
+pyflakes==0.8.1
+pytest-cov==1.8.0
+pytest-instafail==0.3.0
+pytest==2.6.3
