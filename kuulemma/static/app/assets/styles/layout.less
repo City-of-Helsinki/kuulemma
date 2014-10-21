@@ -1,0 +1,29 @@
+@navbar-height: 55px;
+@navbar-margin-bottom: 20px;
+@footer-height: 100px;
+@footer-padding-vertical: 20px;
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: @footer-height;
+
+  > .container {
+    padding-top: @navbar-height + @navbar-margin-bottom;
+  }
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: @footer-height;
+  background-color: #f5f5f5;
+
+  > .container {
+    padding: @footer-padding-vertical 0;
+  }
+}
