@@ -1,6 +1,7 @@
 -r requirements.txt
 cov-core==1.14.0
 coverage==3.7.1
+factory-boy==2.4.1
 flake8==2.2.5
 isort==3.9.0
 mccabe==0.2.1
