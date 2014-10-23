@@ -7,6 +7,7 @@ from kuulemma.extensions import db
 
 
 class Hearing(db.Model):
+    __versioned__ = {}
     __tablename__ = 'hearing'
 
     id = db.Column(db.Integer, primary_key=True)
