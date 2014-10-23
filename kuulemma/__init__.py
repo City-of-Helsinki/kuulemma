@@ -46,8 +46,10 @@ class Application(Flask):
 
     def _init_blueprints(self):
         from .views.frontpage import frontpage
+        from .views.hearing import hearing
 
         self.register_blueprint(frontpage)
+        self.register_blueprint(hearing)
 
     def _init_extensions(self):
         """Initialize and configure Flask extensions with this application."""
