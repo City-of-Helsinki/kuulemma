@@ -1,6 +1,4 @@
-"""${message}
-
-"""
+"""${message}"""
 
 # revision identifiers, used by Alembic.
 revision = ${repr(up_revision)}

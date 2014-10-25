@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ hearing.title }}{% endblock %}
+
+{% block content %}
+  <h1>{{ hearing.title }}</h1>
+  <p class="lead">{{ hearing.lead }}</p>
+  {{ hearing.body }}
+{% endblock %}
