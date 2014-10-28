@@ -7,9 +7,26 @@ body {
   margin-bottom: @footer-height;
 
   .navbar {
+    img {
+        max-height: @navbar-height - 8px;
+    }
+
+    .navbar-img {
+        float: left;
+        line-height: @navbar-height;
+        padding-right: 15px;
+        padding-left: 10px;
+        a {
+            line-height: @navbar-height;
+            padding: 0px;
+        }
+    }
+
     .login {
+        padding: @navbar-padding-vertical @navbar-padding-horizontal;
         .inline-list();
     }
+
   }
 
   > .container {
