@@ -3,7 +3,43 @@
 {% block title %}{{ hearing.title }}{% endblock %}
 
 {% block content %}
-  <h1>{{ hearing.title }}</h1>
-  <p class="lead">{{ hearing.lead }}</p>
-  {{ hearing.body }}
+  <article class="hearing">
+    <header>
+      <ul class="tags"></ul>
+      <h1>{{ hearing.title }}</h1>
+    </header>
+
+    <aside>
+      Sisällys
+    </aside>
+
+    <div class="content">
+      <section class="main-content">
+        <p class="lead">{{ hearing.lead }}</p>
+        {{ hearing.body }}
+      </section>
+
+      <section class="alternatives">
+        <h2>Vaihtoehdot</h2>
+        <article class="alternative">
+          <h3>Vaihtoehto A</h2>
+        </article>
+        <article class="alternative">
+          <h3>Vaihtoehto B</h2>
+        </article>
+      </section>
+
+      <section class="comments">
+        <h2>Kommentit</h2>
+        <p>
+          Kuulemisen tavoitteena on taata kuntalaisille mahdollisuus vaikuttaa käsiteltäviin asioihin koko valmistelutyön ajan. Asioiden kommentointi onnistuu myös ilman tunnuksia. Klikkaa nappia ja jätä ensimmäinen kommenttisi!
+        </p>
+        <h3>Uusimmat kommentit</h3>
+        <article class="comment">
+          <h4>Ensimmäinen kommentti</h4>
+          <p>Lorem ipsum...</p>
+        </article>
+      </section>
+    </div>
+  </article>
 {% endblock %}
