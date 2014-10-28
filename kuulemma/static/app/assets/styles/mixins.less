@@ -4,3 +4,17 @@
   .make-sm-column(@small);
   .make-xs-column(@tiny);
 }
+
+.inline-list() {
+    li {
+        display: inline-block;
+
+        &.active{
+
+        }
+        &+li::before {
+            content: '|';
+            padding-right: 4px;
+        }
+    }
+}
