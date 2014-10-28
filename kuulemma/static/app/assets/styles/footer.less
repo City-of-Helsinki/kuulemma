@@ -8,4 +8,26 @@ footer {
   > .container {
     padding: @footer-padding-vertical 0;
   }
+  .footer {
+    .make-row();
+  }
+  .footer-brand {
+    .make-column(3, 3, 4);
+  }
+  .footer-links {
+    .make-column(3, 3, 4);
+    a {
+        display: block;
+    }
+  }
+  .footer-login {
+    .make-column-offset(3, 3, 0);
+    .make-column(3, 3, 4);
+    text-align: right;
+    ul.login {
+        display: inline-block;
+        padding-left: 0;
+        .inline-list();
+    }
+  }
 }
