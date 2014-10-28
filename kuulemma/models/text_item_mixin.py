@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
 
-from inflection import parameterize
 from sqlalchemy.sql import func
 
 from kuulemma.extensions import db
@@ -50,7 +49,3 @@ class TextItemMixin(object):
             cls=self.__class__.__name__,
             title=self.title
         )
-
-    @property
-    def slug(self):
-        return parameterize(self.title)

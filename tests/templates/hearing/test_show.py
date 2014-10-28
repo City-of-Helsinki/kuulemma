@@ -2,16 +2,19 @@
 import pytest
 from flask import render_template
 
-from tests.factories import HearingFactory
+from tests.factories import HearingFactory, HearingSectionFactory
 
 
 @pytest.mark.usefixtures('request_ctx')
 class TestShowHearingTemplate(object):
     @pytest.fixture(scope='class')
     def hearing(self):
-        return HearingFactory.build(
+        main_section = HearingSectionFactory.build(
             lead='Lead for this very important hearing.',
             body='Lorem ipsum...'
+        )
+        return HearingFactory.build(
+            main_section=main_section
         )
 
     @pytest.fixture(scope='class')
