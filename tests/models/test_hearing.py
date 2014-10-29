@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import pytest
 from inflection import parameterize
+from sqlalchemy_continuum.utils import count_versions
 from sqlalchemy_utils import assert_non_nullable, assert_nullable
 
 from ..factories import HearingFactory
@@ -39,3 +40,6 @@ class TestHearingWithDatabase(object):
 
     def test_updated_at_is_nullable(self, hearing):
         assert_nullable(hearing, 'updated_at')
+
+    def test_uses_versioning(self, hearing):
+        assert count_versions(hearing) == 1
