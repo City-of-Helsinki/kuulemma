@@ -13,6 +13,9 @@ body {
     .navbar-brand {
         font-size: 20px;
         font-weight: 500;
+        padding-top: 0px;
+        padding-bottom: 0px;
+        line-height: @navbar-height;
     }
 
     .navbar-nav > li > a {
@@ -25,19 +28,19 @@ body {
         max-height: @navbar-height - 8px;
     }
 
-    .navbar-img {
+    .profile-img {
         float: left;
         line-height: @navbar-height;
-        padding-right: 15px;
-        padding-left: 10px;
         a {
             line-height: @navbar-height;
-            padding: 0px;
+            padding-top: 0px;
+            padding-bottom: 0px;
         }
     }
 
     .login {
         padding: @navbar-padding-vertical @navbar-padding-horizontal;
+        margin-right: -@navbar-padding-horizontal;
         font-weight: 300;
         color: #aaa;
         a {
