@@ -4,3 +4,25 @@
   .make-sm-column(@small);
   .make-xs-column(@tiny);
 }
+
+.make-column-offset(@large, @medium, @small: 0, @tiny: 0) {
+  .make-lg-column-offset(@large);
+  .make-md-column-offset(@medium);
+  .make-sm-column-offset(@small);
+  .make-xs-column-offset(@tiny);
+}
+
+.inline-list() {
+    li {
+        display: inline-block;
+
+        &.active{
+
+        }
+        &+li:before {
+            content: '|';
+            padding-right: 4px;
+        }
+    }
+}
+
