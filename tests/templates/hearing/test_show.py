@@ -8,13 +8,21 @@ from tests.factories import HearingFactory, HearingSectionFactory
 @pytest.mark.usefixtures('request_ctx')
 class TestShowHearingTemplate(object):
     @pytest.fixture(scope='class')
-    def hearing(self):
+    def alternative(self):
+        return HearingSectionFactory.build(
+            title='Alternative A',
+            lead='Lorem ipsum...'
+        )
+
+    @pytest.fixture(scope='class')
+    def hearing(self, alternative):
         main_section = HearingSectionFactory.build(
             lead='Lead for this very important hearing.',
             body='Lorem ipsum...'
         )
         return HearingFactory.build(
-            main_section=main_section
+            main_section=main_section,
+            alternatives=[alternative]
         )
 
     @pytest.fixture(scope='class')
@@ -37,3 +45,9 @@ class TestShowHearingTemplate(object):
 
     def test_renders_body(self, content, hearing):
         assert hearing.body in content
+
+    def test_renders_alternatives_title(self, content, alternative):
+        assert alternative.title in content
+
+    def test_renders_alternatives_lead(self, content, alternative):
+        assert alternative.lead in content

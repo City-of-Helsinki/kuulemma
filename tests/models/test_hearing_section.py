@@ -41,3 +41,6 @@ class TestHearingSectionWithDatabase(object):
 
     def test_body_is_non_nullable(self, hearing_section):
         assert_non_nullable(hearing_section, 'body')
+
+    def test_hearing_id_is_nullable(self, hearing_section):
+        assert_nullable(hearing_section, 'hearing_id')
