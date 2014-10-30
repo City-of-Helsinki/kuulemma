@@ -18,6 +18,7 @@
 
     section {
       &.main-content {
+        position: relative;
         .make-row();
 
         .entry {
@@ -25,6 +26,48 @@
         }
         aside {
           .make-column(3, 3, 3);
+        }
+        > a.collapser {
+          position: absolute;
+          right: 40px;
+          top: 20px;
+        }
+      }
+    }
+
+    article {
+      &.alternative {
+        border-top: 1px solid black;
+        section{
+          &.summary {
+            position: relative;
+            .make-row();
+
+            figure {
+              .make-column(3, 3, 3);
+
+              .option {
+                @size: 60px;
+                position: absolute;
+                height: @size;
+                width: @size;
+                font-size: @size;
+                line-height: @size;
+                font-weight: 200;
+                background-color: white;
+                text-align: center;
+              }
+            }
+            .entry {
+              .make-column(8, 8, 8);
+            }
+            a.collapser {
+              .make-column(1, 1, 1);
+              position: absolute;
+              top: 50%;
+              margin-top: -(@font-size-base / 2)
+            }
+          }
         }
       }
     }

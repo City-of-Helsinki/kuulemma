@@ -31,7 +31,38 @@
       <section class="alternatives">
         <h2>Vaihtoehdot</h2>
         <article class="alternative">
-          <h3>Vaihtoehto A</h3>
+          <section class="summary">
+            <figure>
+              <span class="option">A</span>
+              <img src="../static/images/ph1920.jpg" alt="">
+            </figure>
+            <div class="entry">
+              <h3>Vaihtoehto A</h3>
+              <p class="lead">{{ hearing.lead }}</p>
+            </div>
+            <a data-toggle="collapse" data-parent=".alternative" href=".collapseA" class="collapser">
+              <span>\/</span>
+            </a>
+          </section>
+          <div class="collapse collapseA">
+            <figure>
+              <img src="../static/images/ph1920.jpg" alt="">
+              <figcaption>Kuva 1. Asemapiirros. Kuva: Arkkitehtitoimisto AJAK.</figcaption>
+            </figure>
+            <section class="main-content">
+              <a data-toggle="collapse" data-parent=".alternative" href=".collapseA" class="collapser">
+                <span>/\</span>
+              </a>
+              <div class="entry">
+                <h3>Vaihtoehto A</h3>
+                <p class="lead">{{ hearing.lead }}</p>
+                <p>{{ hearing.body }}</p>
+              </div>
+              <aside>
+                Kerro mielipiteesi
+              </aside>
+            </section>
+          </div>
         </article>
         <article class="alternative">
           <h3>Vaihtoehto B</h3>
