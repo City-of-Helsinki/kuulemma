@@ -20,13 +20,13 @@
       </section>
 
       <section class="alternatives">
-        <h2>Vaihtoehdot</h2>
-        <article class="alternative">
-          <h3>Vaihtoehto A</h2>
-        </article>
-        <article class="alternative">
-          <h3>Vaihtoehto B</h2>
-        </article>
+        <h3>Vaihtoehdot</h2>
+        {% for alternative in hearing.alternatives %}
+          <article class="alternative">
+            <h3>{{ alternative.title }}</h3>
+            <p>{{ alternative.lead }}</p>
+          </article>
+        {% endfor %}
       </section>
 
       <section class="comments">

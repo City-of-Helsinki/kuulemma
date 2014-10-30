@@ -6,6 +6,8 @@ from sqlalchemy.sql import func
 
 from kuulemma.extensions import db
 
+from .hearing_section import HearingSection
+
 
 class Hearing(db.Model):
     __versioned__ = {}
@@ -29,13 +31,18 @@ class Hearing(db.Model):
 
     main_section_id = db.Column(
         db.Integer,
-        db.ForeignKey('hearing_section.id')
+        db.ForeignKey(HearingSection.id)
     )
 
     main_section = db.relationship(
-        'HearingSection',
-        uselist=False,
-        backref='hearing'
+        HearingSection,
+        foreign_keys=[main_section_id],
+        uselist=False
+    )
+
+    alternatives = db.relationship(
+        HearingSection,
+        foreign_keys=[HearingSection.hearing_id],
     )
 
     def __repr__(self):
