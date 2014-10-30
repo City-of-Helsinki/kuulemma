@@ -1,0 +1,148 @@
+div[comment-adder] {
+  & > div {
+    max-width: 720px;
+  }
+
+  p {
+    color: @text-color-soft;
+    font-size: 12px;
+  }
+
+  button.open-comment-box {
+    float: left;
+    border: 2px solid black;
+    background-color: transparent;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 10px 30px 10px 10px;
+    outline: none;
+
+    i {
+      margin-left: 10px;
+      padding-right: 5px;
+      font-size: 30px;
+      margin-top: -4px;
+    }
+  }
+
+  & > div {
+    background-color: @gray-lighter;
+  }
+
+  h2 {
+    float: left;
+    padding-left: 20px;
+    font-weight: bold;
+    font-size: 19px;
+    margin-bottom: 38px;
+
+    i {
+      font-size: 30px !important;
+      padding-right: 5px;
+    }
+  }
+
+  form {
+    clear: both;
+  }
+
+  .form-horizontal .form-group {
+    margin-right: 0;
+    margin-left: 10px;
+
+    & > div {
+      .make-xs-column(9.7);
+      padding-left: 0;
+
+      &.input-with-sidenote {
+        .make-xs-column(4.7);
+        padding-left: 0;
+      }
+    }
+
+    label {
+      .make-xs-column(2.3);
+    }
+
+    .side-note {
+      .make-xs-column(5);
+      padding-left: 0;
+      font-size: 11px;
+
+      &.disabled {
+        opacity: 0.3;
+      }
+    }
+
+    .short-side-note {
+      line-height: 29px;
+    }
+
+    .long-slide-note {
+      .make-xs-column(8.7);
+      padding-left: 0;
+    }
+
+    .follow-checkbox {
+      .make-xs-column(0.5);
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .follow-email {
+      .make-xs-column-offset(2.3);
+
+      &.disabled {
+        opacity: 0.9;
+      }
+    }
+
+    .checkbox {
+      display: none;
+
+      & + label {
+        margin-top: 5px;
+        background-color: #fafafa;
+        padding: 9px;
+        display: inline-block;
+        position: relative;
+        cursor: pointer;
+      }
+
+      &:checked + label:after {
+        content: '\2714';
+        font-size: 14px;
+        position: absolute;
+        top: 0px;
+        left: 3px;
+        color: #99a1a7;
+      }
+    }
+  }
+
+  label:not(.checkbox-label) {
+    .make-xs-column(2);
+    padding-right: 12px;
+    color: @text-color-soft;
+    font-size: 13px;
+    line-height: 14px;
+  }
+
+  input {
+    margin-left: 0;
+  }
+
+  button[type="submit"] {
+    .primary-button;
+    width: 120px;
+  }
+
+  button.cancel-button {
+    .secondary-button;
+  }
+
+  .submit-container {
+    .make-xs-column-offset(2.3);
+    margin-bottom: 20px;
+  }
+}
