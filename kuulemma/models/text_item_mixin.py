@@ -1,16 +1,12 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
 
-from inflection import parameterize
 from sqlalchemy.sql import func
 
 from kuulemma.extensions import db
 
 
-class Hearing(db.Model):
-    __versioned__ = {}
-    __tablename__ = 'hearing'
-
+class TextItemMixin(object):
     id = db.Column(db.Integer, primary_key=True)
 
     created_at = db.Column(
@@ -27,15 +23,25 @@ class Hearing(db.Model):
         server_onupdate=func.now()
     )
 
-    main_section_id = db.Column(
-        db.Integer,
-        db.ForeignKey('hearing_section.id')
+    title = db.Column(
+        db.Unicode(255),
+        nullable=False,
+        default='',
+        server_default=''
     )
 
-    main_section = db.relationship(
-        'HearingSection',
-        uselist=False,
-        backref='hearing'
+    lead = db.Column(
+        db.UnicodeText,
+        nullable=False,
+        default='',
+        server_default=''
+    )
+
+    body = db.Column(
+        db.UnicodeText,
+        nullable=False,
+        default='',
+        server_default=''
     )
 
     def __repr__(self):
@@ -43,19 +49,3 @@ class Hearing(db.Model):
             cls=self.__class__.__name__,
             title=self.title
         )
-
-    @property
-    def title(self):
-        return self.main_section.title
-
-    @property
-    def lead(self):
-        return self.main_section.lead
-
-    @property
-    def body(self):
-        return self.main_section.body
-
-    @property
-    def slug(self):
-        return parameterize(self.main_section.title)
