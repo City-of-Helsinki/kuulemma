@@ -1,15 +1,35 @@
 .hearing {
   .make-row();
 
-  header {
+  & > header {
     .make-column(12, 12);
   }
 
-  aside {
+  & > aside {
     .make-column(2, 2, 2);
   }
 
-  .content {
+  & > .content {
     .make-column(10, 10, 10);
+
+    section:not(:last-of-type) {
+      border-bottom: 1px solid black;
+    }
+
+    section {
+
+      &.main-content {
+        .section-body {
+          .make-row();
+        }
+        .entry {
+          .make-column(9, 9, 9);
+        }
+        aside {
+          .make-column(3, 3, 3);
+        }
+      }
+    }
+
   }
 }
