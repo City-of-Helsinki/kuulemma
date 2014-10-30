@@ -17,11 +17,9 @@
     }
 
     section {
-
       &.main-content {
-        .section-body {
-          .make-row();
-        }
+        .make-row();
+
         .entry {
           .make-column(9, 9, 9);
         }
@@ -30,6 +28,19 @@
         }
       }
     }
+
+    figure {
+      img {
+        width: 100%;
+      }
+      figcaption {
+        padding: 8px 15px;
+        background-color: #EEE; //Todo: @backgrouund-light-color
+        color: #777;
+        font-weight: 300;
+      }
+    }
+
 
   }
 }
