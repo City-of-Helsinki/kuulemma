@@ -1,6 +1,7 @@
 from flask import Blueprint, redirect, render_template, url_for
+from sqlalchemy import desc
 
-from ..models import Hearing
+from ..models import Comment, Hearing
 
 hearing = Blueprint(
     name='hearing',
@@ -18,7 +19,20 @@ def show(hearing_id, slug):
             url_for('hearing.show', hearing_id=hearing_id, slug=hearing.slug)
         )
 
+    latest_comments = (
+        Comment.query
+        .filter(Comment.hearing == hearing)
+        .order_by(desc(Comment.created_at))
+    )
+    # TODO: Change this into number of likes when likes are implemented.
+    popular_comments = (
+        Comment.query
+        .filter(Comment.hearing == hearing)
+    )
+
     return render_template(
         'hearing/show.html',
-        hearing=hearing
+        hearing=hearing,
+        latest_comments=latest_comments,
+        popular_comments=popular_comments
     )
