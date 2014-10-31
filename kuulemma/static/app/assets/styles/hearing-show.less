@@ -1,15 +1,101 @@
 .hearing {
   .make-row();
 
-  header {
+  > header {
     .make-column(12, 12);
   }
 
-  aside {
+  > aside {
     .make-column(2, 2, 2);
   }
 
-  .content {
+  > .content {
     .make-column(10, 10, 10);
+
+    section {
+      & + section {
+        border-top: 1px solid black;
+        margin-top: 20px;
+      }
+
+      &.main-content {
+        .make-row();
+        position: relative;
+        margin-top: 20px;
+
+        .entry {
+          .make-column(9, 9, 9);
+          p {
+            &.lead {
+              color: @font-soft-color;
+              font-weight: 400;
+            }
+          }
+        }
+
+        aside {
+          .make-column(3, 3, 3);
+        }
+
+        > a.collapser {
+          position: absolute;
+          right: 40px;
+          top: 10px;
+        }
+      }
+    }
+
+    article.alternative {
+      border-top: 1px solid black;
+      margin-top: 20px;
+
+      section.summary {
+        .make-row();
+        position: relative;
+
+        figure {
+          .make-column(3, 3, 3);
+
+          .option {
+            @size: 60px;
+            position: absolute;
+            height: @size;
+            width: @size;
+            font-size: @size;
+            line-height: @size;
+            font-weight: 200;
+            background-color: white;
+            text-align: center;
+          }
+        }
+
+        .entry {
+          .make-column(8, 8, 8);
+          p {
+            font-size: 14px;
+          }
+        }
+
+        a.collapser {
+          .make-column(1, 1, 1);
+          position: absolute;
+          top: 50%;
+          margin-top: -(@font-size-base / 2)
+        }
+      }
+    }
+
+    figure {
+      img {
+        width: 100%;
+      }
+
+      figcaption {
+        padding: 10px 15px;
+        background-color: @background-soft-color;
+        color: @font-soft-color;
+        font-weight: 300;
+      }
+    }
   }
 }

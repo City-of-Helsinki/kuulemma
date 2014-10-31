@@ -5,7 +5,11 @@
 {% block content %}
   <article class="hearing">
     <header>
-      <ul class="tags"></ul>
+      <ul class="tags">
+        <li>Opetus ja koulutus</li>
+        <li>Kaavoitus</li>
+        <li>Pikku-huopalahti</li>
+      </ul>
       <h1>{{ hearing.title }}</h1>
     </header>
 
@@ -14,20 +18,60 @@
     </aside>
 
     <div class="content">
+      <figure>
+        <img src="../static/images/ph1920.jpg" alt="">
+        <figcaption>Kuva 1. Asemapiirros. Kuva: Arkkitehtitoimisto AJAK.</figcaption>
+      </figure>
       <section class="main-content">
-        <p class="lead">{{ hearing.main_section.lead }}</p>
-        {{ hearing.main_section.body }}
+        <div class="entry">
+          <p class="lead">{{ hearing.lead }}</p>
+          <p>{{ hearing.body|safe }}</p>
+        </div>
+        <aside>
+          Kerro mielipiteesi
+        </aside>
       </section>
-
-      <section class="alternatives">
-        <h3>Vaihtoehdot</h2>
-        {% for alternative in hearing.alternatives %}
-          <article class="alternative">
-            <h3>{{ alternative.title }}</h3>
-            <p>{{ alternative.lead }}</p>
-          </article>
-        {% endfor %}
-      </section>
+      {% if hearing.alternatives %}
+        <section class="alternatives">
+          <h2>Vaihtoehdot</h2>
+          {% for alternative in hearing.alternatives %}
+            <article class="alternative">
+              <section class="summary">
+                <figure>
+                  <span class="option">&#{{ loop.index + 64 }};</span>
+                  <img src="../static/images/ph1920.jpg" alt="">
+                </figure>
+                <div class="entry">
+                  <h3>{{ alternative.title }}</h3>
+                  <p>{{ alternative.lead }}</p>
+                </div>
+                <a data-toggle="collapse" data-parent=".alternatives" href="#alternative-{{ alternative.id }}" class="collapser">
+                  <span>\/</span>
+                </a>
+              </section>
+              <div class="collapse" id="alternative-{{ alternative.id }}">
+                <figure>
+                  <img src="../static/images/ph1920.jpg" alt="">
+                  <figcaption>Kuva 1. Asemapiirros. Kuva: Arkkitehtitoimisto AJAK.</figcaption>
+                </figure>
+                <section class="main-content">
+                  <a data-toggle="collapse" data-parent=".alternatives" href="#alternative-{{ alternative.id }}" class="collapser">
+                    <span>/\</span>
+                  </a>
+                  <div class="entry">
+                    <h3>{{ alternative.title }}</h3>
+                    <p class="lead">{{ alternative.lead }}</p>
+                    <p>{{ alternative.body }}</p>
+                  </div>
+                  <aside>
+                    Kerro mielipiteesi
+                  </aside>
+                </section>
+              </div>
+            </article>
+          {% endfor %}
+        </section>
+      {% endif %}
 
       <section class="comments">
         <h2>Kommentit</h2>

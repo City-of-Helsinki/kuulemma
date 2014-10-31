@@ -13,16 +13,16 @@
 }
 
 .inline-list() {
-    li {
-        display: inline-block;
+  li {
+    display: inline-block;
 
-        &.active{
+    &.active{
 
-        }
-        &+li:before {
-            content: '|';
-            padding-right: 4px;
-        }
     }
+    &+li:before {
+      content: '|';
+      padding-right: 4px;
+    }
+  }
 }
 
