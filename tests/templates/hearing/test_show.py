@@ -16,12 +16,9 @@ class TestShowHearingTemplate(object):
 
     @pytest.fixture(scope='class')
     def hearing(self, alternative):
-        main_section = HearingSectionFactory.build(
-            lead='Lead for this very important hearing.',
-            body='Lorem ipsum...'
-        )
         return HearingFactory.build(
-            main_section=main_section,
+            lead='Lead for this very important hearing.',
+            body='Lorem ipsum...',
             alternatives=[alternative]
         )
 
