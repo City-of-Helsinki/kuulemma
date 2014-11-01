@@ -1,8 +1,8 @@
 Kuulemma
 ========
 
-.. image:: https://travis-ci.org/fastmonkeys/kuulemma.svg?branch=master
-    :target: https://travis-ci.org/fastmonkeys/kuulemma
+.. image:: https://circleci.com/gh/fastmonkeys/kuulemma.png?style=badge
+    :target: https://circleci.com/gh/fastmonkeys/kuulemma
 
 Requirements
 ------------
