@@ -1,8 +1,8 @@
 import pytest
 from flask import url_for
 
+from tests.asserts.views import assert_redirects
 from tests.factories import HearingFactory
-from tests.utils import assert_redirects
 
 
 @pytest.mark.usefixtures('request_ctx')
