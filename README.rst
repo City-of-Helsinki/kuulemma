@@ -22,34 +22,28 @@ Follow the instructions below to set up the development environment.
 
     $ mkvirtualenv --python=$(which python3.4) kuulemma
 
-2. If you are using `autoenv <https://github.com/kennethreitz/autoenv>`_, you
-   can make the virtualenv activate automagically when traversing inside the
-   project directory::
-
-    $ echo -e "workon kuulemma\n" > .env
-
-3. Install Python dependencies::
+2. Install Python dependencies::
 
     $ pip install -r requirements-dev.txt
 
-4. Create databases for development and testing::
+3. Create databases for development and testing::
 
     $ createdb kuulemma
     $ createdb kuulemma_test
 
-5. Create database tables::
+4. Create database tables::
 
     $ alembic upgrade head
 
-6. Install npm dependencies::
+5. Install npm dependencies::
 
     $ npm install
 
-7. Install bower dependencies::
+6. Install bower dependencies::
 
     $ bower install
 
-8. Finally, start the development server::
+7. Finally, start the development server::
 
     $ gulp
 
