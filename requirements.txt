@@ -19,6 +19,7 @@ gunicorn==19.1.1
 inflection==0.2.1
 itsdangerous==0.24
 marshmallow==1.0.0-a
+passlib==1.6.2
 psycopg2==2.5.4
 python-dateutil==2.2
 pytz==2014.7

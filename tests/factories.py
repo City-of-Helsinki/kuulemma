@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import factory
 
-from kuulemma.models import Comment, Hearing, HearingSection
+from kuulemma.models import Comment, Hearing, HearingSection, User
 from tests.sqlalchemy_model_factory import SQLAlchemyModelFactory
 
 
@@ -20,3 +20,14 @@ class CommentFactory(SQLAlchemyModelFactory):
     title = factory.Sequence(lambda n: u'Comment {0}'.format(n))
     username = factory.Sequence(lambda n: u'Commenter {0}'.format(n))
     hearing = factory.SubFactory(HearingFactory)
+
+
+class UserFactory(SQLAlchemyModelFactory):
+    FACTORY_FOR = User
+    username = 'Luke'
+    email = factory.Sequence(lambda n: 'luke%d@skywalker.com' % n)
+    # secret-password
+    password = (
+        '$6$rounds=100000$VdCGUbI5FyS76cdR$WHJrIkhTNx5dEDGMKXngxw5gcj43PbUG5P5'
+        'jVsxeEb9oMo.FbknsRnvhpVDTUPxAJeYGg20DKR4LEGpeGO9e2.'
+    )
