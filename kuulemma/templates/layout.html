@@ -23,8 +23,8 @@
           <span class="icon-bar"></span>
         </button>
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">
-            <img src="./static/images/ph50.png" alt="Kuulemma">
+          <a class="navbar-brand" href="{{ url_for('frontpage.index') }}">
+            <img src="{{ url_for('static', filename='images/ph50.png') }}" alt="Kuulemma">
             <span>Kuulemma</span>
           </a>
         </div>
@@ -42,7 +42,7 @@
             </li>
             <li class="profile-img">
               <a href="#">
-                <img src="./static/images/ph50.png" alt="Profile image">
+                <img src="{{ url_for('static', filename='images/ph50.png') }}" alt="Profile image">
               </a>
             </li>
           </ul>
@@ -62,9 +62,9 @@
         <div class="footer">
           <div class="footer-brand">
             <div class="brand">
-              <img src="./static/images/ph50.png" alt="Coat of arms of Helsinki">
+              <img src="{{ url_for('static', filename='images/ph50.png') }}" alt="Coat of arms of Helsinki">
               <a href="#">
-                <img src="./static/images/ph50.png" alt="Kuulemma">
+                <img src="{{ url_for('static', filename='images/ph50.png') }}" alt="Kuulemma">
                 <span>Kuulemma</span>
               </a>
             </div>
@@ -87,7 +87,7 @@
               <li><a href="#" class="navbar-link">Kirjaudu</a></li>
             </ul>
             <a href="#">
-              <img src="./static/images/ph50.png" alt="Profile image">
+              <img src="{{ url_for('static', filename='images/ph50.png') }}" alt="Profile image">
             </a>
           </div>
         </div>

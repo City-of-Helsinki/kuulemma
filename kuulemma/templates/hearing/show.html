@@ -29,7 +29,7 @@
 
     <div class="content">
       <figure>
-        <img src="../static/images/ph1920.jpg" alt="">
+        <img src="{{ url_for('static', filename='images/ph1920.jpg') }}" alt="">
         <figcaption>Kuva 1. Asemapiirros. Kuva: Arkkitehtitoimisto AJAK.</figcaption>
       </figure>
       <section class="main-content">
@@ -49,7 +49,7 @@
               <section class="summary">
                 <figure>
                   <span class="option">&#{{ loop.index + 64 }};</span>
-                  <img src="../static/images/ph1920.jpg" alt="">
+                  <img src="{{ url_for('static', filename='images/ph1920.jpg') }}" alt="">
                 </figure>
                 <div class="entry">
                   <h3>{{ alternative.title }}</h3>
@@ -61,7 +61,7 @@
               </section>
               <div class="collapse" id="alternative-{{ alternative.id }}">
                 <figure>
-                  <img src="../static/images/ph1920.jpg" alt="">
+                  <img src="{{ url_for('static', filename='images/ph1920.jpg') }}" alt="">
                   <figcaption>Kuva 1. Asemapiirros. Kuva: Arkkitehtitoimisto AJAK.</figcaption>
                 </figure>
                 <section class="main-content">
