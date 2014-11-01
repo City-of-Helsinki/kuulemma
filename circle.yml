@@ -22,3 +22,10 @@ test:
     - py.test tests
     - ./node_modules/.bin/gulp test-karma
     - ./node_modules/.bin/gulp test-protractor
+
+deployment:
+  production:
+    branch: master
+    commands:
+      - git remote add production dokku@185.20.136.244:kuulemispalvelu.hel.fi
+      - git push production master
