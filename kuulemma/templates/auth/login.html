@@ -1,0 +1,16 @@
+{% from "_formhelpers.html" import render_form, render_field %}
+{% extends "layout.html" %}
+
+{% block title %}Kirjautuminen{% endblock %}
+
+{% block content %}
+  <div class="login-form">
+    <h1>Kirjaudu sisään</h1>
+
+    {% call render_form(action=url_for('auth.login', next=request.args.next or None)) %}
+      {{ render_field(form.email, autofocus=true) }}
+      {{ render_field(form.password) }}
+      <button type="submit" tabindex="1">{% trans %}Kirjaudu sisään{% endtrans %}</button>
+    {% endcall %}
+  </div>
+{% endblock %}

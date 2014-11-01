@@ -34,17 +34,27 @@
             <li><a href="#">Tietoa palvelusta</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li>
-              <ul class="login">
-                <li><a href="#" class="navbar-link">Rekisteröidy</a></li>
-                <li><a href="#" class="navbar-link">Kirjaudu</a></li>
-              </ul>
-            </li>
-            <li class="profile-img">
-              <a href="#">
-                <img src="{{ url_for('static', filename='images/ph50.png') }}" alt="Profile image">
-              </a>
-            </li>
+            {% if current_user.is_authenticated() %}
+              <li class="profile-img">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                  <img src="{{ url_for('static', filename='images/ph50.png') }}" alt="Profile image">
+                  <span class="name">{{ current_user.username }}</span>
+                  <span class="caret">
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                  <li class="logout">
+                    <a href="{{ url_for('auth.logout') }}">Kirjaudu ulos</a>
+                  </li>
+                </ul>
+              </li>
+            {% else %}
+              <li>
+                <ul class="login">
+                  <li><a href="#" class="navbar-link">Rekisteröidy</a></li>
+                  <li><a href="{{ url_for('auth.login') }}" class="navbar-link">Kirjaudu</a></li>
+                </ul>
+              </li>
+            {% endif %}
           </ul>
         </div>
       </div>

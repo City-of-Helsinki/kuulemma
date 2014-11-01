@@ -12,7 +12,7 @@ from flask import current_app, Flask, json
 from flask.ext.login import current_user
 from sqlalchemy.exc import SAWarning
 
-from .extensions import babel, db, login_manager, mail, sentry
+from .extensions import babel, csrf, db, login_manager, mail, sentry
 
 warnings.simplefilter('error', SAWarning)
 
@@ -45,16 +45,19 @@ class Application(Flask):
         self.config.from_object(settings_module)
 
     def _init_blueprints(self):
+        from .views.auth import auth
         from .views.comment import comment
         from .views.frontpage import frontpage
         from .views.hearing import hearing
 
+        self.register_blueprint(auth)
         self.register_blueprint(comment)
         self.register_blueprint(frontpage)
         self.register_blueprint(hearing)
 
     def _init_extensions(self):
         """Initialize and configure Flask extensions with this application."""
+        csrf.init_app(self)
         db.init_app(self)
         login_manager.init_app(self)
         babel.init_app(self)

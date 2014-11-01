@@ -1,0 +1,70 @@
+{% macro render_form(method="POST") %}
+  <form method="{{ method}}"{{ kwargs|xmlattr }} role="form">
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+    {{ caller() }}
+  </form>
+{% endmacro %}
+
+{% macro _render_field(field, input_append=None, autofocus=false) %}
+  {% if field.type != 'BooleanField' %}
+    {% set class = "form-control " %}
+  {% else %}
+    {% set class = "" %}
+  {% endif %}
+  {% if field.errors %}
+    {% set class = class ~ "error " ~ kwargs.pop('class', '') %}
+  {% else %}
+    {% set class = class ~ kwargs.pop('class', '') %}
+  {% endif %}
+  {% if field.type == 'BooleanField' %}
+    <div class="checkbox">
+      <label>
+        {{ field(class=class, **kwargs)|safe }}
+        {{ field.label.text }}
+        {% if field.flags.required %}<span class="required">*</span>{% endif %}
+      </label>
+    </div>
+  {% elif field.type == 'RadioField' %}
+    {% for subfield in field %}
+      <label class="radio">
+        {{ subfield|safe }}
+        {{ subfield.label.text }}
+      </label>
+    {% endfor %}
+  {% else %}
+    {% if input_append %}
+      <div class="input-append">
+        {{ field(class=class, **kwargs)|safe }}
+        <span class="add-on">{{ input_append|safe }}</span>
+      </div>
+    {% else %}
+       {% if autofocus %}
+        {{ field(class=class, autofocus=true, **kwargs)|safe }}
+      {% else %}
+        {{ field(class=class, **kwargs)|safe }}
+      {% endif %}
+    {% endif %}
+  {% endif %}
+{% endmacro %}
+
+{% macro render_field(field, input_append=None, autofocus=false, width=10) %}
+  <div class="form-group">
+    {% if field.type != 'BooleanField' %}
+      <label class="col-sm-2 control-label" for="{{ field.id }}">
+        {{ field.label.text }}{% if field.flags.required %}&nbsp;<span class="required">*</span>{% endif %}
+      </label>
+    {% endif %}
+    <div class="col-sm-{{ width }} {% if field.type == 'BooleanField' %}col-sm-offset-2{% endif %}">
+      {{ _render_field(field, input_append, autofocus, **kwargs) }}
+      {% if field.errors %}
+        <p class="text-error">{{ field.errors|join(' ') }}</p>
+      {% endif %}
+      {% if field.description %}
+        <p class="text-info"><i class="icon-arrow-up"></i> {{ field.description }}</p>
+      {% endif %}
+      {% if caller %}
+        {{ caller() }}
+      {% endif %}
+    </div>
+  </div>
+{% endmacro %}
