@@ -1,0 +1,15 @@
+# Fail fast and fail hard.
+set -eo pipefail
+
+# Ensure that node is on $PATH.
+PATH="$BUILD_DIR/vendor/node/bin:$PATH"
+
+# Syntax sugar.
+source $BIN_DIR/utils
+
+puts-step "Building static assets"
+./node_modules/.bin/bower install --allow-root
+./node_modules/.bin/gulp build
+
+puts-step "Running database migrations"
+alembic upgrade head 2>&1 | indent
