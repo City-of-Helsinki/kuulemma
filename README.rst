@@ -41,6 +41,10 @@ Follow the instructions below to set up the development environment.
 
     $ alembic upgrade head
 
+6. Install npm dependencies::
+
+    $ npm install
+
 7. Install bower dependencies::
 
     $ bower install
