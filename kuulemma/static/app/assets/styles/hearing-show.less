@@ -14,7 +14,7 @@
 
     section {
       & + section {
-        border-top: 1px solid black;
+        border-top: 1px solid @border-color-dark;
         margin-top: 20px;
       }
 
@@ -25,12 +25,6 @@
 
         .entry {
           .make-column(9, 9, 9);
-          p {
-            &.lead {
-              color: @font-soft-color;
-              font-weight: 400;
-            }
-          }
         }
 
         aside {
@@ -46,7 +40,7 @@
     }
 
     article.alternative {
-      border-top: 1px solid black;
+      border-top: 1px solid @border-color;
       margin-top: 20px;
 
       section.summary {
@@ -64,6 +58,7 @@
             font-size: @size;
             line-height: @size;
             font-weight: 200;
+            color: @text-color-soft;
             background-color: white;
             text-align: center;
           }
@@ -92,8 +87,8 @@
 
       figcaption {
         padding: 10px 15px;
-        background-color: @background-soft-color;
-        color: @font-soft-color;
+        background-color: @background-color-soft;
+        color: @text-color-soft;
         font-weight: 300;
       }
     }
