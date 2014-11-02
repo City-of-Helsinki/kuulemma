@@ -1,5 +1,6 @@
 import sqlalchemy as sa
 
+from .comment import Comment  # noqa
 from .hearing import Hearing  # noqa
 from .hearing_section import HearingSection  # noqa
 

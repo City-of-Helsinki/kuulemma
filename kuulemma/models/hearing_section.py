@@ -12,7 +12,6 @@ class HearingSection(db.Model, TextItemMixin):
         db.Integer,
         db.ForeignKey(
             'hearing.id',
-            use_alter=True,
-            name='hearing_section_hearing_id_fkey'
+            ondelete='CASCADE'
         )
     )

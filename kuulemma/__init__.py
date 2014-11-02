@@ -45,9 +45,11 @@ class Application(Flask):
         self.config.from_object(settings_module)
 
     def _init_blueprints(self):
+        from .views.comment import comment
         from .views.frontpage import frontpage
         from .views.hearing import hearing
 
+        self.register_blueprint(comment)
         self.register_blueprint(frontpage)
         self.register_blueprint(hearing)
 

@@ -1,5 +1,15 @@
 {% extends "layout.html" %}
 
+{% macro render_comment(comment) %}
+  <article class="comment">
+    <h4>{{ comment.title }}</h4>
+    <p class="info">{{ comment.created_at }} &middot; {{ comment.username }}</p>
+    <div class="body">
+      {{ comment.body }}
+    </div>
+  </article>
+{% endmacro %}
+
 {% block title %}{{ hearing.title }}{% endblock %}
 
 {% block content %}
@@ -19,13 +29,13 @@
 
     <div class="content">
       <figure>
-        <img src="../static/images/ph1920.jpg" alt="">
+        <img src="{{ url_for('static', filename='images/ph1920.jpg') }}" alt="">
         <figcaption>Kuva 1. Asemapiirros. Kuva: Arkkitehtitoimisto AJAK.</figcaption>
       </figure>
       <section class="main-content">
         <div class="entry">
           <p class="lead">{{ hearing.lead }}</p>
-          <p>{{ hearing.body|safe }}</p>
+          {{ hearing.body|safe }}
         </div>
         <aside>
           Kerro mielipiteesi
@@ -39,7 +49,7 @@
               <section class="summary">
                 <figure>
                   <span class="option">&#{{ loop.index + 64 }};</span>
-                  <img src="../static/images/ph1920.jpg" alt="">
+                  <img src="{{ url_for('static', filename='images/ph1920.jpg') }}" alt="">
                 </figure>
                 <div class="entry">
                   <h3>{{ alternative.title }}</h3>
@@ -51,7 +61,7 @@
               </section>
               <div class="collapse" id="alternative-{{ alternative.id }}">
                 <figure>
-                  <img src="../static/images/ph1920.jpg" alt="">
+                  <img src="{{ url_for('static', filename='images/ph1920.jpg') }}" alt="">
                   <figcaption>Kuva 1. Asemapiirros. Kuva: Arkkitehtitoimisto AJAK.</figcaption>
                 </figure>
                 <section class="main-content">
@@ -74,15 +84,24 @@
       {% endif %}
 
       <section class="comments">
-        <h2>Kommentit</h2>
-        <p>
-          Kuulemisen tavoitteena on taata kuntalaisille mahdollisuus vaikuttaa käsiteltäviin asioihin koko valmistelutyön ajan. Asioiden kommentointi onnistuu myös ilman tunnuksia. Klikkaa nappia ja jätä ensimmäinen kommenttisi!
-        </p>
-        <h3>Uusimmat kommentit</h3>
-        <article class="comment">
-          <h4>Ensimmäinen kommentti</h4>
-          <p>Lorem ipsum...</p>
-        </article>
+        <header>
+          <h2>Kommentit</h2>
+          <p>
+            Kuulemisen tavoitteena on taata kuntalaisille mahdollisuus vaikuttaa käsiteltäviin asioihin koko valmistelutyön ajan. Asioiden kommentointi onnistuu myös ilman tunnuksia. Klikkaa nappia ja jätä ensimmäinen kommenttisi!
+          </p>
+        </header>
+        <section class="latest-comments">
+          <h3>Uusimmat kommentit</h3>
+          {% for comment in latest_comments %}
+            {{ render_comment(comment) }}
+          {% endfor %}
+        </section>
+        <section class="popular-comments">
+          <h3>Suosituimmat kommentit</h3>
+          {% for comment in popular_comments %}
+            {{ render_comment(comment) }}
+          {% endfor %}
+        </section>
       </section>
     </div>
   </article>
