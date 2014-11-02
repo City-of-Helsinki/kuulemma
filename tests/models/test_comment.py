@@ -7,16 +7,25 @@ from sqlalchemy_utils import (
     assert_nullable
 )
 
-from ..factories import CommentFactory
+from ..factories import CommentFactory, LikeFactory
 
 
 class TestComment(object):
-    def test_repr(self):
-        comment = CommentFactory.build()
+    @pytest.fixture(scope='function')
+    def comment(self):
+        return CommentFactory.build()
+
+    def test_repr(self, comment):
         expected = '<Comment title=\'{title}\'>'.format(
             title=comment.title
         )
         assert repr(comment) == expected
+
+    def test_like_count(self, comment):
+        expected = 2
+        for _ in range(expected):
+            comment.likes.append(LikeFactory.build())
+        assert comment.like_count == expected
 
 
 @pytest.mark.usefixtures('database')
