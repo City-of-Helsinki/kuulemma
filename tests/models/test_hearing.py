@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from datetime import datetime
+
 import pytest
 from inflection import parameterize
 from sqlalchemy_continuum.utils import count_versions
@@ -42,11 +44,26 @@ class TestHearingWithDatabase(object):
     def test_non_nullable_columns(self, column_name, hearing):
         assert_non_nullable(hearing, column_name)
 
+    def test_created_at_defaults_to_datetime(self):
+        assert isinstance(HearingFactory(created_at=None).created_at, datetime)
+
     def test_updated_at_is_nullable(self, hearing):
         assert_nullable(hearing, 'updated_at')
 
+    def test_updated_at_defaults_to_datetime(self):
+        assert isinstance(HearingFactory(updated_at=None).created_at, datetime)
+
     def test_title_max_length_is_255(self, hearing):
         assert_max_length(hearing, 'title', 255)
+
+    def test_title_defaults_to_empty_string(self):
+        assert HearingFactory(title=None).title == ''
+
+    def test_lead_defaults_to_empty_string(self):
+        assert HearingFactory(lead=None).lead == ''
+
+    def test_body_defaults_to_empty_string(self):
+        assert HearingFactory(body=None).body == ''
 
     def test_uses_versioning(self, hearing):
         assert count_versions(hearing) == 1
