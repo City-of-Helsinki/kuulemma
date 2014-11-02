@@ -13,14 +13,14 @@ comment = Blueprint(
 )
 
 
-@comment.route('/kuulemiset/<int:hearing_id>/links/comments')
+@comment.route('/hearings/<int:hearing_id>/links/comments')
 def index(hearing_id):
     comments = Comment.query.filter(Comment.hearing_id == hearing_id).all()
     serialized = CommentSchema(comments, many=True)
     return jsonify({'comments': serialized.data}), 200
 
 
-@comment.route('/kuulemiset/<int:hearing_id>/links/comments', methods=['POST'])
+@comment.route('/hearings/<int:hearing_id>/links/comments', methods=['POST'])
 def create(hearing_id):
     hearing = Hearing.query.get_or_404(hearing_id)
 
