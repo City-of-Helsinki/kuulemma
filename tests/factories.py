@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import factory
 
-from kuulemma.models import Comment, Hearing, HearingSection, User
+from kuulemma.models import Comment, Hearing, HearingSection, Like, User
 from tests.sqlalchemy_model_factory import SQLAlchemyModelFactory
 
 
@@ -31,3 +31,9 @@ class UserFactory(SQLAlchemyModelFactory):
         '$6$rounds=100000$VdCGUbI5FyS76cdR$WHJrIkhTNx5dEDGMKXngxw5gcj43PbUG5P5'
         'jVsxeEb9oMo.FbknsRnvhpVDTUPxAJeYGg20DKR4LEGpeGO9e2.'
     )
+
+
+class LikeFactory(SQLAlchemyModelFactory):
+    FACTORY_FOR = Like
+    user = factory.SubFactory(UserFactory)
+    comment = factory.SubFactory(CommentFactory)
