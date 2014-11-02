@@ -14,18 +14,18 @@ def test_create_url():
 
 @pytest.mark.usefixtures('database', 'request_ctx')
 class TestIndex(object):
-    @pytest.fixture()
+    @pytest.fixture
     def hearing(self):
         return HearingFactory()
 
-    @pytest.fixture()
+    @pytest.fixture
     def comments(self, hearing):
         return [
             CommentFactory(hearing=hearing),
             CommentFactory(hearing=hearing)
         ]
 
-    @pytest.fixture()
+    @pytest.fixture
     def response(self, client, hearing, comments):
         return client.get(
             url_for('comment.index', hearing_id=hearing.id)

@@ -10,7 +10,7 @@ from ..factories import CommentFactory, LikeFactory, UserFactory
 
 @pytest.mark.usefixtures('database')
 class TestLikeWithDatabase(object):
-    @pytest.fixture(scope='function')
+    @pytest.fixture
     def like(self):
         return LikeFactory()
 

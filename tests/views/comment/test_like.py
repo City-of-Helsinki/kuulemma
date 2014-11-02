@@ -18,21 +18,21 @@ def test_like_url():
 
 @pytest.mark.usefixtures('database', 'request_ctx')
 class LikeTestCase(object):
-    @pytest.fixture(scope='function')
+    @pytest.fixture
     def user(self):
         return UserFactory()
 
-    @pytest.fixture(scope='function')
+    @pytest.fixture
     def comment(self):
         return CommentFactory()
 
-    @pytest.fixture(scope='function')
+    @pytest.fixture
     def like_data(self, user):
         return {'user_id': user.id}
 
 
 class TestCreateLikeOnSuccess(LikeTestCase):
-    @pytest.fixture(scope='function')
+    @pytest.fixture
     def response(self, client, user, comment, like_data):
         login_user(client, user)
         return client.post(
@@ -91,7 +91,7 @@ class TestRemoveLikeOnSuccess(LikeTestCase):
 
 
 class TestCreateLikeOnError(LikeTestCase):
-    @pytest.fixture(scope='function')
+    @pytest.fixture
     def response(self, client, user, comment, like_data):
         return client.post(
             url_for('comment.like', comment_id=comment.id),
