@@ -15,11 +15,11 @@ def test_hearing_url():
 
 @pytest.mark.usefixtures('database', 'request_ctx')
 class TestShowHearingWhenHearingExists(object):
-    @pytest.fixture(scope='function')
+    @pytest.fixture
     def hearing(self):
         return HearingFactory()
 
-    @pytest.fixture(scope='function')
+    @pytest.fixture
     def response(self, client, hearing):
         return client.get(
             url_for('hearing.show', hearing_id=hearing.id, slug=hearing.slug)

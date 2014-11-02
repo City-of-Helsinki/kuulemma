@@ -12,7 +12,7 @@ from ..factories import HearingFactory
 
 
 class TestHearing(object):
-    @pytest.fixture(scope='function')
+    @pytest.fixture(scope='class')
     def hearing(self):
         return HearingFactory.build()
 
@@ -26,27 +26,27 @@ class TestHearing(object):
 
 @pytest.mark.usefixtures('database')
 class TestHearingWithDatabase(object):
-    @pytest.fixture(scope='function')
+    @pytest.fixture
     def hearing(self):
         return HearingFactory()
 
-    def test_created_at_is_non_nullable(self, hearing):
-        assert_non_nullable(hearing, 'created_at')
+    @pytest.mark.parametrize(
+        'column_name',
+        [
+            'created_at',
+            'title',
+            'lead',
+            'body',
+        ]
+    )
+    def test_non_nullable_columns(self, column_name, hearing):
+        assert_non_nullable(hearing, column_name)
 
     def test_updated_at_is_nullable(self, hearing):
         assert_nullable(hearing, 'updated_at')
 
-    def test_title_is_non_nullable(self, hearing):
-        assert_non_nullable(hearing, 'title')
-
     def test_title_max_length_is_255(self, hearing):
         assert_max_length(hearing, 'title', 255)
-
-    def test_lead_is_non_nullable(self, hearing):
-        assert_non_nullable(hearing, 'lead')
-
-    def test_body_is_non_nullable(self, hearing):
-        assert_non_nullable(hearing, 'body')
 
     def test_uses_versioning(self, hearing):
         assert count_versions(hearing) == 1

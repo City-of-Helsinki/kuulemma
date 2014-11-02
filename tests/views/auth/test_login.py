@@ -14,14 +14,14 @@ class LoginTestCase(object):
     def password(self):
         return 'password'
 
-    @pytest.fixture(scope='function')
+    @pytest.fixture
     def response(self, client, data):
         return client.post(
             url_for('auth.login'),
             data=data
         )
 
-    @pytest.fixture(scope='function')
+    @pytest.fixture
     def user(self, password):
         user = UserFactory(password=password)
         # The user password hash is calculated only on commit.
@@ -37,7 +37,7 @@ def test_login_url():
 
 
 class TestSuccessfullLogin(LoginTestCase):
-    @pytest.fixture(scope='function')
+    @pytest.fixture
     def data(self, user, password):
         return {
             'email': user.email,
@@ -55,7 +55,7 @@ class TestSuccessfullLogin(LoginTestCase):
 
 
 class TestInvalidEmailLogin(LoginTestCase):
-    @pytest.fixture(scope='function')
+    @pytest.fixture
     def data(self, user, password):
         return {
             'email': 'invalid_email',
@@ -74,7 +74,7 @@ class TestInvalidEmailLogin(LoginTestCase):
 
 
 class TestInvalidPasswordLogin(LoginTestCase):
-    @pytest.fixture(scope='function')
+    @pytest.fixture
     def data(self, user):
         return {
             'email': user.email,
