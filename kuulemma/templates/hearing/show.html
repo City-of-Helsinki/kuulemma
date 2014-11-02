@@ -1,8 +1,12 @@
 {% extends "layout.html" %}
 
 {% macro render_comment(comment) %}
-  <article class="comment">
+  <article class="comment" data-id="{{ comment.id }}">
     <h4>{{ comment.title }}</h4>
+    <a href="#" class="like">
+      <i class="fa fa-thumbs-o-up"></i>
+      <span class="like_count">12</span>
+    </a>
     <p class="info">{{ comment.created_at }} &middot; {{ comment.username }}</p>
     <div class="body">
       {{ comment.body }}
