@@ -90,3 +90,7 @@ class Comment(db.Model, TextItemMixin):
             )
         )
     ), )
+
+    @property
+    def like_count(self):
+        return len(self.likes)
