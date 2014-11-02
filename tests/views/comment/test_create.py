@@ -11,7 +11,7 @@ from tests.factories import HearingFactory
 def test_create_url():
     assert (
         url_for('comment.create', hearing_id=1) ==
-        '/kuulemiset/1/links/comments'
+        '/hearings/1/links/comments'
     )
 
 
