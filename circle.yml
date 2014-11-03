@@ -21,7 +21,6 @@ test:
     - ./node_modules/.bin/gulp jshint
     - py.test tests
     - ./node_modules/.bin/gulp test-karma
-    - ./node_modules/.bin/gulp test-protractor
 
 deployment:
   production:
