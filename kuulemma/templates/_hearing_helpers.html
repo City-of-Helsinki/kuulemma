@@ -11,7 +11,7 @@
       <h3><a href="{{ url_for('hearing.show', hearing_id=hearing.id, slug=hearing.slug) }}">{{ hearing.title }}</a></h3>
       <span class="opened">
         Avattu
-        <time datetime="{{ hearing.opens_at }}" class="opened">{{ hearing.opens_at }}</time>
+        <time datetime="{{ hearing.opens_at }}" class="opened">{{ hearing.opens_at|dateformat }}</time>
       </span>
     </div>
     <div class="info">

@@ -7,7 +7,7 @@
       <i class="fa fa-thumbs-o-up"></i>
       <span class="like_count">12</span>
     </a>
-    <p class="info">{{ comment.created_at }} &middot; {{ comment.username }}</p>
+    <p class="info">{{ comment.created_at|datetimeformat }} &middot; {{ comment.username }}</p>
     <div class="body">
       {{ comment.body }}
     </div>
@@ -75,7 +75,7 @@
                   <div class="entry">
                     <h3>{{ alternative.title }}</h3>
                     <p class="lead">{{ alternative.lead }}</p>
-                    <p>{{ alternative.body }}</p>
+                    <p>{{ alternative.body|safe }}</p>
                   </div>
                   <aside>
                     Kerro mielipiteesi
