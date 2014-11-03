@@ -7,7 +7,7 @@ describe('Example E2E test', function() {
   });
 
   it('it should have right title', function () {
-    expect($('p').getText()).toBe('Hello world! This is HTML5 Boilerplate.');
+    expect($('strong.lead').getText()).toContain('Kuulemispalvelu on lorem ipsum');
   });
 
 });
