@@ -1,0 +1,28 @@
+{% macro render_hearing_list_item(hearing) %}
+  <li>
+    <a href="{{ url_for('hearing.show', hearing_id=hearing.id, slug=hearing.slug) }}">
+      <img src="http://placehold.it/120x100" alt="Kuulemisen kuvan paikkamerkki">
+    </a>
+    <div class="content">
+      <ul class="tags">
+        <li>Kaavoitus</li>
+        <li>Punavuori</li>
+      </ul>
+      <h3><a href="{{ url_for('hearing.show', hearing_id=hearing.id, slug=hearing.slug) }}">{{ hearing.title }}</a></h3>
+      <span class="opened">
+        Avattu
+        <time datetime="{{ hearing.opens_at }}" class="opened">{{ hearing.opens_at }}</time>
+      </span>
+    </div>
+    <div class="info">
+      <span class="days-open">
+        <i class="fa fa-bullhorn"></i>
+        {{ hearing.days_open }}
+      </span>
+      <span class="comments">
+        <i class="fa fa-comment-o"></i>
+        {{ hearing.comments|length }}
+      </span>
+    </div>
+  </li>
+{% endmacro %}
