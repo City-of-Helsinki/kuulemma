@@ -1,0 +1,57 @@
+@import 'variables';
+
+@placeholder-color: #AAA9A9;
+
+input[type="text"], input[type="email"] {
+  height: 29px;
+  padding: 0 7px;
+  border: none;
+  border-radius: 0;
+  font-size: 12px;
+  color: @text-color-dark;
+  .placeholder(@placeholder-color);
+  box-shadow: none;
+  -webkit-appearance: none; // removes inner shadow from mobile Safari
+
+  &[disabled] {
+    background-color: lighten(@gray-lighter, 5);
+    .placeholder(lighten(@placeholder-color, 15));
+  }
+
+  &:focus {
+    outline: 0;
+    box-shadow: none;
+  }
+
+  &:invalid {
+    box-shadow: none;
+  }
+
+  &:-moz-submit-invalid {
+    box-shadow: none;
+  }
+
+  &:-moz-ui-invalid {
+    box-shadow:none;
+  }
+}
+
+select, textarea {
+  color: @text-color-dark !important;
+  resize: none;
+  padding: 7px !important;
+  font-size: 12px !important;
+  border-radius: 0 !important;
+  -webkit-appearance: none;
+
+  outline: none !important;
+  border: none !important;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
+
+  &:focus {
+    outline: 0 !important;
+    box-shadow: none !important;
+  }
+}
