@@ -45,7 +45,7 @@ class TestCreateCommentOnSuccess(object):
         assert comment_data['title'] in content
         assert comment_data['username'] in content
 
-    def test_creates_a_new_comment(self, response):
+    def test_creates_one_new_comment(self, response):
         assert len(Comment.query.all()) == 1
 
     def test_saves_title(self, response, comment_data):
@@ -97,3 +97,18 @@ class TestCreateCommentOnError(object):
         content = missing_data_response.data.decode('utf8')
         assert 'body' in content
         assert 'username' in content
+
+    def test_returns_error_if_required_fields_are_empty_strings(
+        self, client, hearing
+    ):
+        comment_data = {
+            'title': '',
+            'body': '',
+            'username': ''
+        }
+        response = client.post(
+            url_for('comment.create', hearing_id=hearing.id),
+            data=json.dumps(comment_data),
+            content_type='application/json'
+        )
+        assert response.status_code == 400
