@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from datetime import datetime
+
 import pytest
 from inflection import parameterize
 from sqlalchemy_continuum.utils import count_versions
@@ -12,7 +14,7 @@ from ..factories import HearingFactory
 
 
 class TestHearing(object):
-    @pytest.fixture(scope='function')
+    @pytest.fixture(scope='class')
     def hearing(self):
         return HearingFactory.build()
 
@@ -26,27 +28,42 @@ class TestHearing(object):
 
 @pytest.mark.usefixtures('database')
 class TestHearingWithDatabase(object):
-    @pytest.fixture(scope='function')
+    @pytest.fixture
     def hearing(self):
         return HearingFactory()
 
-    def test_created_at_is_non_nullable(self, hearing):
-        assert_non_nullable(hearing, 'created_at')
+    @pytest.mark.parametrize(
+        'column_name',
+        [
+            'created_at',
+            'title',
+            'lead',
+            'body',
+        ]
+    )
+    def test_non_nullable_columns(self, column_name, hearing):
+        assert_non_nullable(hearing, column_name)
+
+    def test_created_at_defaults_to_datetime(self):
+        assert isinstance(HearingFactory(created_at=None).created_at, datetime)
 
     def test_updated_at_is_nullable(self, hearing):
         assert_nullable(hearing, 'updated_at')
 
-    def test_title_is_non_nullable(self, hearing):
-        assert_non_nullable(hearing, 'title')
+    def test_updated_at_defaults_to_datetime(self):
+        assert isinstance(HearingFactory(updated_at=None).created_at, datetime)
 
     def test_title_max_length_is_255(self, hearing):
         assert_max_length(hearing, 'title', 255)
 
-    def test_lead_is_non_nullable(self, hearing):
-        assert_non_nullable(hearing, 'lead')
+    def test_title_defaults_to_empty_string(self):
+        assert HearingFactory(title=None).title == ''
 
-    def test_body_is_non_nullable(self, hearing):
-        assert_non_nullable(hearing, 'body')
+    def test_lead_defaults_to_empty_string(self):
+        assert HearingFactory(lead=None).lead == ''
+
+    def test_body_defaults_to_empty_string(self):
+        assert HearingFactory(body=None).body == ''
 
     def test_uses_versioning(self, hearing):
         assert count_versions(hearing) == 1

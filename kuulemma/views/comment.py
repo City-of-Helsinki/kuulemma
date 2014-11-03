@@ -7,7 +7,7 @@ from kuulemma.schemas import CommentSchema
 comment = Blueprint(
     name='comment',
     import_name=__name__,
-    url_prefix='/kuulemiset/<int:hearing_id>/links/comments'
+    url_prefix='/hearings/<int:hearing_id>/links/comments'
 )
 
 

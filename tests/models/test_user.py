@@ -10,7 +10,7 @@ from tests.factories import UserFactory
 
 
 class TestUser(object):
-    @pytest.fixture
+    @pytest.fixture(scope='class')
     def user(self):
         return UserFactory.build(
             email='user@example.com',

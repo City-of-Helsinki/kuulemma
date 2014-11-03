@@ -1,4 +1,5 @@
 .comment {
+  position: relative;
   margin-top: @comment-external-margin;
   padding: @comment-padding;
   background-color: @background-color-soft;
@@ -8,6 +9,18 @@
     margin-bottom: @comment-internal-margin;
     font-size: 18px;
     color: @text-color-dark;
+  }
+
+  .like {
+    position: absolute;
+    top: @comment-padding;
+    right: @comment-padding;
+    color: @text-color-soft;
+
+    &:hover {
+      text-decoration: none;
+      color: @text-color-dark;
+    }
   }
 
   .info {

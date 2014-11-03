@@ -11,7 +11,7 @@ from tests.factories import HearingFactory
 def test_create_url():
     assert (
         url_for('comment.create', hearing_id=1) ==
-        '/kuulemiset/1/links/comments'
+        '/hearings/1/links/comments'
     )
 
 
@@ -25,11 +25,11 @@ class TestCreateCommentOnSuccess(object):
             'username': 'Luke Skywalker'
         }
 
-    @pytest.fixture()
+    @pytest.fixture
     def hearing(self):
         return HearingFactory()
 
-    @pytest.fixture()
+    @pytest.fixture
     def response(self, client, hearing, comment_data):
         return client.post(
             url_for('comment.create', hearing_id=hearing.id),
@@ -67,17 +67,17 @@ class TestCreateCommentOnSuccess(object):
 
 @pytest.mark.usefixtures('database', 'request_ctx')
 class TestCreateCommentOnError(object):
-    @pytest.fixture()
+    @pytest.fixture
     def hearing(self):
         return HearingFactory()
 
-    @pytest.fixture()
+    @pytest.fixture
     def no_hearing_response(self, client):
         return client.post(
             url_for('comment.create', hearing_id=999)
         )
 
-    @pytest.fixture()
+    @pytest.fixture
     def missing_data_response(self, client, hearing):
         return client.post(
             url_for('comment.create', hearing_id=hearing.id),
