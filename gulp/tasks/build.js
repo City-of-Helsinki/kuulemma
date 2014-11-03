@@ -2,4 +2,4 @@
 
 var gulp = require('gulp');
 
-gulp.task('build', ['jshint', 'scripts', 'styles', 'images']);
+gulp.task('build', ['jshint', 'scripts', 'html', 'styles', 'images']);

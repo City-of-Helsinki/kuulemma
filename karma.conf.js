@@ -2,15 +2,16 @@
 
 var config = require('./gulp/config');
 var files = [].concat(
-  config.js.src.vendor,
+  config.js.src.vendorTest,
   config.js.src.app,
+  config.js.src.mocks,
   config.js.src.test
 );
 
 module.exports = function(config) {
   config.set({
     autoWatch: true,
-    browsers: ['Firefox'],
+    browsers: ['Firefox', 'Chrome'],
     coverageReporter: {
       type: 'html',
       dir: 'tests/frontend/coverage'

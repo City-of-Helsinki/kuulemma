@@ -15,14 +15,21 @@ module.exports = {
   js: {
     src: {
       vendor: wiredep().js,
-      app: [src + '/app/**/*.js'],
-      test: [src + '/app/**_test.js'],
+      vendorTest: wiredep({ devDependencies: true }).js,
+      app: [src + '/app/**/*.js', '!' + src + '/app/**/*_test.js', '!' + src + ''],
+      mocks: [src + '/mocks/**/*.js'],
+      test: [src + '/app/**/*_test.js'],
       e2e: [root + '/tests/e2e/**/*.js']
     },
     dest: dest + '/js'
   },
+  html: {
+    src: [src + '/app/**/*.html'],
+    dest: dest + '/partials'
+  },
   less: {
     src: [src + '/app/app.less'],
+    watch: [src + '/app/**/*.less', '!' + src + '/app/app.less'],
     dest: dest + '/css'
   },
   img: {

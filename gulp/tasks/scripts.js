@@ -13,8 +13,7 @@ var config = require('../config');
 gulp.task('scripts', function() {
   var paths = [].concat(
     config.js.src.vendor,
-    config.js.src.app,
-    '!' + config.js.src.test
+    config.js.src.app
   );
   return gulp.src(paths, {base: config.src})
     .pipe(sourcemaps.init())
