@@ -7,6 +7,7 @@ def test_frontpage_url():
     assert url_for('frontpage.index') == '/'
 
 
+@pytest.mark.usefixtures('database')
 class TestFrontpageIndex(object):
     @pytest.fixture(scope='class')
     def response(self, client):
@@ -14,7 +15,3 @@ class TestFrontpageIndex(object):
 
     def test_returns_200(self, response):
         assert response.status_code == 200
-
-    def test_contains_hello_world(self, response):
-        content = response.data.decode('utf8')
-        assert 'Hello world! This is HTML5 Boilerplate.' in content
