@@ -31,6 +31,15 @@ DEBUG = 'DEBUG' in os.environ
 SESSION_COOKIE_SECURE = True
 
 #
+# Flask-Login
+# -----------
+
+# Whether the "remember me" cookie requires Secure; defaults to
+# ``None``.
+REMEMBER_COOKIE_SECURE = True
+
+
+#
 # Mail
 # ----
 
@@ -39,6 +48,14 @@ MAIL_USERNAME = os.environ['MAIL_USERNAME']
 MAIL_PASSWORD = os.environ['MAIL_PASSWORD']
 MAIL_PORT = os.environ['MAIL_PORT']
 MAIL_USE_TLS = True
+
+
+#
+# SeaSurf
+# -------
+
+CSRF_COOKIE_SECURE = True
+
 
 #
 # SQLAlchemy
