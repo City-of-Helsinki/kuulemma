@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime
+from datetime import date, datetime, timedelta
 
 import pytest
 from inflection import parameterize
@@ -26,6 +26,23 @@ class TestHearing(object):
         assert hearing.slug == parameterize(hearing.title)
 
 
+class TestDaysOpenProperty(object):
+    def test_should_return_number_of_days_the_hearing_is_still_open(self):
+        expected = 5
+        closes_at = date.today() + timedelta(days=expected)
+        hearing = HearingFactory.build(closes_at=closes_at)
+        assert hearing.days_open == expected
+
+    def test_should_return_zero_if_closing_date_has_passed(self):
+        closes_at = date.today() - timedelta(days=4)
+        hearing = HearingFactory.build(closes_at=closes_at)
+        assert hearing.days_open == 0
+
+    def test_should_return_zero_if_closing_date_is_none(self):
+        hearing = HearingFactory.build()
+        assert hearing.days_open == 0
+
+
 @pytest.mark.usefixtures('database')
 class TestHearingWithDatabase(object):
     @pytest.fixture
@@ -39,6 +56,7 @@ class TestHearingWithDatabase(object):
             'title',
             'lead',
             'body',
+            'published'
         ]
     )
     def test_non_nullable_columns(self, column_name, hearing):
@@ -64,6 +82,21 @@ class TestHearingWithDatabase(object):
 
     def test_body_defaults_to_empty_string(self):
         assert HearingFactory(body=None).body == ''
+
+    def test_opens_at_is_nullable(self, hearing):
+        assert_nullable(hearing, 'opens_at')
+
+    def test_opens_at_defaults_to_none(self):
+        assert HearingFactory(opens_at=None).opens_at is None
+
+    def test_closes_at_is_nullable(self, hearing):
+        assert_nullable(hearing, 'closes_at')
+
+    def test_closes_at_defaults_to_none(self):
+        assert HearingFactory(closes_at=None).closes_at is None
+
+    def test_published_defaults_to_false(self):
+        assert HearingFactory(published=None).published is False
 
     def test_uses_versioning(self, hearing):
         assert count_versions(hearing) == 1
