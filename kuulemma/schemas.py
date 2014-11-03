@@ -7,3 +7,4 @@ class CommentSchema(Schema):
     body = fields.String(required=True)
     username = fields.String(required=True)
     created_at = fields.DateTime()
+    like_count = fields.Integer()
