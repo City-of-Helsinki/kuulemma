@@ -39,7 +39,7 @@
             {% if current_user.is_authenticated() %}
               <li class="profile-img">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                  <img src="{{ url_for('static', filename='images/ph50.png') }}" alt="Profile image">
+                  <img src="{{ url_for('static', filename='images/ph50.png') }}" alt="Profiilikuva">
                   <span class="name">{{ current_user.username }}</span>
                   <span class="caret">
                 </a>
@@ -78,7 +78,7 @@
         <div class="footer">
           <div class="footer-brand">
             <div class="brand">
-              <img src="{{ url_for('static', filename='images/ph50.png') }}" alt="Coat of arms of Helsinki">
+              <img src="{{ url_for('static', filename='images/ph50.png') }}" alt="Helsingin vaakuna">
               <a href="#">
                 <img src="{{ url_for('static', filename='images/ph50.png') }}" alt="Kuulemma">
                 <span>Kuulemma</span>
@@ -104,7 +104,7 @@
                 <li><a href="#" class="navbar-link">Kirjaudu</a></li>
               </ul>
               <a href="#">
-                <img src="{{ url_for('static', filename='images/ph50.png') }}" alt="Profile image">
+                <img src="{{ url_for('static', filename='images/ph50.png') }}" alt="Profiilikuva">
               </a>
             </div>
           {% endif %}
