@@ -16,7 +16,7 @@ module.exports = {
     src: {
       vendor: wiredep().js,
       vendorTest: wiredep({ devDependencies: true }).js,
-      app: [src + '/app/**/*.js', '!' + src + '/app/**/*_test.js', '!' + src + ''],
+      app: [src + '/app/**/*.js', '!' + src + '/app/**/*_test.js'],
       mocks: [src + '/mocks/**/*.js'],
       test: [src + '/app/**/*_test.js'],
       e2e: [root + '/tests/e2e/**/*.js']
