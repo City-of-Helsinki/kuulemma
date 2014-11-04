@@ -30,12 +30,6 @@
         aside {
           .make-column(3, 3, 3);
         }
-
-        > a.collapser {
-          position: absolute;
-          right: 40px;
-          top: 10px;
-        }
       }
     }
 
@@ -71,11 +65,28 @@
           }
         }
 
-        a.collapser {
+        .collapser {
+          height: 120px;
+
           .make-column(1, 1, 1);
-          position: absolute;
-          top: 50%;
-          margin-top: -(@font-size-base / 2)
+          display: block;
+          position: relative;
+
+          &:after {
+            @icon-font-size: 24px;
+            position: absolute;
+            top: 50%;
+            right: 30px;
+            margin-top: -(@icon-font-size / 2);
+            font-family: FontAwesome;
+            content: "\f077";
+            font-size: @icon-font-size;
+            color: #000;
+          }
+
+          &.collapsed:after {
+            content: "\f078";
+          }
         }
       }
     }
