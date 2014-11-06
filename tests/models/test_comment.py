@@ -2,6 +2,7 @@
 from datetime import datetime
 
 import pytest
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy_continuum.utils import count_versions
 from sqlalchemy_utils import (
     assert_max_length,
@@ -78,3 +79,57 @@ class TestCommentWithDatabase(object):
 
     def test_uses_versioning(self, comment):
         assert count_versions(comment) == 1
+
+
+@pytest.mark.usefixtures('database')
+class TestImageCheckConstraint(object):
+    def test_comment_must_reference_something(self):
+        with pytest.raises(IntegrityError):
+            CommentFactory(
+                hearing=None,
+                hearing_section=None,
+                comment=None,
+                image=None
+            )
+
+    def test_comment_cant_reference_both_hearing_and_hearing_section(self):
+        with pytest.raises(IntegrityError):
+            CommentFactory(
+                hearing_id=1,
+                hearing_section_id=1
+            )
+
+    def test_comment_cant_reference_both_hearing_and_comment(self):
+        with pytest.raises(IntegrityError):
+            CommentFactory(
+                hearing_id=1,
+                comment_id=1
+            )
+
+    def test_comment_cant_reference_both_hearing_and_image(self):
+        with pytest.raises(IntegrityError):
+            CommentFactory(
+                hearing_id=1,
+                image_id=1
+            )
+
+    def test_comment_cant_reference_both_hearing_section_and_comment(self):
+        with pytest.raises(IntegrityError):
+            CommentFactory(
+                hearing_section_id=1,
+                comment_id=1
+            )
+
+    def test_comment_cant_reference_both_hearing_section_and_image(self):
+        with pytest.raises(IntegrityError):
+            CommentFactory(
+                hearing_section_id=1,
+                image_id=1
+            )
+
+    def test_comment_cant_reference_both_comment_and_image(self):
+        with pytest.raises(IntegrityError):
+            CommentFactory(
+                comment_id=1,
+                image_id=1
+            )

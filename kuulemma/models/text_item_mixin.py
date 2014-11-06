@@ -7,8 +7,6 @@ from kuulemma.extensions import db
 
 
 class TextItemMixin(object):
-    id = db.Column(db.Integer, primary_key=True)
-
     created_at = db.Column(
         db.DateTime,
         nullable=False,

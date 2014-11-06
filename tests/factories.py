@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import factory
 
-from kuulemma.models import Comment, Hearing, HearingSection, Like, User
+from kuulemma.models import Comment, Hearing, HearingSection, Image, Like, User
 from tests.sqlalchemy_model_factory import SQLAlchemyModelFactory
 
 
@@ -37,3 +37,9 @@ class LikeFactory(SQLAlchemyModelFactory):
     FACTORY_FOR = Like
     user = factory.SubFactory(UserFactory)
     comment = factory.SubFactory(CommentFactory)
+
+
+class ImageFactory(SQLAlchemyModelFactory):
+    FACTORY_FOR = Image
+    image_url = '/static/images/hearings/1/sample-image.jpg'
+    caption = 'This is the caption of the sample image.'
