@@ -2,7 +2,7 @@
 from datetime import date, timedelta
 from random import randrange
 
-from kuulemma.models import Comment, Hearing, HearingSection, Image
+from kuulemma.models import Alternative, Comment, Hearing, Image
 
 alternative_body = '''
     <p>
@@ -178,7 +178,7 @@ def get_sample_hearing():
 
     for alternative in alternatives:
         hearing.alternatives.append(
-            HearingSection(
+            Alternative(
                 title=alternative['title'],
                 lead=alternative['lead'].strip(),
                 body=alternative['body'].strip(),

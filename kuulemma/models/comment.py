@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from kuulemma.extensions import db
 
+from .alternative import Alternative
 from .hearing import Hearing
-from .hearing_section import HearingSection
 from .image import Image
 from .text_item_mixin import TextItemMixin
 
@@ -48,16 +48,16 @@ class Comment(db.Model, TextItemMixin):
         )
     )
 
-    hearing_section_id = db.Column(
+    alternative_id = db.Column(
         db.Integer,
         db.ForeignKey(
-            HearingSection.id,
+            Alternative.id,
             ondelete='CASCADE'
         ),
     )
 
-    hearing_section = db.relationship(
-        HearingSection,
+    alternative = db.relationship(
+        Alternative,
         backref=db.backref(
             'comments',
             cascade='all, delete-orphan',
@@ -95,25 +95,25 @@ class Comment(db.Model, TextItemMixin):
             db.and_(
                 comment_id.isnot(None),
                 hearing_id.is_(None),
-                hearing_section_id.is_(None),
+                alternative_id.is_(None),
                 image_id.is_(None)
             ),
             db.and_(
                 comment_id.is_(None),
                 hearing_id.isnot(None),
-                hearing_section_id.is_(None),
+                alternative_id.is_(None),
                 image_id.is_(None)
             ),
             db.and_(
                 comment_id.is_(None),
                 hearing_id.is_(None),
-                hearing_section_id.isnot(None),
+                alternative_id.isnot(None),
                 image_id.is_(None)
             ),
             db.and_(
                 comment_id.is_(None),
                 hearing_id.is_(None),
-                hearing_section_id.is_(None),
+                alternative_id.is_(None),
                 image_id.isnot(None)
             )
         )

@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 import factory
 
-from kuulemma.models import Comment, Hearing, HearingSection, Image, Like, User
+from kuulemma.models import Alternative, Comment, Hearing, Image, Like, User
 from tests.sqlalchemy_model_factory import SQLAlchemyModelFactory
 
 
-class HearingSectionFactory(SQLAlchemyModelFactory):
-    FACTORY_FOR = HearingSection
+class AlternativeFactory(SQLAlchemyModelFactory):
+    FACTORY_FOR = Alternative
     title = factory.Sequence(lambda n: u'Alternative {0}'.format(n))
 
 

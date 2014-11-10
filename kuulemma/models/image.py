@@ -34,10 +34,10 @@ class Image(db.Model):
         index=True
     )
 
-    hearing_section_id = db.Column(
+    alternative_id = db.Column(
         db.Integer,
         db.ForeignKey(
-            'hearing_section.id',
+            'alternative.id',
             ondelete='CASCADE'
         ),
         index=True
@@ -63,17 +63,17 @@ class Image(db.Model):
         db.or_(
             db.and_(
                 hearing_id.is_(None),
-                hearing_section_id.is_(None),
+                alternative_id.is_(None),
                 position.is_(None),
             ),
             db.and_(
                 hearing_id.isnot(None),
-                hearing_section_id.is_(None),
+                alternative_id.is_(None),
                 position >= 0
             ),
             db.and_(
                 hearing_id.is_(None),
-                hearing_section_id.isnot(None),
+                alternative_id.isnot(None),
                 position >= 0
             ),
         )
@@ -87,7 +87,7 @@ class Image(db.Model):
 
     @property
     def is_main_image(self):
-        return not (self.hearing_id or self.hearing_section_id)
+        return not (self.hearing_id or self.alternative_id)
 
     @property
     def number(self):

@@ -2,7 +2,7 @@
 import pytest
 from flask import render_template
 
-from tests.factories import HearingFactory, HearingSectionFactory, ImageFactory
+from tests.factories import AlternativeFactory, HearingFactory, ImageFactory
 
 
 @pytest.mark.usefixtures('request_ctx')
@@ -99,7 +99,7 @@ class TestAlternatives(ShowHearingTemplateTestCase):
 
     @pytest.fixture(scope='class')
     def alternative(self, main_image, images):
-        return HearingSectionFactory.build(
+        return AlternativeFactory.build(
             title='Alternative A',
             lead='Lorem ipsum...',
             body='Alternative lead',

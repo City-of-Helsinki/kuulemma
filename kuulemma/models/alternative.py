@@ -7,9 +7,9 @@ from .image import Image
 from .text_item_mixin import TextItemMixin
 
 
-class HearingSection(db.Model, TextItemMixin):
+class Alternative(db.Model, TextItemMixin):
     __versioned__ = {}
-    __tablename__ = 'hearing_section'
+    __tablename__ = 'alternative'
 
     id = db.Column(db.Integer, primary_key=True)
 
@@ -27,7 +27,7 @@ class HearingSection(db.Model, TextItemMixin):
             'image.id',
             ondelete='CASCADE',
             use_alter=True,
-            name='hearing_section_main_image_id_fkey'
+            name='alternative_main_image_id_fkey'
         )
     )
 
@@ -39,7 +39,7 @@ class HearingSection(db.Model, TextItemMixin):
 
     images = db.relationship(
         Image,
-        primaryjoin=id == Image.hearing_section_id,
+        primaryjoin=id == Image.alternative_id,
         cascade='all, delete-orphan',
         passive_deletes=True,
         order_by=Image.position,
