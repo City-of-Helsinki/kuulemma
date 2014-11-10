@@ -3,6 +3,7 @@ from kuulemma.extensions import db
 
 from .hearing import Hearing
 from .hearing_section import HearingSection
+from .image import Image
 from .text_item_mixin import TextItemMixin
 
 
@@ -64,6 +65,24 @@ class Comment(db.Model, TextItemMixin):
         )
     )
 
+    image_id = db.Column(
+        db.Integer,
+        db.ForeignKey(
+            Image.id,
+            ondelete='CASCADE'
+        ),
+        index=True
+    )
+
+    image = db.relationship(
+        Image,
+        backref=db.backref(
+            'comments',
+            cascade='all, delete-orphan',
+            passive_deletes=True
+        )
+    )
+
     username = db.Column(
         db.Unicode(255),
         nullable=False,
@@ -76,17 +95,26 @@ class Comment(db.Model, TextItemMixin):
             db.and_(
                 comment_id.isnot(None),
                 hearing_id.is_(None),
-                hearing_section_id.is_(None)
+                hearing_section_id.is_(None),
+                image_id.is_(None)
             ),
             db.and_(
                 comment_id.is_(None),
                 hearing_id.isnot(None),
-                hearing_section_id.is_(None)
+                hearing_section_id.is_(None),
+                image_id.is_(None)
             ),
             db.and_(
                 comment_id.is_(None),
                 hearing_id.is_(None),
-                hearing_section_id.isnot(None)
+                hearing_section_id.isnot(None),
+                image_id.is_(None)
+            ),
+            db.and_(
+                comment_id.is_(None),
+                hearing_id.is_(None),
+                hearing_section_id.is_(None),
+                image_id.isnot(None)
             )
         )
     ), )

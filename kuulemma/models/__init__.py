@@ -3,6 +3,7 @@ import sqlalchemy as sa
 from .comment import Comment  # noqa
 from .hearing import Hearing  # noqa
 from .hearing_section import HearingSection  # noqa
+from .image import Image  # noqa
 from .like import Like  # noqa
 from .user import User  # noqa
 
