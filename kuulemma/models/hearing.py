@@ -38,7 +38,9 @@ class Hearing(db.Model, TextItemMixin):
         Alternative,
         cascade='all, delete-orphan',
         passive_deletes=True,
-        backref='hearing'
+        backref='hearing',
+        order_by='Alternative.position',
+        collection_class=ordering_list('position'),
     )
 
     main_image_id = db.Column(

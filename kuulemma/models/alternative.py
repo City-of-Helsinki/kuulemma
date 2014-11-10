@@ -45,3 +45,11 @@ class Alternative(db.Model, TextItemMixin):
         order_by=Image.position,
         collection_class=ordering_list('position'),
     )
+
+    position = db.Column(db.Integer)
+
+    @property
+    def letter(self):
+        ASCII_INDEX_OF_A = 65
+        position = self.position or 0
+        return chr(ASCII_INDEX_OF_A + position)
