@@ -82,7 +82,7 @@ class TestCommentWithDatabase(object):
 
 
 @pytest.mark.usefixtures('database')
-class TestImageCheckConstraint(object):
+class TestCommentCheckConstraint(object):
     def test_comment_must_reference_something(self):
         with pytest.raises(IntegrityError):
             CommentFactory(

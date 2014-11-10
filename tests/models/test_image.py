@@ -2,6 +2,7 @@
 from datetime import datetime
 
 import pytest
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy_utils import (
     assert_max_length,
     assert_non_nullable,
@@ -62,6 +63,33 @@ class TestImageWithDatabase(object):
 
     def test_caption_defaults_to_empty_string(self):
         assert ImageFactory(caption=None).caption == ''
+
+
+@pytest.mark.usefixtures('database')
+class TestImageCheckConstraint(object):
+    def test_position_must_be_none_if_hearing_and_hearing_section_id_are_none(
+        self
+    ):
+        with pytest.raises(IntegrityError):
+            ImageFactory(
+                hearing_id=None,
+                hearing_section_id=None,
+                position=1
+            )
+
+    def test_position_should_be_gte_0_if_hearing_is_defined(self):
+        with pytest.raises(IntegrityError):
+            ImageFactory(
+                hearing_id=1,
+                position=-1
+            )
+
+    def test_position_should_be_gte_0_if_hearing_section_is_defined(self):
+        with pytest.raises(IntegrityError):
+            ImageFactory(
+                hearing_section_id=1,
+                position=-1
+            )
 
 
 @pytest.mark.usefixtures('database')

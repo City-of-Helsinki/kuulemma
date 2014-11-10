@@ -62,7 +62,7 @@ class Hearing(db.Model, TextItemMixin):
         primaryjoin=id == Image.hearing_id,
         cascade='all, delete-orphan',
         passive_deletes=True,
-        order_by='Image.position',
+        order_by=Image.position,
         collection_class=ordering_list('position'),
     )
 

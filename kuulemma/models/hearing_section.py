@@ -42,6 +42,6 @@ class HearingSection(db.Model, TextItemMixin):
         primaryjoin=id == Image.hearing_section_id,
         cascade='all, delete-orphan',
         passive_deletes=True,
-        order_by='Image.position',
+        order_by=Image.position,
         collection_class=ordering_list('position'),
     )
