@@ -2,7 +2,7 @@
 from datetime import date, timedelta
 from random import randrange
 
-from kuulemma.models import Comment, Hearing, HearingSection
+from kuulemma.models import Comment, Hearing, HearingSection, Image
 
 alternative_body = '''
     <p>
@@ -154,6 +154,13 @@ def get_random_past_date(range):
     return date.today() - timedelta(days=randrange(range))
 
 
+def get_image(caption='Asemapiirros lorem ipsum dolores ja niin edelleen.'):
+    return Image(
+        image_url='/static/images/ph1920.jpg',
+        caption=caption
+    )
+
+
 def get_sample_hearing():
     hearing = Hearing(
         title=hearing_data['title'],
@@ -162,6 +169,11 @@ def get_sample_hearing():
         opens_at=get_random_past_date(30),
         closes_at=get_random_future_date(30),
         published=True,
+        main_image=get_image('Asemapiirros. Kuva: Arkkitehtitoimisto AJAK.'),
+    )
+
+    hearing.images.append(
+        get_image('Arkkitehdin luonnos uudesta rakennuksesta.')
     )
 
     for alternative in alternatives:
@@ -170,6 +182,10 @@ def get_sample_hearing():
                 title=alternative['title'],
                 lead=alternative['lead'].strip(),
                 body=alternative['body'].strip(),
+                main_image=get_image('Vaihtoehdon kuvan kuvateksti.'),
+                images=[
+                    get_image('Vaihtoehto voitaisiin toteuttaa myös näin.'),
+                ]
             )
         )
 

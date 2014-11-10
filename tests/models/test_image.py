@@ -8,6 +8,8 @@ from sqlalchemy_utils import (
     assert_nullable
 )
 
+from kuulemma.extensions import db
+
 from ..factories import HearingFactory, ImageFactory
 
 
@@ -63,25 +65,57 @@ class TestImageWithDatabase(object):
 
 
 @pytest.mark.usefixtures('database')
-class TestImagePosition(object):
+class TestIsMainImage(object):
     @pytest.fixture
     def hearing(self):
         return HearingFactory()
 
     @pytest.fixture
-    def image(self, hearing):
-        image = ImageFactory()
+    def image(self):
+        return ImageFactory()
+
+    def test_returns_true_for_main_images(self, image, hearing):
+        hearing.main_image = image
+        assert image.is_main_image
+
+    def test_returns_false_if_is_regular_image(self, image, hearing):
         hearing.images.append(image)
-        return image
+        # is_main_image works for non main images only after db.flush.
+        db.session.flush()
+        assert not image.is_main_image
 
-    def test_position_should_be_automatically_set(self, image, hearing):
-        assert hearing.images[0].position == 0
 
-    def test_position_should_update_automatically(sefl, image, hearing):
-        from kuulemma.extensions import db
-        assert hearing.images[0].position == 0
+@pytest.mark.usefixtures('database')
+class TestImagePositionAndNumber(object):
+    @pytest.fixture
+    def hearing(self):
+        return HearingFactory()
+
+    @pytest.fixture
+    def image(self):
+        return ImageFactory.build()
+
+    def test_position_should_be_automatically_set(self, hearing):
+        hearing.images.append(ImageFactory.build())
+        hearing.images.append(ImageFactory.build())
+        assert hearing.images[1].position == 1
+
+    def test_position_should_update_automatically(sefl, hearing, image):
+        hearing.images.append(image)
+        assert image.position == 0
         hearing.images.insert(
             0, ImageFactory.build()
         )
-        db.session.commit()
-        assert hearing.images[1].position == 1
+        assert image.position == 1
+
+    def test_main_image_number_should_be_1(self, hearing, image):
+        hearing.main_image = image
+        assert image.number == 1
+
+    def test_regular_image_numbering_should_start_from_2(self, hearing, image):
+        hearing.images.append(image)
+        # is_main_image works for non main images only after db.flush.
+        db.session.flush()
+        assert not image.is_main_image
+        assert image.position == 0
+        assert image.number == 2

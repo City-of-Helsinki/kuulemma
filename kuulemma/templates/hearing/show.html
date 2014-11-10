@@ -1,3 +1,4 @@
+{% from "_hearing_helpers.html" import render_image %}
 {% extends "layout.html" %}
 
 {% macro render_comment(comment) %}
@@ -33,14 +34,14 @@
     </aside>
 
     <div class="content">
-      <figure>
-        <img src="{{ url_for('static', filename='images/ph1920.jpg') }}" alt="Kuuleminen">
-        <figcaption>Kuva 1. Asemapiirros. Kuva: Arkkitehtitoimisto AJAK.</figcaption>
-      </figure>
+      {{ render_image(hearing.main_image, 'Kuulemisen pääkuva') }}
       <section class="main-content">
         <div class="entry">
           <p class="lead">{{ hearing.lead }}</p>
           {{ hearing.body|safe }}
+          {% for image in hearing.images %}
+            {{ render_image(image, 'Kuulemisen kuva') }}
+          {% endfor %}
         </div>
         <aside>
           Kerro mielipiteesi
@@ -54,7 +55,7 @@
               <section class="summary">
                 <figure>
                   <span class="option">&#{{ loop.index + 64 }};</span>
-                  <img src="{{ url_for('static', filename='images/ph1920.jpg') }}" alt="Vaihtoehto">
+                  <img src="{{ alternative.main_image.image_url }}" alt="Vaihtoehdon pääkuva">
                 </figure>
                 <div class="entry">
                   <h3>{{ alternative.title }}</h3>
@@ -67,6 +68,9 @@
                 <section class="main-content">
                   <div class="entry">
                     {{ alternative.body|safe }}
+                    {% for image in alternative.images %}
+                      {{ render_image(image, 'Vaihtoehdon kuva') }}
+                    {% endfor %}
                   </div>
                   <aside>
                     Kerro mielipiteesi

@@ -84,3 +84,13 @@ class Image(db.Model):
             cls=self.__class__.__name__,
             image_url=self.image_url,
         )
+
+    @property
+    def is_main_image(self):
+        return not (self.hearing_id or self.hearing_section_id)
+
+    @property
+    def number(self):
+        if self.is_main_image:
+            return 1
+        return self.position + 2
