@@ -1,5 +1,27 @@
 div[comment-adder] {
-  & > div {
+
+  .add-comment-box {
+    background-color: @gray-lighter;
+    &.ng-enter {
+      -webkit-transition: 0.2s linear all;
+      -moz-transition: 0.2s linear all;
+      -ms-transition: 0.2s linear all;
+      -o-transition: 0.2s linear all;
+      transition: 0.2s linear all;
+      display: block;
+      overflow: hidden;
+    }
+
+    &.ng-enter {
+      opacity: 0;
+    }
+
+    &.ng-enter.ng-enter-active {
+      opacity: 1;
+    }
+  }
+
+  > div {
     max-width: 720px;
   }
 
@@ -25,10 +47,6 @@ div[comment-adder] {
     }
   }
 
-  & > div {
-    background-color: @gray-lighter;
-  }
-
   h2 {
     float: left;
     padding-left: 20px;
@@ -50,7 +68,7 @@ div[comment-adder] {
     margin-right: 0;
     margin-left: 10px;
 
-    & > div {
+    > div {
       .make-xs-column(9.7);
       padding-left: 0;
 
