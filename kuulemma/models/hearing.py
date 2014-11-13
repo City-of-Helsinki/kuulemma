@@ -6,7 +6,7 @@ from sqlalchemy.ext.orderinglist import ordering_list
 
 from kuulemma.extensions import db
 
-from .hearing_section import HearingSection
+from .alternative import Alternative
 from .image import Image
 from .text_item_mixin import TextItemMixin
 
@@ -35,7 +35,7 @@ class Hearing(db.Model, TextItemMixin):
     )
 
     alternatives = db.relationship(
-        HearingSection,
+        Alternative,
         cascade='all, delete-orphan',
         passive_deletes=True,
         backref='hearing'

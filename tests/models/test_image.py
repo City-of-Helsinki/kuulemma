@@ -67,13 +67,13 @@ class TestImageWithDatabase(object):
 
 @pytest.mark.usefixtures('database')
 class TestImageCheckConstraint(object):
-    def test_position_must_be_none_if_hearing_and_hearing_section_id_are_none(
+    def test_position_must_be_none_if_hearing_and_alternative_id_are_none(
         self
     ):
         with pytest.raises(IntegrityError):
             ImageFactory(
                 hearing_id=None,
-                hearing_section_id=None,
+                alternative_id=None,
                 position=1
             )
 
@@ -87,7 +87,7 @@ class TestImageCheckConstraint(object):
     def test_position_should_be_gte_0_if_hearing_section_is_defined(self):
         with pytest.raises(IntegrityError):
             ImageFactory(
-                hearing_section_id=1,
+                alternative_id=1,
                 position=-1
             )
 

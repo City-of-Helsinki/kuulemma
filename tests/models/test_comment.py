@@ -87,16 +87,16 @@ class TestCommentCheckConstraint(object):
         with pytest.raises(IntegrityError):
             CommentFactory(
                 hearing=None,
-                hearing_section=None,
+                alternative=None,
                 comment=None,
                 image=None
             )
 
-    def test_comment_cant_reference_both_hearing_and_hearing_section(self):
+    def test_comment_cant_reference_both_hearing_and_alternative(self):
         with pytest.raises(IntegrityError):
             CommentFactory(
                 hearing_id=1,
-                hearing_section_id=1
+                alternative_id=1
             )
 
     def test_comment_cant_reference_both_hearing_and_comment(self):
@@ -113,17 +113,17 @@ class TestCommentCheckConstraint(object):
                 image_id=1
             )
 
-    def test_comment_cant_reference_both_hearing_section_and_comment(self):
+    def test_comment_cant_reference_both_alternative_and_comment(self):
         with pytest.raises(IntegrityError):
             CommentFactory(
-                hearing_section_id=1,
+                alternative_id=1,
                 comment_id=1
             )
 
-    def test_comment_cant_reference_both_hearing_section_and_image(self):
+    def test_comment_cant_reference_both_alternative_and_image(self):
         with pytest.raises(IntegrityError):
             CommentFactory(
-                hearing_section_id=1,
+                alternative_id=1,
                 image_id=1
             )
 
