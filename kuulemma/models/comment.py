@@ -122,3 +122,11 @@ class Comment(db.Model, TextItemMixin):
     @property
     def like_count(self):
         return len(self.likes)
+
+
+COMMENTABLE_TYPES = {
+    'alternative': Alternative,
+    'comment': Comment,
+    'image': Image,
+    'hearing': Hearing
+}
