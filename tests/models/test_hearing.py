@@ -10,7 +10,7 @@ from sqlalchemy_utils import (
     assert_nullable
 )
 
-from ..factories import HearingFactory
+from ..factories import AlternativeFactory, HearingFactory, ImageFactory
 
 
 class TestHearing(object):
@@ -24,6 +24,21 @@ class TestHearing(object):
 
     def test_uses_parametrized_title_as_slug(self, hearing):
         assert hearing.slug == parameterize(hearing.title)
+
+    def test_commentable_id(self, hearing):
+        expected = 'hearing-{id}'.format(id=hearing.id)
+        assert hearing.commentable_id == expected
+
+    def test_commentable_name(self, hearing):
+        expected = 'Koko kuuleminen'
+        assert hearing.commentable_name == expected
+
+    def test_commentable_option(self, hearing):
+        expected = '{id}:{name}'.format(
+            id=hearing.commentable_id,
+            name=hearing.commentable_name
+        )
+        assert hearing.commentable_option == expected
 
 
 class TestDaysOpenProperty(object):
@@ -100,3 +115,57 @@ class TestHearingWithDatabase(object):
 
     def test_uses_versioning(self, hearing):
         assert count_versions(hearing) == 1
+
+
+@pytest.mark.usefixtures('database')
+class TestGetCommentableSectionsString(object):
+    @pytest.fixture
+    def image(self):
+        return ImageFactory()
+
+    @pytest.fixture
+    def images(self):
+        return [
+            ImageFactory(),
+            ImageFactory()
+        ]
+
+    @pytest.fixture
+    def alternatives(self):
+        return [
+            AlternativeFactory(),
+            AlternativeFactory()
+        ]
+
+    @pytest.fixture
+    def hearing(self, alternatives):
+        return HearingFactory()
+
+    def test_contains_own_data(self, hearing):
+        assert (
+            hearing.commentable_id in
+            hearing.get_commentable_sections_string()
+        )
+
+    def test_contains_main_image(self, hearing, image):
+        hearing.main_image = image
+        assert (
+            image.commentable_id in hearing.get_commentable_sections_string()
+        )
+
+    def test_contains_data_of_all_the_images(self, hearing, images):
+        hearing.images = images
+        content = hearing.get_commentable_sections_string()
+        assert images[0].commentable_id in content
+        assert images[1].commentable_id in content
+
+    def test_contains_all_the_alternatives(self, hearing, alternatives):
+        hearing.alternatives = alternatives
+        content = hearing.get_commentable_sections_string()
+        assert alternatives[0].commentable_id in content
+        assert alternatives[1].commentable_id in content
+
+    def test_data_is_separated_with_semi_colon(self, hearing, image):
+        hearing.main_image = image
+        content = hearing.get_commentable_sections_string()
+        assert len(content.split(';')) == 2

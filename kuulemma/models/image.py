@@ -94,3 +94,23 @@ class Image(db.Model):
         if self.is_main_image:
             return 1
         return self.position + 2
+
+    @property
+    def commentable_id(self):
+        return 'image-{id}'.format(id=self.id)
+
+    @property
+    def commentable_name(self):
+        return 'Kuva {number}'.format(number=self.number)
+
+    def get_commentable_option(self, context=''):
+        """
+        Returns a "id:name" string representation that can be used in the
+        frontend when commenting on this section.
+        Context is the section the image belongs to.
+        """
+        return '{id}:{context} {name}'.format(
+            id=self.commentable_id,
+            context=context,
+            name=self.commentable_name
+        )

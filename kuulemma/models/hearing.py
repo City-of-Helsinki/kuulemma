@@ -69,6 +69,25 @@ class Hearing(db.Model, TextItemMixin):
     )
 
     @property
+    def commentable_id(self):
+        return 'hearing-{id}'.format(id=self.id)
+
+    @property
+    def commentable_name(self):
+        return 'Koko kuuleminen'
+
+    @property
+    def commentable_option(self):
+        """
+        Returns a "id:name" string representation that can be used in the
+        frontend when commenting on this section.
+        """
+        return '{id}:{name}'.format(
+            id=self.commentable_id,
+            name=self.commentable_name
+        )
+
+    @property
     def slug(self):
         return parameterize(self.title)
 
@@ -78,3 +97,28 @@ class Hearing(db.Model, TextItemMixin):
             days_open = self.closes_at - date.today()
             return max(0, days_open.days)
         return 0
+
+    def get_commentable_sections_string(self):
+        """
+        Return in string format id, name pairs of all the commentable sections
+        related to this hearing.
+        """
+        sections = []
+        sections.append(self.commentable_option)
+        if self.main_image:
+            sections.append(
+                self.main_image.get_commentable_option(self.commentable_name)
+            )
+        for image in self.images:
+            sections.append(
+                image.get_commentable_option(self.commentable_name)
+            )
+
+        sections_string = ';'.join(sections)
+
+        for alternative in self.alternatives:
+            sections_string += (
+                ';' + alternative.get_commentable_sections_string()
+            )
+
+        return sections_string

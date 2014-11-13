@@ -8,16 +8,34 @@ from sqlalchemy_utils import (
     assert_nullable
 )
 
-from ..factories import AlternativeFactory, HearingFactory
+from ..factories import AlternativeFactory, HearingFactory, ImageFactory
 
 
 class TestAlternative(object):
-    def test_repr(self):
-        alternative = AlternativeFactory.build()
+    @pytest.fixture
+    def alternative(self):
+        return AlternativeFactory.build()
+
+    def test_repr(self, alternative):
         expected = '<Alternative title=\'{title}\'>'.format(
             title=alternative.title
         )
         assert repr(alternative) == expected
+
+    def test_commentable_id(self, alternative):
+        expected = 'alternative-{id}'.format(id=alternative.id)
+        assert alternative.commentable_id == expected
+
+    def test_commentable_name(self, alternative):
+        expected = 'Vaihtoehto {letter}'.format(letter=alternative.letter)
+        assert alternative.commentable_name == expected
+
+    def test_commentable_option(self, alternative):
+        expected = '{id}:{name}'.format(
+            id=alternative.commentable_id,
+            name=alternative.commentable_name
+        )
+        assert alternative.commentable_option == expected
 
 
 @pytest.mark.usefixtures('database')
@@ -98,3 +116,45 @@ class TestImagePositionAndLetter(object):
 
     def test_letter_should_be_A_if_position_is_None(self, alternative):
         assert alternative.letter == 'A'
+
+
+@pytest.mark.usefixtures('database')
+class TestGetCommentableSectionsString(object):
+    @pytest.fixture
+    def image(self):
+        return ImageFactory()
+
+    @pytest.fixture
+    def images(self):
+        return [
+            ImageFactory(),
+            ImageFactory()
+        ]
+
+    @pytest.fixture
+    def alternative(self):
+        return AlternativeFactory()
+
+    def test_contains_own_data(self, alternative):
+        assert (
+            alternative.commentable_id in
+            alternative.get_commentable_sections_string()
+        )
+
+    def test_contains_main_image_data(self, alternative, image):
+        alternative.main_image = image
+        assert (
+            image.commentable_id in
+            alternative.get_commentable_sections_string()
+        )
+
+    def test_contains_data_of_all_the_images(self, alternative, images):
+        alternative.images = images
+        assert (
+            images[0].commentable_id in
+            alternative.get_commentable_sections_string()
+        )
+        assert (
+            images[1].commentable_id in
+            alternative.get_commentable_sections_string()
+        )

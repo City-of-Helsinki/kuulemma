@@ -15,12 +15,33 @@ from ..factories import HearingFactory, ImageFactory
 
 
 class TestImage(object):
-    def test_repr(self):
-        image = ImageFactory.build()
+    @pytest.fixture
+    def image(self):
+        return ImageFactory.build(id=1)
+
+    def test_repr(self, image):
         expected = '<Image image_url=\'{image_url}\'>'.format(
             image_url=image.image_url
         )
         assert repr(image) == expected
+
+    def test_commentable_id(self, image):
+        assert image.commentable_id == 'image-{id}'.format(id=image.id)
+
+    def test_commentable_name(self, image):
+        assert (
+            image.commentable_name ==
+            'Kuva {number}'.format(number=image.number)
+        )
+
+    def test_get_commentable_option(self, image):
+        context = 'Koko kuuleminen'
+        expected = '{id}:{context} {name}'.format(
+            id=image.commentable_id,
+            context=context,
+            name=image.commentable_name
+        )
+        assert image.get_commentable_option(context) == expected
 
 
 @pytest.mark.usefixtures('database')
