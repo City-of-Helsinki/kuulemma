@@ -14,7 +14,15 @@ comment = Blueprint(
 
 @comment.route('')
 def index(hearing_id):
-    comments = Comment.query.filter(Comment.hearing_id == hearing_id).all()
+    hearing = Hearing.query.get_or_404(hearing_id)
+    comments = (
+        hearing
+        .all_comments
+        .options(db.joinedload(Comment.comment))
+        .options(db.joinedload(Comment.image))
+        .options(db.joinedload(Comment.alternative))
+    )
+
     serialized = CommentSchema(
         comments,
         exclude=('object_type', 'object_id'),

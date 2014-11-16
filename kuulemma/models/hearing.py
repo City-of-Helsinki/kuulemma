@@ -98,6 +98,45 @@ class Hearing(db.Model, TextItemMixin):
             return max(0, days_open.days)
         return 0
 
+    @property
+    def all_comments(self):
+        from .comment import Comment
+        from .image import Image
+
+        alternative_ids = [alternative.id for alternative in self.alternatives]
+        alternative_main_image_ids = [
+            alternative.main_image_id for alternative in self.alternatives
+        ]
+
+        image_criteria = [Image.hearing_id == self.id]
+        comment_criteria = [
+            Comment.hearing_id == self.id,
+            db.and_(
+                Comment.image_id == self.main_image_id,
+                Comment.image_id.isnot(None)
+            )
+        ]
+
+        if alternative_main_image_ids:
+            image_criteria.append(Image.id.in_(alternative_main_image_ids))
+
+        if alternative_ids:
+            image_criteria.append(Image.alternative_id.in_(alternative_ids))
+            comment_criteria.append(
+                Comment.alternative_id.in_(alternative_ids)
+            )
+
+        hearing_image_ids = db.session.query(Image.id).filter(
+            db.or_(*image_criteria)
+        )
+        comment_criteria.append(Comment.image_id.in_(hearing_image_ids))
+
+        comment_parent_ids = db.session.query(Comment.id).filter(
+            db.or_(*comment_criteria)
+        )
+        comment_criteria.append(Comment.comment_id.in_(comment_parent_ids))
+        return Comment.query.filter(db.or_(*comment_criteria))
+
     def get_commentable_sections_string(self):
         """
         Return in string format id, name pairs of all the commentable sections

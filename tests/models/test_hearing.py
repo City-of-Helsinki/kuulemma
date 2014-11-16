@@ -10,7 +10,12 @@ from sqlalchemy_utils import (
     assert_nullable
 )
 
-from ..factories import AlternativeFactory, HearingFactory, ImageFactory
+from ..factories import (
+    AlternativeFactory,
+    CommentFactory,
+    HearingFactory,
+    ImageFactory
+)
 
 
 class TestHearing(object):
@@ -115,6 +120,145 @@ class TestHearingWithDatabase(object):
 
     def test_uses_versioning(self, hearing):
         assert count_versions(hearing) == 1
+
+
+@pytest.mark.usefixtures('database')
+class TestAllCommentsProperty(object):
+    @pytest.fixture
+    def hearing(self):
+        return HearingFactory()
+
+    @pytest.fixture
+    def other_hearing(self):
+        return HearingFactory()
+
+    @pytest.fixture
+    def alternative(self):
+        return AlternativeFactory()
+
+    @pytest.fixture
+    def image(self):
+        return ImageFactory()
+
+    def test_without_comments(self, hearing):
+        assert hearing.all_comments.all() == []
+
+    def test_hearing_comment(self, hearing):
+        comment = CommentFactory(hearing=hearing)
+        assert hearing.all_comments.all() == [comment]
+
+    def test_hearing_main_image_comment(self, hearing, image):
+        hearing.main_image = image
+        comment = CommentFactory(image=image, hearing=None)
+        assert hearing.all_comments.all() == [comment]
+
+    def test_hearing_image_comment(self, hearing, image):
+        hearing.images.append(image)
+        comment = CommentFactory(hearing=None, image=image)
+        assert hearing.all_comments.all() == [comment]
+
+    def test_alternative_comment(self, hearing, alternative):
+        hearing.alternatives.append(alternative)
+        comment = CommentFactory(hearing=None, alternative=alternative)
+        assert hearing.all_comments.all() == [comment]
+
+    def test_alternative_main_image_comment(self, hearing, alternative, image):
+        alternative.main_image = image
+        hearing.alternatives.append(alternative)
+        comment = CommentFactory(hearing=None, alternative=alternative)
+        assert hearing.all_comments.all() == [comment]
+
+    def test_alternative_image_comment(self, hearing, alternative, image):
+        alternative.images.append(image)
+        hearing.alternatives.append(alternative)
+        comment = CommentFactory(hearing=None, alternative=alternative)
+        assert hearing.all_comments.all() == [comment]
+
+    # Comments commenting other comment tests
+    # ---------------------------------------
+
+    def test_hearing_comment_comment(self, hearing):
+        parent = CommentFactory(hearing=hearing)
+        comment = CommentFactory(hearing=None, comment=parent)
+        assert comment in hearing.all_comments.all()
+
+    def test_hearing_main_image_comment_comment(self, hearing, image):
+        hearing.main_image = image
+        parent = CommentFactory(image=image, hearing=None)
+        comment = CommentFactory(hearing=None, comment=parent)
+        assert comment in hearing.all_comments.all()
+
+    def test_hearing_image_comment_comment(self, hearing, image):
+        hearing.images.append(image)
+        parent = CommentFactory(hearing=None, image=image)
+        comment = CommentFactory(hearing=None, comment=parent)
+        assert comment in hearing.all_comments.all()
+
+    def test_alternative_comment_comment(self, hearing, alternative):
+        hearing.alternatives.append(alternative)
+        parent = CommentFactory(hearing=None, alternative=alternative)
+        comment = CommentFactory(hearing=None, comment=parent)
+        assert comment in hearing.all_comments.all()
+
+    def test_alternative_main_image_comment_comment(
+        self, hearing, alternative, image
+    ):
+        alternative.main_image = image
+        hearing.alternatives.append(alternative)
+        parent = CommentFactory(hearing=None, alternative=alternative)
+        comment = CommentFactory(hearing=None, comment=parent)
+        assert comment in hearing.all_comments.all()
+
+    def test_alternative_image_comment_comment(
+        self, hearing, alternative, image
+    ):
+        alternative.images.append(image)
+        hearing.alternatives.append(alternative)
+        parent = CommentFactory(hearing=None, alternative=alternative)
+        comment = CommentFactory(hearing=None, comment=parent)
+        assert comment in hearing.all_comments.all()
+
+    # Comments in other hearings
+    # --------------------------
+
+    def test_other_hearing_comment(self, hearing, other_hearing):
+        comment = CommentFactory(hearing=other_hearing)
+        assert comment not in hearing.all_comments.all()
+
+    def test_other_hearing_main_image_comment(
+        self, hearing, other_hearing, image
+    ):
+        other_hearing.main_image = image
+        comment = CommentFactory(image=image, hearing=None)
+        assert comment not in hearing.all_comments.all()
+
+    def test_other_hearing_image_comment(self, hearing, other_hearing, image):
+        other_hearing.images.append(image)
+        comment = CommentFactory(hearing=None, image=image)
+        assert comment not in hearing.all_comments.all()
+
+    def test_other_alternative_comment(
+        self, hearing, other_hearing, alternative
+    ):
+        other_hearing.alternatives.append(alternative)
+        comment = CommentFactory(hearing=None, alternative=alternative)
+        assert comment not in hearing.all_comments.all()
+
+    def test_other_alternative_main_image_comment(
+        self, hearing, other_hearing, alternative, image
+    ):
+        alternative.main_image = image
+        other_hearing.alternatives.append(alternative)
+        comment = CommentFactory(hearing=None, alternative=alternative)
+        assert comment not in hearing.all_comments.all()
+
+    def test_other_alternative_image_comment(
+        self, hearing, other_hearing, alternative, image
+    ):
+        alternative.images.append(image)
+        other_hearing.alternatives.append(alternative)
+        comment = CommentFactory(hearing=None, alternative=alternative)
+        assert comment not in hearing.all_comments.all()
 
 
 @pytest.mark.usefixtures('database')
