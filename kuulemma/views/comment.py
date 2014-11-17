@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify, request
+from flask.ext.login import current_user
 
 from kuulemma.extensions import db
 from kuulemma.models import Comment, Hearing
@@ -23,6 +24,12 @@ def index(hearing_id):
         .options(db.joinedload(Comment.alternative))
         .order_by(Comment.created_at)
     )
+
+    if not (
+        current_user.is_authenticated() and
+        (current_user.is_official or current_user.is_admin)
+    ):
+        comments = comments.filter_by(is_hidden=False)
 
     serialized = CommentSchema(
         comments,
