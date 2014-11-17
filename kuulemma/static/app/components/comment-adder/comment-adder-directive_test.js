@@ -33,23 +33,19 @@ describe('Directive: commentAdderDirective', function () {
       scope.$digest();
       isolateScope = element.isolateScope();
     }));
-
-    it('should put initial context to scope', function () {
-      expect(isolateScope.initialContext).toBe('test context');
-    });
   });
 
   describe('Element with context-list', function() {
     beforeEach(inject(function($compile) {
       element = angular.element(
-        '<div comment-adder button-text="Click me!" context-list="ctx1:This is context 1;ctx2:This is context 2"></div>');
+        '<div comment-adder button-text="Click me!" context-list="ctx-1:This is context 1;ctx-2:This is context 2"></div>');
       element = $compile(element)(scope);
       scope.$digest();
       isolateScope = element.isolateScope();
     }));
 
     it('should put context list to scope', function () {
-      expect(isolateScope.contextList).toEqual([{ctx1: 'This is context 1'}, {ctx2: 'This is context 2'}]);
+      expect(isolateScope.contextList).toBe('ctx-1:This is context 1;ctx-2:This is context 2');
     });
   });
 });

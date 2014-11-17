@@ -23,9 +23,10 @@ describe('Service: CommentService', function () {
         body: 'Comment',
         follow: false,
         email: 'email@email.com',
-        object_type: 'hearing',
-        object_id: 1,
-        commentsOn: { id: 'some_id' }
+        commentsOn: {
+          key: 'hearing-1',
+          label: 'Kuuleminen'
+        }
       });
     });
 
@@ -35,8 +36,7 @@ describe('Service: CommentService', function () {
         title : 'test subject',
         body : 'Comment',
         object_type: 'hearing',
-        object_id: 1,
-        comments_on: 'some_id'
+        object_id: 1
       });
     });
   });
@@ -48,9 +48,10 @@ describe('Service: CommentService', function () {
         body: 'Comment',
         follow: true,
         email: 'email@email.com',
-        object_type: 'hearing',
-        object_id: 1,
-        commentsOn: { id: 'some_id' }
+        commentsOn: {
+          key: 'hearing-1',
+          label: 'Kuuleminen'
+        }
       });
     });
 
@@ -61,8 +62,7 @@ describe('Service: CommentService', function () {
         body : 'Comment',
         email: 'email@email.com',
         object_type: 'hearing',
-        object_id: 1,
-        comments_on: 'some_id'
+        object_id: 1
       });
     });
   });
@@ -70,16 +70,18 @@ describe('Service: CommentService', function () {
   describe('Formatting commentsOn paramater name', function() {
     beforeEach(function() {
       CommentService.save(1, {
-        commentsOn: { label: 'Yleisesti tähän kommenttiin', id: '1' }
+        commentsOn: {
+          key: 'image-123',
+          label: 'Kuvaan 123'
+        }
       });
     });
 
     it('should change it from camelcase to dashed one before saving', function() {
       expect($http.post.callCount).toBe(1);
       expect($http.post).toHaveBeenCalledWith('/hearings/1/links/comments', {
-        object_type: 'hearing',
-        object_id: 1,
-        comments_on : '1'
+        object_type: 'image',
+        object_id: 123
       });
     });
   });
