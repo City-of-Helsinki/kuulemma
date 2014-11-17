@@ -75,6 +75,17 @@ class TestComment(object):
         comment.comment = another_comment
         assert comment.tag == 'Mielipide'
 
+    def test_parent_preview_when_comments_another_comment(self, comment):
+        another_comment = CommentFactory.build(body='Lorem ipsum...')
+        comment.comment = another_comment
+        assert comment.parent_preview == another_comment.body
+
+    def test_parent_preview_when_comments_something_else_than_comments(
+        self, hearing, comment
+    ):
+        comment.hearing = hearing
+        assert comment.parent_preview == ''
+
 
 @pytest.mark.usefixtures('database')
 class TestCommentWithDatabase(object):

@@ -133,6 +133,13 @@ class Comment(db.Model, TextItemMixin):
             return 'Mielipide'
         return ''
 
+    @property
+    def parent_preview(self):
+        if self.comment:
+            return self.comment.body
+        return ''
+
+
 COMMENTABLE_TYPES = {
     'alternative': Alternative,
     'comment': Comment,

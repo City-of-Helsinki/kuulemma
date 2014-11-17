@@ -21,3 +21,4 @@ class CommentSchema(Schema):
     object_type = fields.String(validate=object_type_validator)
     object_id = fields.Integer()
     tag = fields.String()
+    parent_preview = fields.String()
