@@ -10,6 +10,9 @@ angular.module('kuulemmaApp').factory('CommentService', function($http) {
     }
     var formattedComment = _.omit(commentObj, omittedProperties);
     formattedComment.comments_on = commentsOn;
+    // The following values are hardcoded to point to the current hearing for now.
+    formattedComment.object_type = 'hearing';
+    formattedComment.object_id = hearingId;
     return $http.post('/hearings/' + hearingId + '/links/comments', formattedComment);
   }
 

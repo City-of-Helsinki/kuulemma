@@ -90,18 +90,7 @@
           </p>
           <div comment-adder hearing-id="{{ hearing.id }}" context-list="{{ commentable_sections_string }}"></div>
         </header>
-        <section class="latest-comments">
-          <h3>Uusimmat kommentit</h3>
-          {% for comment in latest_comments %}
-            {{ render_comment(comment) }}
-          {% endfor %}
-        </section>
-        <section class="popular-comments">
-          <h3>Suosituimmat kommentit</h3>
-          {% for comment in popular_comments %}
-            {{ render_comment(comment) }}
-          {% endfor %}
-        </section>
+       <div comment-list hearing-id="{{ hearing.id }}"></div>
       </section>
     </div>
   </article>
