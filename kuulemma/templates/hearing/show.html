@@ -54,7 +54,7 @@
             <article class="alternative">
               <section class="summary">
                 <figure>
-                  <span class="option">&#{{ loop.index + 64 }};</span>
+                  <span class="option">{{ alternative.letter }}</span>
                   <img src="{{ alternative.main_image.image_url }}" alt="Vaihtoehdon pääkuva">
                 </figure>
                 <div class="entry">
@@ -88,7 +88,7 @@
           <p>
             Kuulemisen tavoitteena on taata kuntalaisille mahdollisuus vaikuttaa käsiteltäviin asioihin koko valmistelutyön ajan. Asioiden kommentointi onnistuu myös ilman tunnuksia. Klikkaa nappia ja jätä ensimmäinen kommenttisi!
           </p>
-          <div comment-adder hearing-id="{{ hearing.id }}"></div>
+          <div comment-adder hearing-id="{{ hearing.id }}" context-list="{{ commentable_sections_string }}"></div>
         </header>
         <section class="latest-comments">
           <h3>Uusimmat kommentit</h3>

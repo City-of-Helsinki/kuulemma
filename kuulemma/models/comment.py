@@ -122,3 +122,27 @@ class Comment(db.Model, TextItemMixin):
     @property
     def like_count(self):
         return len(self.likes)
+
+    @property
+    def tag(self):
+        if self.alternative:
+            return self.alternative.commentable_name
+        if self.image:
+            return self.image.commentable_name
+        if self.comment:
+            return 'Mielipide'
+        return ''
+
+    @property
+    def parent_preview(self):
+        if self.comment:
+            return self.comment.body
+        return ''
+
+
+COMMENTABLE_TYPES = {
+    'alternative': Alternative,
+    'comment': Comment,
+    'image': Image,
+    'hearing': Hearing
+}

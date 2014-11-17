@@ -30,9 +30,12 @@ def show(hearing_id, slug):
         .filter(Comment.hearing == hearing)
     )
 
+    commentable_sections_string = hearing.get_commentable_sections_string()
+
     return render_template(
         'hearing/show.html',
         hearing=hearing,
         latest_comments=latest_comments,
-        popular_comments=popular_comments
+        popular_comments=popular_comments,
+        commentable_sections_string=commentable_sections_string
     )

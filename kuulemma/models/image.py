@@ -86,6 +86,17 @@ class Image(db.Model):
         )
 
     @property
+    def belongs_to(self):
+        if self.hearing:
+            return self.hearing
+        if self.hearing_main:
+            return self.hearing_main
+        if self.alternative:
+            return self.alternative
+        if self.alternative_main:
+            return self.alternative_main
+
+    @property
     def is_main_image(self):
         return not (self.hearing_id or self.alternative_id)
 
@@ -94,3 +105,25 @@ class Image(db.Model):
         if self.is_main_image:
             return 1
         return self.position + 2
+
+    @property
+    def commentable_id(self):
+        return 'image-{id}'.format(id=self.id)
+
+    @property
+    def commentable_name(self):
+        return '{context} Kuva {number}'.format(
+            context=self.belongs_to.commentable_name,
+            number=self.number
+        )
+
+    @property
+    def commentable_option(self):
+        """
+        Returns a "id:name" string representation that can be used in the
+        frontend when commenting on this section.
+        """
+        return '{id}:{name}'.format(
+            id=self.commentable_id,
+            name=self.commentable_name
+        )

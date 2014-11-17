@@ -10,7 +10,7 @@ def test_comment_serializer():
     )
     user = UserFactory.build()
     LikeFactory.build(user=user, comment=comment)
-    schema = CommentSchema()
+    schema = CommentSchema(exclude=('object_type', 'object_id'))
     schema.contex = {'user': user}
     data, errors = schema.dump(comment)
     assert data == {
@@ -20,4 +20,6 @@ def test_comment_serializer():
         'username': comment.username,
         'created_at': comment.created_at,
         'like_count': comment.like_count,
+        'tag': comment.tag,
+        'parent_preview': comment.parent_preview
     }

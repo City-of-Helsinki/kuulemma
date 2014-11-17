@@ -4,7 +4,12 @@ import pytest
 from flask import url_for
 
 from kuulemma.models import Comment
-from tests.factories import HearingFactory
+from tests.factories import (
+    AlternativeFactory,
+    CommentFactory,
+    HearingFactory,
+    ImageFactory
+)
 
 
 @pytest.mark.usefixtures('request_ctx')
@@ -17,17 +22,19 @@ def test_create_url():
 
 @pytest.mark.usefixtures('database', 'request_ctx')
 class TestCreateCommentOnSuccess(object):
-    @pytest.fixture(scope='class')
-    def comment_data(self):
-        return {
-            'title': 'Hello World!',
-            'body': 'I really don\'t like this death star idea!',
-            'username': 'Luke Skywalker'
-        }
-
     @pytest.fixture
     def hearing(self):
         return HearingFactory()
+
+    @pytest.fixture
+    def comment_data(self, hearing):
+        return {
+            'title': 'Hello World!',
+            'body': 'I really don\'t like this death star idea!',
+            'username': 'Luke Skywalker',
+            'object_type': 'hearing',
+            'object_id': hearing.id
+        }
 
     @pytest.fixture
     def response(self, client, hearing, comment_data):
@@ -63,6 +70,138 @@ class TestCreateCommentOnSuccess(object):
     def test_attaches_comment_to_the_right_hearing(self, response, hearing):
         comment = Comment.query.first()
         assert comment.hearing == hearing
+
+
+@pytest.mark.usefixtures('database', 'request_ctx')
+class TestCommentingAlternative(object):
+    @pytest.fixture
+    def alternative(self):
+        return AlternativeFactory()
+
+    @pytest.fixture
+    def comment_data(self, alternative):
+        return {
+            'title': 'Hello World!',
+            'body': 'I really don\'t like this death star idea!',
+            'username': 'Luke Skywalker',
+            'object_type': 'alternative',
+            'object_id': alternative.id
+        }
+
+    @pytest.fixture
+    def hearing(self):
+        return HearingFactory()
+
+    @pytest.fixture
+    def response(self, client, hearing, comment_data):
+        return client.post(
+            url_for('comment.create', hearing_id=hearing.id),
+            data=json.dumps(comment_data),
+            content_type='application/json'
+        )
+
+    def test_comments_the_right_alternative(self, response, alternative):
+        comment = Comment.query.first()
+        assert comment.alternative == alternative
+
+    def test_unexisting_alternative_returns_400(
+        self, client, hearing, comment_data
+    ):
+        comment_data['object_id'] = 999
+        response = client.post(
+            url_for('comment.create', hearing_id=hearing.id),
+            data=json.dumps(comment_data),
+            content_type='application/json'
+        )
+        assert response.status_code == 400
+
+
+@pytest.mark.usefixtures('database', 'request_ctx')
+class TestCommentingImage(object):
+    @pytest.fixture
+    def image(self):
+        return ImageFactory()
+
+    @pytest.fixture
+    def comment_data(self, image):
+        return {
+            'title': 'Hello World!',
+            'body': 'I really don\'t like this death star idea!',
+            'username': 'Luke Skywalker',
+            'object_type': 'image',
+            'object_id': image.id
+        }
+
+    @pytest.fixture
+    def hearing(self):
+        return HearingFactory()
+
+    @pytest.fixture
+    def response(self, client, hearing, comment_data):
+        return client.post(
+            url_for('comment.create', hearing_id=hearing.id),
+            data=json.dumps(comment_data),
+            content_type='application/json'
+        )
+
+    def test_comments_the_right_image(self, response, image):
+        comment = Comment.query.first()
+        assert comment.image == image
+
+    def test_unexisting_image_returns_400(
+        self, client, hearing, comment_data
+    ):
+        comment_data['object_id'] = 999
+        response = client.post(
+            url_for('comment.create', hearing_id=hearing.id),
+            data=json.dumps(comment_data),
+            content_type='application/json'
+        )
+        assert response.status_code == 400
+
+
+@pytest.mark.usefixtures('database', 'request_ctx')
+class TestCommentingComment(object):
+    @pytest.fixture
+    def comment(self):
+        return CommentFactory()
+
+    @pytest.fixture
+    def comment_data(self, comment):
+        return {
+            'title': 'Hello World!',
+            'body': 'I really don\'t like this death star idea!',
+            'username': 'Luke Skywalker',
+            'object_type': 'comment',
+            'object_id': comment.id
+        }
+
+    @pytest.fixture
+    def hearing(self):
+        return HearingFactory()
+
+    @pytest.fixture
+    def response(self, client, hearing, comment_data):
+        return client.post(
+            url_for('comment.create', hearing_id=hearing.id),
+            data=json.dumps(comment_data),
+            content_type='application/json'
+        )
+
+    def test_comments_the_right_comment(self, response, comment):
+        created_comment = Comment.query.all()[-1]
+        assert created_comment.comment == comment
+
+    def test_unexisting_comment_returns_400(
+        self, client, hearing, comment_data
+    ):
+        comment_data['object_id'] = 999
+        response = client.post(
+            url_for('comment.create', hearing_id=hearing.id),
+            data=json.dumps(comment_data),
+            content_type='application/json'
+        )
+        assert response.status_code == 400
 
 
 @pytest.mark.usefixtures('database', 'request_ctx')
@@ -104,7 +243,26 @@ class TestCreateCommentOnError(object):
         comment_data = {
             'title': '',
             'body': '',
-            'username': ''
+            'username': '',
+            'object_type': 'hearing',
+            'object_id': hearing.id
+        }
+        response = client.post(
+            url_for('comment.create', hearing_id=hearing.id),
+            data=json.dumps(comment_data),
+            content_type='application/json'
+        )
+        assert response.status_code == 400
+
+    def test_unknow_object_type_returns_400(
+        self, client, hearing
+    ):
+        comment_data = {
+            'title': 'Title',
+            'body': 'Body',
+            'username': 'Username',
+            'object_type': 'unknown_type-1',
+            'object_id': hearing.id
         }
         response = client.post(
             url_for('comment.create', hearing_id=hearing.id),
