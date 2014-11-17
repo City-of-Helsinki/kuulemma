@@ -65,3 +65,13 @@ class User(db.Model, UserMixin):
 
     def __str__(self):
         return self.email
+
+    def get_liked_comment_ids(self, hearing=None):
+        if hearing:
+            comment_ids = [comment.id for comment in hearing.all_comments]
+            return [
+                like.comment_id for like in self.likes
+                if like.comment_id in comment_ids
+            ]
+
+        return [like.comment_id for like in self.likes]

@@ -12,6 +12,22 @@ like = Blueprint(
 )
 
 
+@like.route('')
+def index(user_id):
+    user = User.query.get_or_404(user_id)
+    if user != current_user:
+        abort(401)
+
+    hearing = None
+    if request.get_json():
+        hearing_id = request.get_json().get('hearing_id', 0)
+        hearing = Comment.query.get_or_404(hearing_id)
+
+    comment_ids = user.get_liked_comment_ids(hearing)
+
+    return jsonify({'comments': comment_ids})
+
+
 @like.route('', methods=['POST'])
 def create(user_id):
     user = User.query.get_or_404(user_id)
