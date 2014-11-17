@@ -7,8 +7,25 @@ angular.module('kuulemmaApp')
       scope: {
         comment: '&'
       },
-      link: function postLink(scope) {
+      link: function postLink(scope, element) {
         scope.paragraphs = _.compact(scope.$parent.comment.body.split('\n'));
+
+        _.defer(function () {
+          var commentBodyContainer = element.find('.body');
+          commentBodyContainer.dotdotdot({height: 150, after: '.readmore'});
+          commentBodyContainer.trigger('isTruncated', function(isTruncated) {
+            if(!isTruncated) {
+              element.find('.readmore').remove();
+            }
+          });
+
+          element.find('.readmore').on('click', function() {
+            commentBodyContainer.trigger('destroy.dot');
+            _.defer(function() {
+              element.find('.readmore').remove();
+            });
+          });
+        });
       }
     };
   });

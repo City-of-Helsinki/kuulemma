@@ -7,5 +7,6 @@
   <p class="info">{{ $parent.comment.created_at | dateTimeFormat }} &middot; {{ $parent.comment.username }}</p>
   <div class="body">
     <p ng-repeat="(index, paragraph) in paragraphs track by index">{{ paragraph }}</p>
+    <button class="readmore">Lue koko kommentti</button>
   </div>
 </article>
