@@ -6,7 +6,12 @@ from sqlalchemy_utils import assert_max_length, assert_non_nullable
 
 from kuulemma.extensions import db
 from tests.asserts.models import assert_unique
-from tests.factories import UserFactory
+from tests.factories import (
+    CommentFactory,
+    HearingFactory,
+    LikeFactory,
+    UserFactory
+)
 
 
 class TestUser(object):
@@ -81,3 +86,46 @@ class TestUserWithDatabase(object):
         # The user password hash is calculated only on commit.
         db.session.commit()
         assert not user.password == 'makkara'
+
+
+@pytest.mark.usefixtures('database')
+class TestGetLikedCommentIds(object):
+    @pytest.fixture
+    def user(self):
+        return UserFactory()
+
+    @pytest.fixture
+    def hearing(self):
+        return HearingFactory()
+
+    @pytest.fixture
+    def general_like(self, user):
+        return LikeFactory(user=user)
+
+    @pytest.fixture
+    def hearing_like(self, user, hearing):
+        comment = CommentFactory(hearing=hearing)
+        return LikeFactory(user=user, comment=comment)
+
+    def test_returns_all_comments_if_hearing_is_not_specified(
+        self, user, general_like
+    ):
+        user.get_liked_comment_ids() == [general_like.comment_id]
+
+    def test_returns_all_comments_related_to_the_hearing(
+        self, user, hearing, hearing_like
+    ):
+        assert user.get_liked_comment_ids(hearing) == [hearing_like.comment_id]
+
+    def test_does_not_return_other_users_comments(self, general_like):
+        another_user = UserFactory()
+        assert another_user.get_liked_comment_ids() == []
+
+    def test_does_not_return_other_hearings_comments(self, user, hearing_like):
+        another_hearing = HearingFactory()
+        assert user.get_liked_comment_ids(another_hearing) == []
+
+    def test_returns_only_hearing_related_comments(
+        self, user, hearing, general_like, hearing_like
+    ):
+        assert user.get_liked_comment_ids(hearing) == [hearing_like.comment_id]

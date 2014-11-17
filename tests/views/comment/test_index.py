@@ -5,7 +5,7 @@ from tests.factories import CommentFactory, HearingFactory
 
 
 @pytest.mark.usefixtures('request_ctx')
-def test_create_url():
+def test_index_url():
     assert (
         url_for('comment.index', hearing_id=1) ==
         '/hearings/1/links/comments'
