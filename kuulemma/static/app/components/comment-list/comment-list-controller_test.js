@@ -90,17 +90,6 @@ describe('Controller: CommentListController', function () {
       createController();
     });
 
-    describe('Latest comments', function() {
-      it('should sort comments by date automatically', function() {
-        expect(_.pluck(scope.latestComments, 'id')).toEqual([1, 3, 2]);
-      });
-
-      it('should put the just added comment to be the latest', function() {
-        $rootScope.$broadcast('hearing-1-comment-added', {id: 4});
-        expect(_.pluck(scope.latestComments, 'id')).toEqual([4, 1, 3, 2]);
-      });
-    });
-
     describe('Popular comments', function() {
       it('should sort comments by popularity automatically', function() {
         expect(_.pluck(scope.popularComments, 'id')).toEqual([2, 1, 3]);
