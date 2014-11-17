@@ -101,6 +101,7 @@ class TestCommentWithDatabase(object):
             'lead',
             'body',
             'username',
+            'is_hidden',
         ]
     )
     def test_non_nullable_columns(self, column_name, comment):
@@ -132,6 +133,9 @@ class TestCommentWithDatabase(object):
 
     def test_username_defaults_to_empty_string(self):
         assert CommentFactory(username=None).username == ''
+
+    def test_is_hidden_defaults_to_false(self):
+        assert CommentFactory(is_hidden=None).is_hidden is False
 
     def test_uses_versioning(self, comment):
         assert count_versions(comment) == 1
