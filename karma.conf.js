@@ -3,6 +3,7 @@
 var config = require('./gulp/config');
 var files = [].concat(
   config.js.src.vendorTest,
+  config.html.src,
   config.js.src.app,
   config.js.src.mocks,
   config.js.src.test

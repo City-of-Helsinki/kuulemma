@@ -14,8 +14,8 @@ module.exports = {
   dest: dest,
   js: {
     src: {
-      vendor: wiredep().js,
-      vendorTest: wiredep({ devDependencies: true }).js,
+      vendor: wiredep().js.concat([src + '/bower_components/moment/locale/fi.js']),
+      vendorTest: wiredep({ devDependencies: true }).js.concat([src + '/bower_components/moment/locale/fi.js']),
       app: [src + '/app/**/*.js', '!' + src + '/app/**/*_test.js'],
       mocks: [src + '/mocks/**/*.js'],
       test: [src + '/app/**/*_test.js'],

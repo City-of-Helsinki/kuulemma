@@ -1,0 +1,67 @@
+*[comment-list] {
+  .latest-comments,
+  .popular-comments {
+    .make-column(6, 6, 6);
+    border-top: none !important;
+    margin-top: 30px !important;
+  }
+
+  .comment {
+    position: relative;
+    margin-top: @comment-external-margin;
+    padding: @comment-padding;
+    background-color: @background-color-soft;
+
+    &.ng-enter,
+    &.ng-leave {
+      .transition(0.5s ease-in all);
+      overflow: hidden;
+      text-overflow: clip;
+      white-space: nowrap;
+    }
+
+    &.ng-leave.ng-leave-active,
+    &.ng-enter {
+      opacity: 0;
+      width: 0px;
+      height: 0px;
+    }
+
+    &.ng-enter.ng-enter-active,
+    &.ng-leave {
+      opacity: 1;
+      width: auto;
+      height: auto;
+    }
+
+    h4 {
+      margin-top: 0;
+      margin-bottom: @comment-internal-margin;
+      font-size: 18px;
+      color: @text-color-dark;
+    }
+
+    .like {
+      position: absolute;
+      top: @comment-padding;
+      right: @comment-padding;
+      color: @text-color-soft;
+
+      &:hover {
+        text-decoration: none;
+        color: @text-color-dark;
+      }
+    }
+
+    .info {
+      padding-bottom: @comment-internal-margin;
+      font-size: 15px;
+      color: @text-color-soft;
+      border-bottom: 1px solid @border-color-soft;
+    }
+
+    .body {
+      color: @text-color;
+    }
+  }
+}
