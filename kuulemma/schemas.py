@@ -22,3 +22,4 @@ class CommentSchema(Schema):
     object_id = fields.Integer(required=True)
     tag = fields.String()
     parent_preview = fields.String()
+    is_hidden = fields.Boolean()

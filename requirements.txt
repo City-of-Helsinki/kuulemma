@@ -18,6 +18,7 @@ WTForms==1.0.5
 Werkzeug==0.9.6
 aiohttp==0.9.3
 alembic==0.6.7
+freezegun==0.2.2
 gunicorn==19.1.1
 inflection==0.2.1
 itsdangerous==0.24

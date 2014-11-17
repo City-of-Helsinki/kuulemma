@@ -1,4 +1,6 @@
-from flask import Blueprint, jsonify, request
+from datetime import datetime
+
+from flask import abort, Blueprint, jsonify, request
 from flask.ext.login import current_user
 
 from kuulemma.extensions import db
@@ -72,3 +74,40 @@ def create(hearing_id):
     db.session.commit()
 
     return jsonify({'comments': CommentSchema(comment).data}), 201
+
+
+@comment.route('/<int:comment_id>', methods=['PUT'])
+def update(hearing_id, comment_id):
+    if not (
+        current_user.is_authenticated() and
+        (current_user.is_official or current_user.is_admin)
+    ):
+        abort(401)
+
+    Hearing.query.get_or_404(hearing_id)
+    comment = Comment.query.get_or_404(comment_id)
+
+    if not request.get_json():
+        abort(400)
+
+    schema = CommentSchema(
+        only=('title', 'body', 'username', 'is_hidden')
+    )
+    data, errors = schema.load(request.get_json())
+
+    if errors:
+        return jsonify({'error': errors}), 400
+
+    comment.title = data['title']
+    comment.body = data['body']
+    comment.username = data['username']
+    comment.is_hidden = data['is_hidden']
+    comment.updated_at = datetime.utcnow()
+    db.session.commit()
+
+    serialized = CommentSchema(
+        comment,
+        exclude=('object_type', 'object_id')
+    )
+
+    return jsonify({'comment': serialized.data}), 200

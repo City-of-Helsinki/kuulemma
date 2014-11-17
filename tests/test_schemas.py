@@ -21,5 +21,6 @@ def test_comment_serializer():
         'created_at': comment.created_at,
         'like_count': comment.like_count,
         'tag': comment.tag,
-        'parent_preview': comment.parent_preview
+        'parent_preview': comment.parent_preview,
+        'is_hidden': comment.is_hidden
     }
