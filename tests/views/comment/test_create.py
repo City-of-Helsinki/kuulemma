@@ -254,6 +254,22 @@ class TestCreateCommentOnError(object):
         )
         assert response.status_code == 400
 
+    def test_returns_error_if_object_type_is_missing(
+        self, client, hearing
+    ):
+        comment_data = {
+            'title': 'Title',
+            'body': 'Body',
+            'username': 'Darth Vader',
+            'object_id': hearing.id
+        }
+        response = client.post(
+            url_for('comment.create', hearing_id=hearing.id),
+            data=json.dumps(comment_data),
+            content_type='application/json'
+        )
+        assert response.status_code == 400
+
     def test_unknow_object_type_returns_400(
         self, client, hearing
     ):
