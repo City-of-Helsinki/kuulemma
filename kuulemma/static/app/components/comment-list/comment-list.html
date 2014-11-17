@@ -1,29 +1,9 @@
 <section class="latest-comments" ng-if="comments">
   <h3>Uusimmat kommentit</h3>
-  <article class="comment" data-id="{{ comment.id }}" ng-repeat="comment in latestComments">
-    <h4>{{ comment.title }}</h4>
-    <a href="#" class="like">
-      <i class="fa fa-thumbs-o-up"></i>
-      <span class="like_count">{{ comment.like_count }}</span>
-    </a>
-    <p class="info">{{ comment.created_at | dateTimeFormat }} &middot; {{ comment.username }}</p>
-    <div class="body">
-      {{ comment.body }}
-    </div>
-  </article>
+  <div comment-list-item comment="comment" ng-repeat="comment in latestComments"></div>
 </section>
 
 <section class="popular-comments" ng-if="comments">
   <h3>Suosituimmat kommentit</h3>
-  <article class="comment" data-id="{{ comment.id }}" ng-repeat="comment in popularComments">
-    <h4>{{ comment.title }}</h4>
-    <a href="#" class="like">
-      <i class="fa fa-thumbs-o-up"></i>
-      <span class="like_count">{{ comment.like_count }}</span>
-    </a>
-    <p class="info">{{ comment.created_at | dateTimeFormat }} &middot; {{ comment.username }}</p>
-    <div class="body">
-      {{ comment.body }}
-    </div>
-  </article>
+  <div comment-list-item comment="comment" ng-repeat="comment in popularComments"></div>
 </section>

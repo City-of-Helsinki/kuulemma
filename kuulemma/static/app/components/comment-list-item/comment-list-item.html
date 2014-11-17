@@ -1,0 +1,11 @@
+<article class="comment" data-id="{{ $parent.comment.id }}">
+  <h4>{{ $parent.comment.title }}</h4>
+  <a href="#" class="like">
+    <i class="fa fa-thumbs-o-up"></i>
+    <span class="like_count">{{ $parent.comment.like_count }}</span>
+  </a>
+  <p class="info">{{ $parent.comment.created_at | dateTimeFormat }} &middot; {{ $parent.comment.username }}</p>
+  <div class="body">
+    <p ng-repeat="(index, paragraph) in paragraphs track by index">{{ paragraph }}</p>
+  </div>
+</article>
