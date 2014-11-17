@@ -23,6 +23,8 @@ describe('Service: CommentService', function () {
         body: 'Comment',
         follow: false,
         email: 'email@email.com',
+        object_type: 'hearing',
+        object_id: 1,
         commentsOn: { id: 'some_id' }
       });
     });
@@ -32,6 +34,8 @@ describe('Service: CommentService', function () {
       expect($http.post).toHaveBeenCalledWith('/hearings/1/links/comments', {
         title : 'test subject',
         body : 'Comment',
+        object_type: 'hearing',
+        object_id: 1,
         comments_on: 'some_id'
       });
     });
@@ -44,6 +48,8 @@ describe('Service: CommentService', function () {
         body: 'Comment',
         follow: true,
         email: 'email@email.com',
+        object_type: 'hearing',
+        object_id: 1,
         commentsOn: { id: 'some_id' }
       });
     });
@@ -54,6 +60,8 @@ describe('Service: CommentService', function () {
         title : 'test subject',
         body : 'Comment',
         email: 'email@email.com',
+        object_type: 'hearing',
+        object_id: 1,
         comments_on: 'some_id'
       });
     });
@@ -69,6 +77,8 @@ describe('Service: CommentService', function () {
     it('should change it from camelcase to dashed one before saving', function() {
       expect($http.post.callCount).toBe(1);
       expect($http.post).toHaveBeenCalledWith('/hearings/1/links/comments', {
+        object_type: 'hearing',
+        object_id: 1,
         comments_on : '1'
       });
     });

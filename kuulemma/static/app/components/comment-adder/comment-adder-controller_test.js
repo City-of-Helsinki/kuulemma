@@ -40,7 +40,7 @@ describe('Controller: AddCommentController', function () {
     it('should have title as empty initially', function() {
       expect(scope.form.title).toBe('');
     });
-    
+
     it('should have username as empty initially', function() {
       expect(scope.form.username).toBe('');
     });
@@ -48,7 +48,7 @@ describe('Controller: AddCommentController', function () {
     it('should have the comment body as empty initially', function() {
       expect(scope.form.body).toBe('');
     });
-    
+
     it('should should have context as empty initially', function() {
       expect(scope.form.commentsOn).toEqual({ label: 'Yleisesti tähän kuulemiseen', id: 'SOME_ID' });
     });
@@ -78,6 +78,8 @@ describe('Controller: AddCommentController', function () {
         title: 'Title',
         username: 'user',
         comments_on: 'SOME_ID',
+        object_type: 'hearing',
+        object_id: '1',
         body: 'Hello there!'
       }).respond(201, {
         comments:
