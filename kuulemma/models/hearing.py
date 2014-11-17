@@ -56,7 +56,8 @@ class Hearing(db.Model, TextItemMixin):
     main_image = db.relationship(
         Image,
         primaryjoin=main_image_id == Image.id,
-        post_update=True
+        post_update=True,
+        backref=db.backref('hearing_main', uselist=False)
     )
 
     images = db.relationship(
@@ -66,6 +67,7 @@ class Hearing(db.Model, TextItemMixin):
         passive_deletes=True,
         order_by=Image.position,
         collection_class=ordering_list('position'),
+        backref='hearing'
     )
 
     @property
@@ -146,11 +148,11 @@ class Hearing(db.Model, TextItemMixin):
         sections.append(self.commentable_option)
         if self.main_image:
             sections.append(
-                self.main_image.get_commentable_option(self.commentable_name)
+                self.main_image.commentable_option
             )
         for image in self.images:
             sections.append(
-                image.get_commentable_option(self.commentable_name)
+                image.commentable_option
             )
 
         sections_string = ';'.join(sections)

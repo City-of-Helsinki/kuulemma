@@ -11,10 +11,18 @@ from sqlalchemy_utils import (
 
 from kuulemma.extensions import db
 
-from ..factories import HearingFactory, ImageFactory
+from ..factories import AlternativeFactory, HearingFactory, ImageFactory
 
 
 class TestImage(object):
+    @pytest.fixture
+    def hearing(self):
+        return HearingFactory.build(id=1)
+
+    @pytest.fixture
+    def alternative(self):
+        return AlternativeFactory.build(id=1)
+
     @pytest.fixture
     def image(self):
         return ImageFactory.build(id=1)
@@ -25,23 +33,68 @@ class TestImage(object):
         )
         assert repr(image) == expected
 
+    def test_belongs_to_returns_hearing_when_hearing_main_image(
+        self, hearing, image
+    ):
+        hearing.main_image = image
+        assert image.belongs_to == hearing
+
+    def test_belongs_to_returns_hearing_when_hearing_image(
+        self, hearing, image
+    ):
+        hearing.images.append(image)
+        assert image.belongs_to == hearing
+
+    def test_belongs_to_returns_alternative_when_alternative_main_image(
+        self, alternative, image
+    ):
+        alternative.main_image = image
+        assert image.belongs_to == alternative
+
+    def test_belongs_to_returns_alternative_when_alternative_image(
+        self, alternative, image
+    ):
+        alternative.images.append(image)
+        assert image.belongs_to == alternative
+
     def test_commentable_id(self, image):
         assert image.commentable_id == 'image-{id}'.format(id=image.id)
 
-    def test_commentable_name(self, image):
-        assert (
-            image.commentable_name ==
-            'Kuva {number}'.format(number=image.number)
+    def test_commentable_name_when_belongs_to_hearing(self, hearing, image):
+        hearing.main_image = image
+        expected = '{context} Kuva {number}'.format(
+            context=hearing.commentable_name,
+            number=image.number
         )
+        assert image.commentable_name == expected
 
-    def test_get_commentable_option(self, image):
-        context = 'Koko kuuleminen'
-        expected = '{id}:{context} {name}'.format(
+    def test_commentable_name_when_belongs_to_alternative(
+        self, alternative, image
+    ):
+        alternative.main_image = image
+        expected = '{context} Kuva {number}'.format(
+            context=alternative.commentable_name,
+            number=image.number
+        )
+        assert image.commentable_name == expected
+
+    def test_commentable_option_when_belongs_to_hearing(self, hearing, image):
+        hearing.main_image = image
+        expected = '{id}:{name}'.format(
             id=image.commentable_id,
-            context=context,
             name=image.commentable_name
         )
-        assert image.get_commentable_option(context) == expected
+        assert image.commentable_option == expected
+
+    def test_commentable_option_when_belongs_to_alternative(
+        self, alternative, image
+    ):
+        alternative.main_image = image
+        expected = '{id}:{name}'.format(
+            id=image.commentable_id,
+            name=image.commentable_name
+        )
+        assert image.commentable_option == expected
 
 
 @pytest.mark.usefixtures('database')
