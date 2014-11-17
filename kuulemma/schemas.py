@@ -20,3 +20,4 @@ class CommentSchema(Schema):
     like_count = fields.Integer()
     object_type = fields.String(validate=object_type_validator)
     object_id = fields.Integer()
+    tag = fields.String()

@@ -10,11 +10,29 @@ from sqlalchemy_utils import (
     assert_nullable
 )
 
-from ..factories import CommentFactory, LikeFactory
+from ..factories import (
+    AlternativeFactory,
+    CommentFactory,
+    HearingFactory,
+    ImageFactory,
+    LikeFactory
+)
 
 
 class TestComment(object):
-    @pytest.fixture(scope='class')
+    @pytest.fixture
+    def hearing(self):
+        return HearingFactory.build()
+
+    @pytest.fixture
+    def alternative(self):
+        return AlternativeFactory.build()
+
+    @pytest.fixture
+    def image(self):
+        return ImageFactory.build()
+
+    @pytest.fixture
     def comment(self):
         return CommentFactory.build()
 
@@ -29,6 +47,33 @@ class TestComment(object):
         for _ in range(expected):
             comment.likes.append(LikeFactory.build())
         assert comment.like_count == expected
+
+    def test_tag_when_comments_hearing(self, hearing, comment):
+        comment.hearing = hearing
+        assert comment.tag == ''
+
+    def test_tag_when_comments_alternative(self, alternative, comment):
+        comment.alternative = alternative
+        assert comment.tag == alternative.commentable_name
+
+    def test_tag_when_comments_hearing_image(
+        self, hearing, image, comment
+    ):
+        hearing.main_image = image
+        comment.image = image
+        assert comment.tag == image.commentable_name
+
+    def test_tag_when_comments_alternative_image(
+        self, alternative, image, comment
+    ):
+        alternative.main_image = image
+        comment.image = image
+        assert comment.tag == image.commentable_name
+
+    def test_tag_when_comments_another_comment(self, comment):
+        another_comment = CommentFactory.build()
+        comment.comment = another_comment
+        assert comment.tag == 'Mielipide'
 
 
 @pytest.mark.usefixtures('database')

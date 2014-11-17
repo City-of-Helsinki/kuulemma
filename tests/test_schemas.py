@@ -20,4 +20,5 @@ def test_comment_serializer():
         'username': comment.username,
         'created_at': comment.created_at,
         'like_count': comment.like_count,
+        'tag': comment.tag
     }

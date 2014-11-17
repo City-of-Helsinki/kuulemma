@@ -123,6 +123,15 @@ class Comment(db.Model, TextItemMixin):
     def like_count(self):
         return len(self.likes)
 
+    @property
+    def tag(self):
+        if self.alternative:
+            return self.alternative.commentable_name
+        if self.image:
+            return self.image.commentable_name
+        if self.comment:
+            return 'Mielipide'
+        return ''
 
 COMMENTABLE_TYPES = {
     'alternative': Alternative,
