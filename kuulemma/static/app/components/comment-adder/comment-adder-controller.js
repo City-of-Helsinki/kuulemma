@@ -10,9 +10,13 @@
       $scope.emptyForm();
     };
 
-    $scope.commentOptions = [
-      { label: 'Yleisesti tähän kuulemiseen', id: 'SOME_ID' }
-    ];
+    $scope.commentOptions = _.map($scope.contextList.split(';'), function(context) {
+      var keyValuePair = context.split(':');
+      return {
+        key: keyValuePair[0],
+        label: keyValuePair[1]
+      };
+    });
 
     $scope.saveComment = function() {
       var request = CommentService.save($scope.hearingId, $scope.form);

@@ -24,7 +24,7 @@
       <div class="form-group">
         <label for="inputHearing" class="control-label">Kommenttini liittyy</label>
         <div class="input-with-sidenote">
-          <select class="form-control" ng-model="form.commentsOn" ng-options="option.label for option in commentOptions"></select>
+          <select class="form-control" ng-model="form.commentsOn" ng-options="option.label for option in commentOptions track by option.key"></select>
         </div>
         <div class="side-note"><p>Jos kommenttisi liittyy tiettyyn kuulemisen osaan, kuten kuvaan tai vaihtoehtoon, valitse tästä.</p></div>
       </div>

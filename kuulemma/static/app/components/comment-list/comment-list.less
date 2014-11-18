@@ -6,12 +6,7 @@
     margin-top: 30px !important;
   }
 
-  .comment {
-    position: relative;
-    margin-top: @comment-external-margin;
-    padding: @comment-padding;
-    background-color: @background-color-soft;
-
+  *[comment-list-item] {
     &.ng-enter,
     &.ng-leave {
       .transition(0.5s ease-in all);
@@ -33,6 +28,13 @@
       width: auto;
       height: auto;
     }
+  }
+
+  .comment {
+    position: relative;
+    margin-top: @comment-external-margin;
+    padding: @comment-padding;
+    background-color: @background-color-soft;
 
     h4 {
       margin-top: 0;

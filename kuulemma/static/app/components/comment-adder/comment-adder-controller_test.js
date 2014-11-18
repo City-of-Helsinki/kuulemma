@@ -8,6 +8,7 @@ describe('Controller: AddCommentController', function () {
 
   beforeEach(inject(function ($controller, $rootScope, _CommentService_, _$q_, _$httpBackend_) {
     scope = $rootScope.$new();
+    scope.contextList = 'hearing-1:Kuuleminen';
     AddCommentControllerCtrl = $controller('AddCommentController', {
       $scope: scope
     });
@@ -50,7 +51,7 @@ describe('Controller: AddCommentController', function () {
     });
 
     it('should should have context as empty initially', function() {
-      expect(scope.form.commentsOn).toEqual({ label: 'Yleisesti tähän kuulemiseen', id: 'SOME_ID' });
+      expect(scope.form.commentsOn).toEqual({ key: 'hearing-1', label: 'Kuuleminen' });
     });
 
     it('should have follow options as false initially', function() {
@@ -66,7 +67,7 @@ describe('Controller: AddCommentController', function () {
     var initialValues = {
       title : 'Title',
       username : 'user',
-      commentsOn : { label: 'Yleisesti tähän kuulemiseen', id: 'SOME_ID' },
+      commentsOn : { label: 'Yleisesti tähän kuulemiseen', key: 'hearing-1' },
       body : 'Hello there!',
       follow : false,
       email : ''
@@ -77,9 +78,8 @@ describe('Controller: AddCommentController', function () {
       $httpBackend.expectPOST('/hearings/1/links/comments', {
         title: 'Title',
         username: 'user',
-        comments_on: 'SOME_ID',
+        object_id: 1,
         object_type: 'hearing',
-        object_id: '1',
         body: 'Hello there!'
       }).respond(201, {
         comments:
