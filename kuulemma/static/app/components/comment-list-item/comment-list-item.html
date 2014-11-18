@@ -5,9 +5,13 @@
     <span class="like_count">{{ $parent.comment.like_count }}</span>
   </a>
   <p class="info">{{ $parent.comment.created_at | dateTimeFormat }} &middot; {{ $parent.comment.username }}</p>
+  <div class="parent-preview">
+    <p ng-repeat="(index, paragraph) in previewParagraphs track by index">{{ paragraph }}</p>
+    <button class="readparent">Lue lisää</button>
+  </div>
   <div class="body">
     <p ng-repeat="(index, paragraph) in paragraphs track by index">{{ paragraph }}</p>
-    <button class="readmore">Lue koko kommentti</button>
+    <button class="readmore">Lue lisää</button>
   </div>
-  <div comment-adder hearing-id="{{ $parent.hearingId }}" button-text="KOMMENTOI" context-list="comment-{{ $parent.comment.id }}:comment"></div>
+  <div ng-if="!$parent.comment.parent_preview" comment-adder size="small" hearing-id="{{ $parent.hearingId }}" button-text="Kommentoi" context-list="comment-{{ $parent.comment.id }}:comment"></div>
 </article>

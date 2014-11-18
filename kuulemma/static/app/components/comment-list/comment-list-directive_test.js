@@ -23,7 +23,7 @@ describe('Directive: commentListDirective', function () {
     $templateCache.put('/static/dist/partials/components/comment-adder/comment-adder.html', commentAdderTemplate);
 
     $httpBackend.expectGET('/hearings/1/links/comments').respond({comments: [{
-      id: '5', title: 'Comment title', username: 'test-user', body: 'Hello there!', created_at: '2014-12-12' }]});
+      id: '5', title: 'Comment title', username: 'test-user', body: 'Hello there!', parent_preview: '', created_at: '2014-12-12' }]});
 
     scope = $rootScope.$new();
 
@@ -39,6 +39,6 @@ describe('Directive: commentListDirective', function () {
 
   it('should render comments', function() {
     expect(angular.toJson(scope.comments))
-      .toEqual(angular.toJson([ { id : '5', title : 'Comment title', username : 'test-user', body : 'Hello there!', created_at : '2014-12-12' } ]));
+      .toEqual(angular.toJson([ { id : '5', title : 'Comment title', username : 'test-user', body : 'Hello there!', parent_preview: '', created_at : '2014-12-12' } ]));
   });
 });
