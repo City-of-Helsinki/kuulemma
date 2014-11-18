@@ -1,11 +1,18 @@
 h1 {
-  margin-top: 15px;
-  margin-bottom: 15px;
-  color: @text-color-dark;
+  margin-top: @layout-margin-small;
+  margin-bottom: @layout-margin-small;
 }
-h2, h3 {
-  margin-top: 15px;
-  color: @text-color-soft;
+
+h2 {
+  font-size: 12px;
+  text-transform: uppercase;
+  margin-top: 2 * @layout-margin-large;
+  margin-bottom: @layout-margin-large;
+}
+
+h3 {
+  font-size: 22px;
+  margin-top: @layout-margin-small;
 }
 
 p {
@@ -19,6 +26,5 @@ a {
 }
 
 .lead {
-  color: @text-color-soft;
   font-weight: 400;
 }

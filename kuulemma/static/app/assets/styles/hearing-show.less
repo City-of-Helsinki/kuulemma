@@ -12,7 +12,6 @@
     .make-fluid-column(right, @layout-column-width-medium + @layout-margin-medium);
 
     section + section {
-      border-top: 1px solid @border-color-dark;
       margin-top: @layout-margin-medium;
     }
 
@@ -50,7 +49,7 @@
             font-size: @size;
             line-height: @size;
             font-weight: 200;
-            color: @text-color-soft;
+            color: @blue-dark;
             background-color: white;
             text-align: center;
           }
@@ -81,7 +80,7 @@
             font-family: FontAwesome;
             content: "\f077";
             font-size: @icon-font-size;
-            color: #000;
+            color: @blue-dark;
           }
 
           &.collapsed:after {
@@ -98,8 +97,7 @@
 
       figcaption {
         padding: @layout-margin-mini @layout-margin-small;
-        background-color: @background-color-soft;
-        color: @text-color-soft;
+        background-color: @gray-background;
         font-weight: 300;
       }
     }
