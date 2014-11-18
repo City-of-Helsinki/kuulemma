@@ -12,6 +12,33 @@
   .make-xs-column-offset(@tiny);
 }
 
+// Makes a fixed width column.
+.make-fixed-column(@float, @width) {
+  // This column must be positioned, so that if it is placed beside a fluid column
+  // that places padding over it, the new stacking context makes the content in
+  // this column selectable.
+  position: relative;
+  // The z-index is added in case positioning is added to a fluid column beside
+  // this column.
+  z-index: 10;
+  float: @float;
+  width: @width;
+}
+
+// Makes a fluid width column. The width of the column is 100% minus the margin.
+.make-fluid-column(@float, @margin) {
+  float: @float;
+  width: 100%;
+}
+.make-fluid-column(@float, @margin) when (@float = right) {
+  padding-left: @margin;
+  margin-left: -(@margin);
+}
+.make-fluid-column(@float, @margin) when (@float = left) {
+  padding-right: @margin;
+  margin-right: -(@margin);
+}
+
 .inline-list() {
   li {
     display: inline-block;

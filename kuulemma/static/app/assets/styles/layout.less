@@ -9,4 +9,13 @@ body {
   > .container {
     padding-top: @navbar-height + @navbar-margin-bottom;
   }
+
+  .navbar > .container,
+  > .container {
+    width: 100%;
+
+    @media (min-width: 1200px) {
+      width: 1200px;
+    }
+  }
 }
