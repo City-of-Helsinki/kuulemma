@@ -5,7 +5,8 @@ angular.module('kuulemmaApp')
       templateUrl: '/static/dist/partials/components/comment-list-item/comment-list-item.html',
       restrict: 'A',
       scope: {
-        comment: '&'
+        comment: '&',
+        hearingId: '@'
       },
       link: function postLink(scope, element) {
         scope.paragraphs = _.compact(scope.$parent.comment.body.split('\n'));

@@ -1,48 +1,49 @@
 <div ng-controller="AddCommentController">
-  <button ng-if="!commentBoxOpen" class="open-comment-box" ng-click="openCommentBox()"><i class="fa fa-comment-o"></i>{{ buttonText || 'Kerro mielipiteesi' }}</button>
+  <button ng-if="!commentBoxOpen" class="open-comment-box" ng-class="{ 'comment-comment': commentingOnComment() }" ng-click="openCommentBox()"><i class="fa fa-comment-o"></i>{{ buttonText || 'Kerro mielipiteesi' }}</button>
   <section ng-if="commentBoxOpen" class="add-comment-box">
     <button class="close-button pull-right" ng-click="closeCommentBox()">X</button>
-    <h2><i class="fa fa-comment-o"></i>Uusi kommentti</h2>
+    <h2 ng-if="!commentingOnComment()"><i class="fa fa-comment-o"></i>Uusi mielipide</h2>
+    <h2 ng-if="commentingOnComment()">Kommentoi</h2>
 
     <form class="form-horizontal" ng-submit="saveComment()">
 
       <div class="form-group">
         <label for="inputSubject" class="control-label">Aihe</label>
         <div>
-          <input type="text" class="form-control" id="inputSubject" ng-model="form.title" placeholder="Kirjoita tähän kommenttisi aihe" required autofocus>
+          <input type="text" class="form-control" id="inputSubject" ng-model="form.title" placeholder="Kirjoita tähän mielipiteesi aihe" required autofocus>
         </div>
       </div>
 
       <div class="form-group">
-        <label for="inputAlias" class="control-label">Nimimerkki</label>
+        <label for="inputAlias" class="control-label">Nimi tai nimimerkki</label>
         <div class="input-with-sidenote">
-          <input type="text" class="form-control" id="inputAlias" placeholder="Kirjoita tähän nimimerkkisi" ng-model="form.username" required>
+          <input type="text" class="form-control" id="inputAlias" placeholder="Kirjoita tähän nimesi tai nimimerkkisi" ng-model="form.username" required>
         </div>
         <div class="side-note short-side-note"><p>Voit halutessasi myös <a href="#" tabindex="-1">rekisteröityä</a>.</p></div>
       </div>
 
-      <div class="form-group">
-        <label for="inputHearing" class="control-label">Kommenttini liittyy</label>
+      <div ng-if="!commentingOnComment()" class="form-group option-group">
+        <label for="inputHearing" class="control-label">Mielipide liittyy</label>
         <div class="input-with-sidenote">
           <select class="form-control" ng-model="form.commentsOn" ng-options="option.label for option in commentOptions track by option.key"></select>
         </div>
-        <div class="side-note"><p>Jos kommenttisi liittyy tiettyyn kuulemisen osaan, kuten kuvaan tai vaihtoehtoon, valitse tästä.</p></div>
+        <div class="side-note"><p>Jos mielipiteesi liittyy tiettyyn kuulemisen osaan, kuten kuvaan tai vaihtoehtoon, valitse tästä.</p></div>
       </div>
 
       <div class="form-group">
-        <label for="commentContent" class="control-label">Kommentin teksti</label>
+        <label for="commentContent" class="control-label">Mielipiteen teksti</label>
         <div>
           <textarea class="form-control" id="inputSubject" cols="30" rows="10" ng-model="form.body" required></textarea>
         </div>
       </div>
 
-    <div class="form-group">
+    <div class="form-group follow-group" ng-if="!commentingOnComment()">
       <label for="inputFollow" class="control-label">Seuraa aihetta</label>
       <div class="follow-checkbox">
         <input type="checkbox" id="inputFollow" class="checkbox" ng-model="form.follow">
         <label for="inputFollow" class="checkbox-label"></label>
       </div>
-      <p class="side-note long-slide-note">Jos haluat saada päivityksiä, kun tähän kuulemiseen tulee lisää kommentteja tai asian käsittely etenee, valitse tämä ruutu.</p>
+      <p class="side-note long-side-note">Jos haluat saada päivityksiä, kun tähän kuulemiseen tulee lisää mielipiteitä tai asian käsittely etenee, valitse tämä ruutu.</p>
 
       <div ng-class="{disabled: !form.follow}" class="follow-email input-with-sidenote">
         <input ng-disabled="!form.follow" type="email" class="form-control" placeholder="Sähköposti" ng-model="form.email" required="form.follow">
@@ -50,11 +51,12 @@
       <div ng-class="{disabled: !form.follow}" class="side-note"><p>Sähköpostin lähettämistä varten anna sähköpostiosoitteesi tai  <a href="#" tabindex="-1">rekisteröidy</a>.</p></div>
     </div>
 
-    <div class="form-group">
-      <div class="submit-container">
+    <div class="form-group submit-group">
+      <div class="submit-container" ng-class="{'no-follow': commentingOnComment()}">
         <button type="submit">Julkaise</button>
         <button class="cancel-button" ng-click="closeCommentBox()">Hylkää</button>
       </div>
+      <p class="disclaimer">Kaikki mielipiteet julkaistaan. Ylläpito voi kuitenkin poistaa asiattomia mielipiteitä tai muokata niitä. Lähettämällä annat suostumuksesi kirjoituksen julkaisemiseen CC0-lisenssillä.</p>
     </div>
   </form>
   </section>

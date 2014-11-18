@@ -48,4 +48,17 @@ describe('Directive: commentAdderDirective', function () {
       expect(isolateScope.contextList).toBe('ctx-1:This is context 1;ctx-2:This is context 2');
     });
   });
+
+  describe('Small comment adder', function() {
+    beforeEach(inject(function($compile) {
+      element = angular.element(
+        '<div comment-adder button-text="Click me!" size="small" context-list="ctx-1:This is context 1;ctx-2:This is context 2"></div>');
+      element = $compile(element)(scope);
+      scope.$digest();
+    }));
+
+    it('should add styling class to correct dom element', function() {
+      expect(angular.element(element.children()[0]).hasClass('narrow')).toBe(true);
+    });
+  });
 });

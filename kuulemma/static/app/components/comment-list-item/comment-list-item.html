@@ -9,4 +9,5 @@
     <p ng-repeat="(index, paragraph) in paragraphs track by index">{{ paragraph }}</p>
     <button class="readmore">Lue koko kommentti</button>
   </div>
+  <div comment-adder hearing-id="{{ $parent.hearingId }}" button-text="KOMMENTOI" context-list="comment-{{ $parent.comment.id }}:comment"></div>
 </article>

@@ -26,6 +26,11 @@
       });
     };
 
+    $scope.commentingOnComment = function() {
+      return $scope.commentOptions.length === 1 &&
+        $scope.commentOptions[0].key.split('-')[0] === 'comment';
+    };
+
     $scope.emptyForm = function() {
       var emptyFields = {
         title: '',
