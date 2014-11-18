@@ -21,6 +21,7 @@ def index(hearing_id):
         .options(db.joinedload(Comment.comment))
         .options(db.joinedload(Comment.image))
         .options(db.joinedload(Comment.alternative))
+        .order_by(Comment.created_at)
     )
 
     serialized = CommentSchema(

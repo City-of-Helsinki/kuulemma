@@ -1,7 +1,14 @@
+import json
+
 import pytest
 from flask import url_for
 
-from tests.factories import CommentFactory, HearingFactory
+from tests.factories import (
+    AlternativeFactory,
+    CommentFactory,
+    HearingFactory,
+    ImageFactory
+)
 
 
 @pytest.mark.usefixtures('request_ctx')
@@ -47,6 +54,24 @@ class TestIndexOnSuccess(object):
         content = response.data.decode('utf8')
         assert comments[0].title in content
         assert comments[1].title in content
+
+    def test_returns_comments_ordered_by_created_at(self, client, hearing):
+        image = ImageFactory()
+        alternative = AlternativeFactory(main_image=image)
+        hearing.alternatives.append(alternative)
+
+        first_comment = CommentFactory(hearing=None, alternative=alternative)
+        second_comment = CommentFactory(hearing=None, image=image)
+        third_comment = CommentFactory(hearing=hearing)
+
+        response = client.get(
+            url_for('comment.index', hearing_id=hearing.id)
+        )
+        comments = json.loads(response.data.decode('utf8'))['comments']
+
+        assert comments[0]['id'] == first_comment.id
+        assert comments[1]['id'] == second_comment.id
+        assert comments[2]['id'] == third_comment.id
 
 
 @pytest.mark.usefixtures('database', 'request_ctx')
