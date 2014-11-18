@@ -50,12 +50,14 @@ class Application(Flask):
         from .views.frontpage import frontpage
         from .views.hearing import hearing
         from .views.like import like
+        from .views.static_pages import static_pages
 
         self.register_blueprint(auth)
         self.register_blueprint(comment)
         self.register_blueprint(frontpage)
         self.register_blueprint(hearing)
         self.register_blueprint(like)
+        self.register_blueprint(static_pages)
 
     def _init_extensions(self):
         """Initialize and configure Flask extensions with this application."""
