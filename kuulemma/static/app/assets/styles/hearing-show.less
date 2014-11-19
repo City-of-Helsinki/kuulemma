@@ -6,13 +6,46 @@
 
   > aside {
     .make-fixed-column(left, @layout-column-width-medium);
+
+    h2:first-child {
+      margin-top: 0;
+    }
+
+    h2 {
+      margin-top: @layout-margin-medium;
+      margin-bottom: @layout-margin-mini;
+    }
+
+    .table-of-contents {
+      margin-bottom: 0;
+
+      .list-group-item {
+        border-radius: 0;
+        border: none;
+        border-bottom: 1px solid darken(@gray-light, 15%);
+        margin-bottom: 0;
+        padding: 6px 0;
+        font-size: 15px;
+        font-weight: bold;
+        color: @text-color;
+      }
+      .badge {
+        background-color: @blue-dark;
+        border-radius: 7px;
+      }
+    }
+
+    .location-map {
+      margin-top: @layout-margin-medium;
+    }
+
   }
 
   > .content {
     .make-fluid-column(right, @layout-column-width-medium + @layout-margin-medium);
 
     section + section {
-      margin-top: @layout-margin-medium;
+      padding-top: 2 * @layout-margin-large;
     }
 
     .main-content {
