@@ -1,15 +1,51 @@
 .home-page {
 
-  .latest-hearings {
-    padding-right: @layout-column-width-medium + @layout-margin-medium;
+  .featured-hearing {
+    .make-fluid-column(left, @layout-column-width-medium + @layout-margin-medium);
+
+    .tags {
+      margin-top: @layout-margin-mini;
+    }
 
     h2 {
-      border-top: 1px solid @border-color;
-      margin-bottom: 40px;
-      padding-top: 20px;
-      font-weight: 300;
-      strong {
-        font-weight: bold;
+      .klm-heading-medium;
+      color: @text-color-soft;
+      margin-bottom: @layout-margin-large;
+    }
+
+    .info {
+      float: right;
+    }
+  }
+
+  .latest-hearings {
+    .make-fluid-column(left, @layout-column-width-medium + @layout-margin-medium);
+
+    h2 {
+      margin-bottom: @layout-margin-medium;
+    }
+  }
+
+  .side-boxes {
+    .make-fixed-column(right, @layout-column-width-medium);
+
+    .feedback-box {
+      padding: @layout-margin-large @layout-margin-small;
+      text-align: center;
+      background-color: @yellow;
+
+      h2 {
+        .klm-heading-large;
+        color: white;
+      }
+      p {
+        .klm-heading-medium;
+        color: white;
+      }
+      i {
+        display: block;
+        font-size: 50px;
+        margin-bottom: @layout-margin-mini;
       }
     }
   }

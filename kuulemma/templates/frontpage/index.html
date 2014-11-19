@@ -5,11 +5,45 @@
 
 {% block content %}
   <div class="home-page">
-    <strong class="lead">
-      Kuulemispalvelu on lorem ipsum käsiteltäviin asioihin koko valmistelutyön ajan. Asioiden kommentointi onnistuu myös ilman tunnuksia. Klikkaa käynnissä oleva kysely auki ja jätä mielipiteesi!
-    </strong>
+    {% if featured_hearing %}
+      <section class="featured-hearing">
+        <figure>
+          <figcaption>
+            <i class="fa fa-exclamation-circle"></i>
+            Puhuttava asia
+          </figcaption>
+          <img src="{{ featured_hearing.main_image.image_url }}" alt="{{ featured_hearing.main_image.caption }}">
+        </figure>
+        <ul class="tags small">
+          <li>Kaavoitus</li>
+          <li>Punavuori</li>
+        </ul>
+        <div class="info">
+          <div class="days-open">
+            <i class="fa fa-clock-o"></i>
+            {{ featured_hearing.days_open }} pv.
+          </div>
+          <div class="comments">
+            <i class="fa fa-comment-o"></i>
+            {{ featured_hearing.comments|length }} kpl.
+          </div>
+        </div>
+        <h2>{{ featured_hearing.title }}</h2>
+      </section>
+    {% endif %}
+
+    <section class="side-boxes">
+      <div class="feedback-box">
+        <h2>Keräämme kokemuksia tästä palvelusta</h2>
+        <p>
+          <i class="fa fa-comment-o"></i>
+          <strong>Kerro mielipiteesi</strong>
+        </p>
+      </div>
+    </section>
+
     <section class="latest-hearings">
-      <h2><strong>Uusimmat kuulemiset</strong> ja kuulemisraportit</h2>
+      <h2>Uusimmat kuulemiset ja kuulemisraportit</h2>
       <ul class="hearing-list">
       {% for hearing in latest_hearings %}
         {{ render_hearing_list_item(hearing) }}
@@ -19,5 +53,4 @@
       </ul>
     </section>
   </div>
-
 {% endblock %}
