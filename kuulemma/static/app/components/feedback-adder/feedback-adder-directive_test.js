@@ -18,12 +18,11 @@
 
 describe('Directive: feedbackAdderDirective', function () {
 
-  beforeEach(module('kuulemmaApp'));
+  beforeEach(module('kuulemmaApp', 'test-templates'));
 
-  var element, scope, isolateScope;
+  var element, scope;
 
-  beforeEach(inject(function ($rootScope, $templateCache) {
-    $templateCache.put('/static/dist/partials/components/feedback-adder/feedback-adder.html', '<div></div>');
+  beforeEach(inject(function ($rootScope) {
     scope = $rootScope.$new();
   }));
 

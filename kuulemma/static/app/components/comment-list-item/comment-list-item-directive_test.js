@@ -18,21 +18,11 @@
 
 describe('Directive: commentListItemDirective', function () {
 
-  beforeEach(module('kuulemmaApp'));
-
-  beforeEach(module(
-    'kuulemma/static/app/components/comment-list-item/comment-list-item.html',
-    'kuulemma/static/app/components/comment-adder/comment-adder.html'
-  ));
+  beforeEach(module('kuulemmaApp', 'test-templates'));
 
   var element, scope, isolateScope, $httpBackend, CommentListService;
 
-  beforeEach(inject(function ($rootScope, $templateCache, $compile, _$httpBackend_, _CommentListService_) {
-    var commentListItemTemplate = $templateCache.get('kuulemma/static/app/components/comment-list-item/comment-list-item.html');
-    var commentAdderTemplate = $templateCache.get('kuulemma/static/app/components/comment-adder/comment-adder.html');
-
-    $templateCache.put('/static/dist/partials/components/comment-list-item/comment-list-item.html', commentListItemTemplate);
-    $templateCache.put('/static/dist/partials/components/comment-adder/comment-adder.html', commentAdderTemplate);
+  beforeEach(inject(function ($rootScope, $compile, _$httpBackend_, _CommentListService_) {
     scope = $rootScope.$new();
     scope.$parent.comment = {body: 'comment', title: 'title', username: 'username', is_hidden: false, parent_preview: '', id: 1};
     $httpBackend = _$httpBackend_;

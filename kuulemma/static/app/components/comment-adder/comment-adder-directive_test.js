@@ -18,19 +18,18 @@
 
 describe('Directive: commentAdderDirective', function () {
 
-  beforeEach(module('kuulemmaApp'));
+  beforeEach(module('kuulemmaApp', 'test-templates'));
 
   var element, scope, isolateScope;
 
-  beforeEach(inject(function ($rootScope, $templateCache) {
-    $templateCache.put('/static/dist/partials/components/comment-adder/comment-adder.html', '<div></div>');
+  beforeEach(inject(function ($rootScope) {
     scope = $rootScope.$new();
   }));
 
   describe('Element with only button text', function() {
     beforeEach(inject(function($compile) {
       element = angular.element(
-        '<div comment-adder button-text="Click me!"></div>');
+        '<div comment-adder button-text="Click me!" context-list="ctx-1:"></div>');
       element = $compile(element)(scope);
       scope.$digest();
       isolateScope = element.isolateScope();
@@ -41,14 +40,32 @@ describe('Directive: commentAdderDirective', function () {
     });
   });
 
-  describe('Element with initial context', function() {
+  describe('Element without button text', function() {
     beforeEach(inject(function($compile) {
       element = angular.element(
-        '<div comment-adder button-text="Click me!" initial-context="test context"></div>');
+        '<div comment-adder context-list="ctx-1:"></div>');
       element = $compile(element)(scope);
       scope.$digest();
       isolateScope = element.isolateScope();
     }));
+
+    it('should not fail, just set it to be undefined', function () {
+      expect(isolateScope.buttonText).toBeUndefined();
+    });
+  });
+
+  describe('Element with hearing id', function() {
+    beforeEach(inject(function($compile) {
+      element = angular.element(
+        '<div comment-adder hearing-id="1" context-list="ctx-1:"></div>');
+      element = $compile(element)(scope);
+      scope.$digest();
+      isolateScope = element.isolateScope();
+    }));
+
+    it('should put hearing id to scope', function() {
+      expect(isolateScope.hearingId).toBe('1');
+    });
   });
 
   describe('Element with context-list', function() {
