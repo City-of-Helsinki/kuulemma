@@ -4,13 +4,18 @@
 {% block title %}Kirjautuminen{% endblock %}
 
 {% block content %}
-  <div class="login-form">
-    <h1>Kirjaudu sisään</h1>
+  <div class="login-box">
+    <h1>Kirjaudu</h1>
 
-    {% call render_form(action=url_for('auth.login', next=request.args.next or None)) %}
-      {{ render_field(form.email, autofocus=true) }}
-      {{ render_field(form.password) }}
-      <button type="submit" tabindex="1">{% trans %}Kirjaudu sisään{% endtrans %}</button>
+    {% call render_form(class='form-horizontal', action=url_for('auth.login', next=request.args.next or None)) %}
+      {{ render_field(form.email, autofocus=true, width=4) }}
+      {{ render_field(form.password, width=4) }}
+      <div class="form-group">
+        <div class="form-actions">
+          <button type="submit" tabindex="1">Kirjaudu</button>
+          <p class="register-info">Jos sinulla ei ole vielä tunnuksia voit halutessasi <a href="#">rekisteröityä</a>.</p>
+        </div>
+      </div>
     {% endcall %}
   </div>
 {% endblock %}
