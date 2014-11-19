@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>{% block title %}{% endblock %} — Kuulemma</title>
+    <title>{% block title %}{% endblock %} — Kerrokantasi</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -28,8 +28,8 @@
         </button>
         <div class="navbar-header">
           <a class="navbar-brand" href="{{ url_for('frontpage.index') }}">
-            <img src="{{ url_for('static', filename='images/ph50.png') }}" alt="Kuulemma">
-            <span>Kuulemma</span>
+            <img src="{{ url_for('static', filename='images/helsinki-coat-of-arms-white.png') }}" alt="Helsingin vaakuna">
+            <span>Kerrokantasi</span>
           </a>
         </div>
         <div id="navbar-collapse" class="collapse navbar-collapse">
@@ -38,30 +38,17 @@
             <li><a href="#">Tietoa palvelusta</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            {% if current_user.is_authenticated() %}
-              <li class="profile-img">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                  <img src="{{ url_for('static', filename='images/ph50.png') }}" alt="Profiilikuva">
-                  <span class="name">{{ current_user.username }}</span>
-                  <span class="caret">
-                </a>
-                <ul class="dropdown-menu" role="menu">
-                  <li>
-                    <a href="#">Profiili</a>
-                  </li>
-                  <li class="logout">
-                    <a href="{{ url_for('auth.logout') }}">Kirjaudu ulos</a>
-                  </li>
-                </ul>
-              </li>
-            {% else %}
-              <li>
-                <ul class="login">
-                  <li><a href="#" class="navbar-link">Rekisteröidy</a></li>
-                  <li><a href="{{ url_for('auth.login') }}" class="navbar-link">Kirjaudu</a></li>
-                </ul>
-              </li>
-            {% endif %}
+            <li>
+              <ul class="login">
+                {% if current_user.is_authenticated() %}
+                  <li>{{ current_user.username }}</li>
+                  <li><a href="{{ url_for('auth.logout') }}">Kirjaudu ulos</a></li>
+                {% else %}
+                  <li><a href="#">Rekisteröidy</a></li>
+                  <li><a href="{{ url_for('auth.login') }}">Kirjaudu</a></li>
+                {% endif %}
+              </ul>
+            </li>
           </ul>
         </div>
       </div>
@@ -77,15 +64,10 @@
 
     <footer>
       <div class="container">
-        <div class="footer">
-          <div class="footer-brand">
-            <div class="brand">
-              <img src="{{ url_for('static', filename='images/ph50.png') }}" alt="Helsingin vaakuna">
-              <a href="#">
-                <img src="{{ url_for('static', filename='images/ph50.png') }}" alt="Kuulemma">
-                <span>Kuulemma</span>
-              </a>
-            </div>
+        <div class="content">
+          <div class="brand">
+            <img src="{{ url_for('static', filename='images/helsinki-coat-of-arms-black.png') }}" alt="Helsingin vaakuna">
+            <a href="#">Kerrokantasi</a>
           </div>
           <div class="footer-links">
           <ul>
@@ -93,23 +75,20 @@
               <a href="#">Kuulemiset</a>
             </li>
             <li>
-              <a href="#">Tee aloite</a>
-            </li>
-            <li>
               <a href="#">Tietoa palvelusta</a>
             </li>
           </div>
-          {% if not current_user.is_authenticated() %}
-            <div class="footer-login">
-              <ul class="login">
-                <li><a href="#" class="navbar-link">Rekisteröidy</a></li>
-                <li><a href="#" class="navbar-link">Kirjaudu</a></li>
-              </ul>
-              <a href="#">
-                <img src="{{ url_for('static', filename='images/ph50.png') }}" alt="Profiilikuva">
-              </a>
-            </div>
-          {% endif %}
+          <div class="footer-login">
+            <ul class="login">
+              {% if current_user.is_authenticated() %}
+                <li>{{ current_user.username }}</li>
+                <li><a href="{{ url_for('auth.logout') }}">Kirjaudu ulos</a></li>
+              {% else %}
+                <li><a href="#">Rekisteröidy</a></li>
+                <li><a href="{{ url_for('auth.login') }}">Kirjaudu</a></li>
+              {% endif %}
+            </ul>
+          </div>
         </div>
       </div>
     </footer>
