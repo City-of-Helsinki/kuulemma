@@ -5,9 +5,32 @@
 
 {% block content %}
   <div class="home-page">
-    <section class="featured-hearing">
-
-    </section>
+    {% if featured_hearing %}
+      <section class="featured-hearing">
+        <figure>
+          <figcaption>
+            <i class="fa fa-exclamation-circle"></i>
+            Puhuttava asia
+          </figcaption>
+          <img src="{{ featured_hearing.main_image.image_url }}" alt="{{ featured_hearing.main_image.caption }}">
+        </figure>
+        <ul class="tags small">
+          <li>Kaavoitus</li>
+          <li>Punavuori</li>
+        </ul>
+        <div class="info">
+          <div class="days-open">
+            <i class="fa fa-clock-o"></i>
+            {{ featured_hearing.days_open }} pv.
+          </div>
+          <div class="comments">
+            <i class="fa fa-comment-o"></i>
+            {{ featured_hearing.comments|length }} kpl.
+          </div>
+        </div>
+        <h2>{{ featured_hearing.title }}</h2>
+      </section>
+    {% endif %}
 
     <section class="latest-hearings">
       <h2>Uusimmat kuulemiset ja kuulemisraportit</h2>

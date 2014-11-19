@@ -12,6 +12,13 @@ frontpage = Blueprint(
 
 @frontpage.route('/')
 def index():
+    featured_hearing = (
+        Hearing.query
+        .order_by(db.desc(Hearing.closes_at))
+        .limit(1)
+        .first()
+    )
+
     latest_hearings = (
         Hearing.query
         .order_by(db.desc(Hearing.opens_at))
@@ -20,5 +27,6 @@ def index():
 
     return render_template(
         'frontpage/index.html',
-        latest_hearings=latest_hearings
+        featured_hearing=featured_hearing,
+        latest_hearings=latest_hearings,
     )
