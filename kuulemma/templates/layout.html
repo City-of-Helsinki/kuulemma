@@ -62,6 +62,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     {% include "_footer.html" %}
 
     <script src="{{ url_for('static', filename=get_asset_path('js', 'all.js')) }}"></script>
+    <script src="{{ url_for('static', filename=get_asset_path('js', 'templates.js')) }}"></script>
     <script>
       angular.module('kuulemmaApp').constant('CSRF_TOKEN', '{{ csrf_token() }}');
     </script>

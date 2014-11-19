@@ -46,6 +46,11 @@ module.exports = function(config) {
     preprocessors: {
       'kuulemma/static/app/**/*.html': 'ng-html2js',
       'kuulemma/static/app/**/*.js': 'coverage'
+    },
+
+    ngHtml2JsPreprocessor: {
+      stripPrefix: 'kuulemma/static/app/',
+      moduleName: 'test-templates'
     }
   });
 };

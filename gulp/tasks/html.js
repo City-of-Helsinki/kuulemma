@@ -17,10 +17,25 @@
 'use strict';
 
 var gulp = require('gulp');
+var rev = require('gulp-rev');
+var gulpif = require('gulp-if');
+var uglify = require('gulp-uglify');
+var concat = require('gulp-concat');
+var html2js = require('gulp-html2js');
 
 var config = require('../config');
 
 gulp.task('html', function() {
   return gulp.src(config.html.src)
+    .pipe(html2js({
+      outputModuleName: 'templates',
+      useStrict: true,
+      base: 'kuulemma/static/app/'
+    }))
+    .pipe(concat('templates.js'))
+    .pipe(uglify())
+    .pipe(gulpif(config.options.env === 'production', rev()))
+    .pipe(gulp.dest(config.html.dest))
+    .pipe(rev.manifest())
     .pipe(gulp.dest(config.html.dest));
 });

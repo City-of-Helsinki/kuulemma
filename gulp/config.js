@@ -41,7 +41,7 @@ module.exports = {
   },
   html: {
     src: [src + '/app/**/*.html'],
-    dest: dest + '/partials'
+    dest: dest + '/js'
   },
   less: {
     src: [src + '/app/app.less'],
