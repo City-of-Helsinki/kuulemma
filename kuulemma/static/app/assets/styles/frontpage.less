@@ -1,7 +1,11 @@
 .home-page {
 
+  .featured-hearing {
+    .make-fluid-column(left, @layout-column-width-medium + @layout-margin-medium);
+  }
+
   .latest-hearings {
-    padding-right: @layout-column-width-medium + @layout-margin-medium;
+    .make-fluid-column(left, @layout-column-width-medium + @layout-margin-medium);
 
     h2 {
       border-top: 1px solid @border-color;
@@ -12,5 +16,9 @@
         font-weight: bold;
       }
     }
+  }
+
+  .side-boxes {
+    .make-fixed-column(right, @layout-column-width-medium);
   }
 }
