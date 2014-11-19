@@ -15,19 +15,9 @@
       margin-top: @layout-margin-medium;
     }
 
-    section {
-      &.main-content {
-        .clearfix();
-        margin-top: @layout-margin-medium;
-
-        .entry {
-          .make-fixed-column(left, @layout-column-width-large);
-        }
-
-        aside {
-          .make-fluid-column(right, @layout-column-width-large + @layout-margin-medium);
-        }
-      }
+    .main-content {
+      margin-top: @layout-margin-medium;
+      max-width: 600px;
     }
 
     .alternative {
@@ -103,17 +93,12 @@
     }
 
     .comments {
-      > header {
+      .comment-adder {
         .clearfix();
-
-        p {
-          .make-fixed-column(right, @layout-column-width-large);
-        }
-
-        .comment-adder {
-          .make-fluid-column(left, @layout-column-width-large + @layout-margin-medium);
-          margin-top: @layout-margin-mini;
-        }
+        margin-top: @layout-margin-small;
+      }
+      .comment-list {
+        .make-row();
       }
     }
   }

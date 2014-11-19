@@ -22,16 +22,11 @@
     <div class="content">
       {{ render_image(hearing.main_image, 'Kuulemisen pääkuva') }}
       <section class="main-content">
-        <div class="entry">
-          <p class="lead">{{ hearing.lead }}</p>
-          {{ hearing.body|safe }}
-          {% for image in hearing.images %}
-            {{ render_image(image, 'Kuulemisen kuva') }}
-          {% endfor %}
-        </div>
-        <aside>
-          Kerro mielipiteesi
-        </aside>
+        <p class="lead">{{ hearing.lead }}</p>
+        {{ hearing.body|safe }}
+        {% for image in hearing.images %}
+          {{ render_image(image, 'Kuulemisen kuva') }}
+        {% endfor %}
       </section>
       {% if hearing.alternatives %}
         <section class="alternatives">
@@ -74,9 +69,9 @@
           <p>
             Kuulemisen tavoitteena on taata kuntalaisille mahdollisuus vaikuttaa käsiteltäviin asioihin koko valmistelutyön ajan. Asioiden kommentointi onnistuu myös ilman tunnuksia. Klikkaa nappia ja jätä ensimmäinen kommenttisi!
           </p>
-          <div comment-adder class="comment-adder" hearing-id="{{ hearing.id }}" context-list="{{ commentable_sections_string }}"></div>
         </header>
-       <div comment-list hearing-id="{{ hearing.id }}"></div>
+        <div comment-adder class="comment-adder" hearing-id="{{ hearing.id }}" context-list="{{ commentable_sections_string }}"></div>
+        <div comment-list class="comment-list" hearing-id="{{ hearing.id }}"></div>
       </section>
     </div>
   </article>
