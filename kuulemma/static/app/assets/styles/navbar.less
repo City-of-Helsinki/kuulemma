@@ -1,0 +1,39 @@
+.navbar {
+  .navbar-header {
+    margin-right: 20px;
+  }
+  .navbar-brand {
+    font-size: 20px;
+    font-weight: 500;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    line-height: @navbar-height;
+  }
+
+  .navbar-nav > li > a {
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  img {
+    max-height: @navbar-height - 8px;
+  }
+
+  .profile-img {
+    float: left;
+    line-height: @navbar-height;
+    a {
+      line-height: @navbar-height;
+      padding-top: 0px;
+      padding-bottom: 0px;
+    }
+  }
+
+  .login {
+    padding: @navbar-padding-vertical @navbar-padding-horizontal;
+    font-weight: 300;
+    color: @navbar-inverse-link-color;
+    .inline-list();
+  }
+}

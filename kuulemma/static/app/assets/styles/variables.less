@@ -1,32 +1,50 @@
 // Brand colors
 //
-@gray-lighter: #e1e1e1;
-@gray: #c5c5c5;
-@gray-dark: #767676;
-@gray-darker: #484848;
+@blue-darker: #0053c7;
+@blue-dark: #0073ca;
+@blue: #0089db;
+@blue-light: #d3ebf7;
+
+@green: #009c00;
+@yellow: #ffc700;
+
+@gray-darker: #282827;
+@gray-dark: #484646;
+@gray: #787776;
+@gray-light: #d3d3d2;
+@gray-lighter: #e3e3e3;
 
 
 // Element colors
 //
-@text-color: #000;
-@text-color-dark: @gray-darker;
+@text-color: @gray-darker;
 @text-color-soft: @gray-dark;
 
-@background-color-dark: @gray;
-@background-color-soft: @gray-lighter;
+@gray-background: @gray-lighter;
+
 @tag-color: white;
 
 @link-color: #009AFF;
 
-@border-color: #000;
-@border-color-dark: @gray-dark;
-@border-color-soft: @gray;
+@border-color: @gray-darker;
+
+
+// Typography
+//
+@font-family-sans-serif: "ff-karbid-web-pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 
 // Layout
 //
-@desktop-sidebar-width: 220px;
-@desktop-vertical-margin: 20px;
+@layout-margin-large: 40px;
+@layout-margin-medium: 28px;
+@layout-margin-small: 16px;
+@layout-margin-mini: 10px;
+
+@layout-column-width-large: 600px;
+@layout-column-width-medium: 220px;
+@layout-column-width-small: 120px;
+@layout-column-width-mini: 60px;
 
 
 // Navbar
@@ -34,11 +52,10 @@
 @navbar-height: 45px;
 @navbar-margin-bottom: 20px;
 @navbar-inverse-color: white;
-@navbar-inverse-bg: black;
-@navbar-inverse-link-active-bg: #444;
+@navbar-inverse-bg: @blue-dark;
+@navbar-inverse-link-active-bg: @blue;
 @navbar-inverse-link-color: white;
 @navbar-inverse-link-hover-color: white;
-@navbar-secondary-color: #AAA;
 
 
 // Footer
@@ -46,9 +63,9 @@
 @footer-height: 125px;
 @footer-margin: 50px;
 @footer-padding-vertical: 20px;
-@footer-bg: #CCC;
-@footer-link-color: white;
-@footer-color: white;
+@footer-bg: @gray-light;
+@footer-link-color: @text-color;
+@footer-color: @text-color;
 
 
 // Comment

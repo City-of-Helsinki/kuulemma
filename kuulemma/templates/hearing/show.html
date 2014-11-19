@@ -1,20 +1,6 @@
 {% from "_hearing_helpers.html" import render_image %}
 {% extends "layout.html" %}
 
-{% macro render_comment(comment) %}
-  <article class="comment" data-id="{{ comment.id }}">
-    <h4>{{ comment.title }}</h4>
-    <a href="#" class="like">
-      <i class="fa fa-thumbs-o-up"></i>
-      <span class="like_count">12</span>
-    </a>
-    <p class="info">{{ comment.created_at|datetimeformat }} &middot; {{ comment.username }}</p>
-    <div class="body">
-      {{ comment.body }}
-    </div>
-  </article>
-{% endmacro %}
-
 {% block title %}{{ hearing.title }}{% endblock %}
 
 {% block content %}
@@ -36,23 +22,18 @@
     <div class="content">
       {{ render_image(hearing.main_image, 'Kuulemisen pääkuva') }}
       <section class="main-content">
-        <div class="entry">
-          <p class="lead">{{ hearing.lead }}</p>
-          {{ hearing.body|safe }}
-          {% for image in hearing.images %}
-            {{ render_image(image, 'Kuulemisen kuva') }}
-          {% endfor %}
-        </div>
-        <aside>
-          Kerro mielipiteesi
-        </aside>
+        <p class="lead">{{ hearing.lead }}</p>
+        {{ hearing.body|safe }}
+        {% for image in hearing.images %}
+          {{ render_image(image, 'Kuulemisen kuva') }}
+        {% endfor %}
       </section>
       {% if hearing.alternatives %}
         <section class="alternatives">
           <h2>Vaihtoehdot</h2>
           {% for alternative in hearing.alternatives %}
             <article class="alternative">
-              <section class="summary">
+              <section class="preview">
                 <figure>
                   <span class="option">{{ alternative.letter }}</span>
                   <img src="{{ alternative.main_image.image_url }}" alt="Vaihtoehdon pääkuva">
@@ -84,15 +65,14 @@
 
       <section class="comments">
         <header>
-          <h2>Kommentit</h2>
+          <h2>Mielipiteet</h2>
           <p>
             Kuulemisen tavoitteena on taata kuntalaisille mahdollisuus vaikuttaa käsiteltäviin asioihin koko valmistelutyön ajan. Asioiden kommentointi onnistuu myös ilman tunnuksia. Klikkaa nappia ja jätä ensimmäinen kommenttisi!
           </p>
-          <div comment-adder hearing-id="{{ hearing.id }}" context-list="{{ commentable_sections_string }}"></div>
         </header>
-       <div comment-list hearing-id="{{ hearing.id }}"></div>
+        <div comment-adder class="comment-adder" hearing-id="{{ hearing.id }}" context-list="{{ commentable_sections_string }}"></div>
+        <div comment-list class="comment-list" hearing-id="{{ hearing.id }}"></div>
       </section>
     </div>
   </article>
-
 {% endblock %}
