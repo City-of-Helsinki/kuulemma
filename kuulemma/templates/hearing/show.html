@@ -46,16 +46,11 @@
                 </a>
               </section>
               <div class="collapse" id="alternative-{{ alternative.id }}">
-                <section class="main-content">
-                  <div class="entry">
-                    {{ alternative.body|safe }}
-                    {% for image in alternative.images %}
-                      {{ render_image(image, 'Vaihtoehdon kuva') }}
-                    {% endfor %}
-                  </div>
-                  <aside>
-                    Kerro mielipiteesi
-                  </aside>
+                <section class="content">
+                  {{ alternative.body|safe }}
+                  {% for image in alternative.images %}
+                    {{ render_image(image, 'Vaihtoehdon kuva') }}
+                  {% endfor %}
                 </section>
               </div>
             </article>

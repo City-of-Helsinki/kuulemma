@@ -18,6 +18,12 @@
     .main-content {
       margin-top: @layout-margin-medium;
       max-width: 600px;
+      p {
+        &.lead {
+          font-size: 22px;
+        }
+        font-size: 18px;
+      }
     }
 
     .alternative {
@@ -32,13 +38,13 @@
           .make-fixed-column(left, @layout-column-width-medium);
 
           .option {
-            @size: 60px;
+            @size: 64px;
             position: absolute;
             height: @size;
             width: @size;
-            font-size: @size;
-            line-height: @size;
-            font-weight: 200;
+            font-size: 60px;
+            line-height: 74px;
+            font-weight: normal;
             color: @blue-dark;
             background-color: white;
             text-align: center;
@@ -48,10 +54,6 @@
         .entry {
           .make-fluid-column(right, @layout-column-width-medium + @layout-margin-small);
           padding-right: @layout-column-width-mini;
-
-          p {
-            font-size: 14px;
-          }
         }
 
         .collapser {
@@ -93,6 +95,10 @@
     }
 
     .comments {
+      header > p {
+        font-size: 18px;
+      }
+
       .comment-adder {
         .clearfix();
         margin-top: @layout-margin-small;
