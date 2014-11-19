@@ -1,18 +1,15 @@
 .hearing-list {
   @image-width: 120px;
-  @info-width: 140px;
-  @horizontal-padding: 20px;
-  @vertical-padding: 10px;
+  @info-width: 170px;
+  @horizontal-padding: @layout-margin-small;
+  @vertical-padding: @layout-margin-mini;
   @line-height: 20px;
   @margin-bottom: 30px;
 
-  list-style: none;
-  margin: 0;
-  padding: 0;
+  .reset-list();
 
   > li {
     position: relative;
-    border-top: 1px solid #000;
     margin-bottom: @margin-bottom;
 
     img {
@@ -30,11 +27,8 @@
         .klm-heading-small;
         margin: 6px 0;
         a {
-          color: @text-color;
+          color: @text-color-soft;
         }
-      }
-      .opened {
-        color: @text-color-soft;
       }
     }
 
@@ -45,11 +39,10 @@
       margin-top: -(@line-height / 2);
       line-height: @line-height;
       width: @info-width;
-      color: @text-color-soft;
       text-align: right;
 
       .days-open {
-        margin-right: 10px;
+        margin-right: @layout-margin-mini;
       }
     }
 
