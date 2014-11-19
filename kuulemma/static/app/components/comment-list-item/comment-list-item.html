@@ -5,6 +5,9 @@
     <span class="like_count">{{ $parent.comment.like_count }}</span>
   </a>
   <p class="info">{{ $parent.comment.created_at | dateTimeFormat }} &middot; {{ $parent.comment.username }}</p>
+  <ul ng-if="$parent.comment.tag" class="tags">
+    <li>{{ $parent.$parent.comment.tag }}</li>
+  </ul>
   <div class="parent-preview">
     <p ng-repeat="(index, paragraph) in previewParagraphs track by index">{{ paragraph }}</p>
     <button class="readparent">Lue lisää</button>
