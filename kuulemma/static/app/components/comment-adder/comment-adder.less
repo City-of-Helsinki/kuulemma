@@ -1,7 +1,11 @@
 div[comment-adder] {
 
+  div[ng-controller="AddCommentController"] {
+    .clearfix;
+  }
+
   .add-comment-box {
-    background-color: @gray-lighter;
+    background-color: @yellow-light;
     &.ng-enter {
       -webkit-transition: 0.2s linear all;
       -moz-transition: 0.2s linear all;
@@ -45,6 +49,20 @@ div[comment-adder] {
       font-size: 30px;
       margin-top: -4px;
     }
+
+    &.comment-comment {
+      float: right;
+      font-size: 12px;
+      border: none;
+      padding: 5px;
+      text-transform: uppercase;
+
+      i {
+        margin-left: 5px;
+        padding-right: 2px;
+        font-size: 20px;
+      }
+    }
   }
 
   h2 {
@@ -52,7 +70,9 @@ div[comment-adder] {
     padding-left: 20px;
     font-weight: bold;
     font-size: 19px;
+    margin-top: 20px;
     margin-bottom: 38px;
+    text-transform: none;
 
     i {
       font-size: 30px !important;
@@ -69,21 +89,22 @@ div[comment-adder] {
     margin-left: 10px;
 
     > div {
-      .make-xs-column(9.7);
+      .make-sm-column(9.7);
       padding-left: 0;
 
       &.input-with-sidenote {
-        .make-xs-column(4.7);
+        .make-sm-column(4.7);
         padding-left: 0;
       }
     }
 
     label {
-      .make-xs-column(2.3);
+      .make-sm-column(2.3);
+      padding-left: 0;
     }
 
     .side-note {
-      .make-xs-column(5);
+      .make-sm-column(5);
       padding-left: 0;
       font-size: 11px;
 
@@ -93,22 +114,28 @@ div[comment-adder] {
     }
 
     .short-side-note {
-      line-height: 29px;
+      height: 29px;
+      display: table;
+
+      p {
+        display: table-cell;
+        vertical-align: middle;
+      }
     }
 
-    .long-slide-note {
-      .make-xs-column(8.7);
+    .long-side-note {
+      .make-sm-column(8.7);
       padding-left: 0;
     }
 
     .follow-checkbox {
       .make-xs-column(0.5);
       padding-left: 0;
-      padding-right: 0;
+      padding-right: 28px;
     }
 
     .follow-email {
-      .make-xs-column-offset(2.3);
+      .make-sm-column-offset(2.3);
 
       &.disabled {
         opacity: 0.9;
@@ -139,7 +166,7 @@ div[comment-adder] {
   }
 
   label:not(.checkbox-label) {
-    .make-xs-column(2);
+    .make-sm-column(2);
     padding-right: 12px;
     color: @text-color-soft;
     font-size: 13px;
@@ -152,7 +179,9 @@ div[comment-adder] {
 
   button[type="submit"] {
     .primary-button;
-    width: 120px;
+    max-width: 120px;
+    min-width: 80px;
+    padding: 8px 20px 6px;
   }
 
   button.cancel-button {
@@ -160,7 +189,103 @@ div[comment-adder] {
   }
 
   .submit-container {
-    .make-xs-column-offset(2.3);
+    .make-sm-column-offset(2.3);
     margin-bottom: 20px;
+  }
+
+  .disclaimer {
+    .make-sm-column(11);
+    .make-sm-column-offset(1);
+  }
+
+  .follow-group {
+    .control-label {
+      .make-xs-column(12);
+      padding-left: 1px;
+    }
+
+    .side-note {
+      .make-xs-column(11);
+    }
+
+    .follow-email {
+      clear: both;
+
+      + .side-note {
+        padding-top: 5px;
+        padding-left: 2px;
+        padding-right: 0;
+      }
+    }
+  }
+}
+
+div[comment-adder] > div.narrow {
+  .add-comment-box {
+    border: 1px solid @gray-darker;
+    background-color: @gray-lighter;
+  }
+  .form-horizontal {
+    .form-group {
+
+      .control-label {
+        .make-xs-column(12) !important;
+        padding-left: 1px !important;
+        margin-bottom: 5px;
+        text-align: left;
+
+        + div {
+          .make-xs-column(12) !important;
+          padding-left: 0 !important;
+        }
+      }
+
+      .side-note {
+        .make-xs-column(12) !important;
+        padding-left: 0 !important;
+      }
+
+      &.option-group {
+        .side-note {
+          padding-top: 4px !important;
+        }
+      }
+
+      &.follow-group {
+        .control-label {
+          .make-xs-column(12) !important;
+          padding-left: 1px !important;
+        }
+
+        .side-note {
+          .make-xs-column(11) !important;
+        }
+
+        .follow-email {
+          clear: both !important;
+
+          + .side-note {
+            padding-top: 5px !important;
+            padding-left: 2px !important;
+            padding-right: 0 !important;
+          }
+        }
+      }
+    }
+
+    .submit-group {
+      .submit-container {
+        margin-left: 5%;
+
+        &.no-follow {
+          margin-top: 20px;
+        }
+      }
+
+      .disclaimer {
+        .make-xs-column(12) !important;
+        margin-left: 0 !important;
+      }
+    }
   }
 }

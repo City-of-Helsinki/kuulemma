@@ -22,8 +22,17 @@
       var request = CommentService.save($scope.hearingId, $scope.form);
       request.success(function(response) {
         $rootScope.$broadcast('hearing-' + $scope.hearingId + '-comment-added', response.comments);
+        if($scope.commentingOnComment()) {
+          $scope.closeCommentBox();
+          return;
+        }
         $scope.emptyForm();
       });
+    };
+
+    $scope.commentingOnComment = function() {
+      return $scope.commentOptions.length === 1 &&
+        $scope.commentOptions[0].key.split('-')[0] === 'comment';
     };
 
     $scope.emptyForm = function() {

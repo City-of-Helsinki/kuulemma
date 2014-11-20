@@ -8,6 +8,12 @@ angular.module('kuulemmaApp')
       controller: 'CommentListController',
       link: function postLink(scope, element, attrs) {
         scope.hearingId = attrs.hearingId;
+
+        scope.scrollToCommentsTop = function(params) {
+          $('html, body').animate({
+            scrollTop: $('#latest-comments').offset().top
+          }, params.duration);
+        };
       }
     };
   });

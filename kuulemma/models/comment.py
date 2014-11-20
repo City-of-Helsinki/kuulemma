@@ -127,6 +127,26 @@ class Comment(db.Model, TextItemMixin):
     ), )
 
     @property
+    def comments_on(self):
+        if self.hearing:
+            return self.hearing
+        if self.alternative:
+            return self.alternative
+        if self.image:
+            return self.image
+        if self.comment:
+            return self.comment
+        return None
+
+    @property
+    def object_type(self):
+        return self.comments_on.__class__.__tablename__
+
+    @property
+    def object_id(self):
+        return self.comments_on.id
+
+    @property
     def like_count(self):
         return len(self.likes)
 

@@ -8,6 +8,12 @@
         buttonText: '@',
         hearingId: '@',
         contextList: '@'
+      },
+      link: function(scope, element, attrs) {
+        if(attrs.size && attrs.size === 'small') {
+          var container = element.children()[0];
+          angular.element(container).addClass('narrow');
+        }
       }
     };
   });
