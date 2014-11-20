@@ -16,15 +16,10 @@ angular.module('kuulemmaApp')
 
     $rootScope.$on('hearing-' + $attrs.hearingId + '-comment-added', function(event, comment) {
       var scrollDuration = 200;
-      if(comment.object_type === 'comment') {
-        $scope.scrollToCommentsTop({ duration: scrollDuration });
-        $timeout(function() {
-          $scope.comments.unshift(comment);
-          $scope.popularComments.push(comment);
-        }, scrollDuration);
-      } else {
+      $scope.scrollToCommentsTop({ duration: scrollDuration });
+      $timeout(function() {
         $scope.comments.unshift(comment);
         $scope.popularComments.push(comment);
-      }
+      }, scrollDuration);
     });
   });

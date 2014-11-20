@@ -5,7 +5,7 @@ div[comment-adder] {
   }
 
   .add-comment-box {
-    background-color: @gray-lighter;
+    background-color: @yellow-light;
     &.ng-enter {
       -webkit-transition: 0.2s linear all;
       -moz-transition: 0.2s linear all;
@@ -72,6 +72,7 @@ div[comment-adder] {
     font-size: 19px;
     margin-top: 20px;
     margin-bottom: 38px;
+    text-transform: none;
 
     i {
       font-size: 30px !important;
@@ -180,6 +181,7 @@ div[comment-adder] {
     .primary-button;
     max-width: 120px;
     min-width: 80px;
+    padding: 8px 20px 6px;
   }
 
   button.cancel-button {
@@ -221,6 +223,7 @@ div[comment-adder] {
 div[comment-adder] > div.narrow {
   .add-comment-box {
     border: 1px solid @gray-darker;
+    background-color: @gray-lighter;
   }
   .form-horizontal {
     .form-group {
