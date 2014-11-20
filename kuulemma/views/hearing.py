@@ -10,6 +10,20 @@ hearing = Blueprint(
 )
 
 
+# Redirects to the first hearing before the real index page is implemented.
+@hearing.route('')
+def index():
+    hearing = Hearing.query.first()
+    if not hearing:
+        return redirect(url_for('frontpage.index'))
+
+    return redirect(url_for(
+        'hearing.show',
+        hearing_id=hearing.id,
+        slug=hearing.slug
+    ))
+
+
 @hearing.route('/<int:hearing_id>-<slug>')
 def show(hearing_id, slug):
     hearing = Hearing.query.get_or_404(hearing_id)
@@ -37,5 +51,6 @@ def show(hearing_id, slug):
         hearing=hearing,
         latest_comments=latest_comments,
         popular_comments=popular_comments,
-        commentable_sections_string=commentable_sections_string
+        commentable_sections_string=commentable_sections_string,
+        hearing_page_active=True
     )
