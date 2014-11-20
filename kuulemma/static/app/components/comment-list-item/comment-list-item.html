@@ -16,5 +16,5 @@
     <p ng-repeat="(index, paragraph) in paragraphs track by index">{{ paragraph }}</p>
     <button class="readmore">Lue lisää</button>
   </div>
-  <div ng-if="!$parent.comment.parent_preview" comment-adder size="small" hearing-id="{{ $parent.hearingId }}" button-text="Kommentoi" context-list="comment-{{ $parent.comment.id }}:comment"></div>
+  <div ng-if="!$parent.comment.parent_preview" comment-adder size="small" hearing-id="{{ $parent.hearingId }}" button-text="Kommentoi" context-list="comment-{{ $parent.$parent.comment.id }}:comment"></div>
 </article>
