@@ -34,8 +34,12 @@
         </div>
         <div id="navbar-collapse" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li><a href="#">Kuulemiset</a></li>
-            <li><a href="{{ url_for('static_pages.service_info') }}">Tietoa palvelusta</a></li>
+            <li {% if hearing_page_active %}class="active"{% endif %}>
+              <a href="{{ url_for('hearing.index') }}">Kuulemiset</a>
+            </li>
+            <li {% if request.endpoint == 'static_pages.service_info' %}class="active"{% endif %}>
+              <a href="{{ url_for('static_pages.service_info') }}">Tietoa palvelusta</a>
+            </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li>
