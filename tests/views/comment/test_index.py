@@ -57,7 +57,9 @@ class TestIndexOnSuccess(object):
         assert comments[0].title in content
         assert comments[1].title in content
 
-    def test_returns_comments_ordered_by_created_at(self, client, hearing):
+    def test_returns_comments_ordered_desc_by_created_at(
+        self, client, hearing
+    ):
         image = ImageFactory()
         alternative = AlternativeFactory(main_image=image)
         hearing.alternatives.append(alternative)
@@ -71,9 +73,9 @@ class TestIndexOnSuccess(object):
         )
         comments = json.loads(response.data.decode('utf8'))['comments']
 
-        assert comments[0]['id'] == first_comment.id
+        assert comments[0]['id'] == third_comment.id
         assert comments[1]['id'] == second_comment.id
-        assert comments[2]['id'] == third_comment.id
+        assert comments[2]['id'] == first_comment.id
 
     def test_does_not_return_hidden_comments_to_non_officials(
         self, client, hearing
