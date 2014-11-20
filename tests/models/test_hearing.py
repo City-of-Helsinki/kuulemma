@@ -262,6 +262,33 @@ class TestAllCommentsProperty(object):
 
 
 @pytest.mark.usefixtures('database')
+class TestCommentCountProperty(object):
+    @pytest.fixture
+    def hearing(self):
+        return HearingFactory()
+
+    def test_should_return_0_if_no_comments(self, hearing):
+        assert hearing.comment_count == 0
+
+    def test_should_return_1_if_one_comment(self, hearing):
+        CommentFactory(hearing=hearing)
+        assert hearing.comment_count == 1
+
+    def test_should_return_the_number_of_comment(self, hearing):
+        expected = 3
+        for _ in range(expected):
+            CommentFactory(hearing=hearing)
+        assert hearing.comment_count == expected
+
+    def test_should_count_sub_section_comments(self, hearing):
+        alternative = AlternativeFactory(hearing=hearing)
+        expected = 3
+        for _ in range(expected):
+            CommentFactory(hearing=None, alternative=alternative)
+        assert hearing.comment_count == expected
+
+
+@pytest.mark.usefixtures('database')
 class TestGetCommentableSectionsString(object):
     @pytest.fixture
     def image(self):
