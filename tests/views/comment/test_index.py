@@ -7,8 +7,10 @@ from tests.factories import (
     AlternativeFactory,
     CommentFactory,
     HearingFactory,
-    ImageFactory
+    ImageFactory,
+    UserFactory
 )
+from tests.utils import login_user
 
 
 @pytest.mark.usefixtures('request_ctx')
@@ -72,6 +74,26 @@ class TestIndexOnSuccess(object):
         assert comments[0]['id'] == first_comment.id
         assert comments[1]['id'] == second_comment.id
         assert comments[2]['id'] == third_comment.id
+
+    def test_does_not_return_hidden_comments_to_non_officials(
+        self, client, hearing
+    ):
+        CommentFactory(hearing=hearing, is_hidden=True)
+        response = client.get(
+            url_for('comment.index', hearing_id=hearing.id)
+        )
+        content = response.data.decode('utf8')
+        assert '"comments": []' in content
+
+    def test_returns_hidden_comments_to_officials(self, client, hearing):
+        user = UserFactory(is_official=True)
+        login_user(client, user)
+        comment = CommentFactory(hearing=hearing, is_hidden=True)
+        response = client.get(
+            url_for('comment.index', hearing_id=hearing.id)
+        )
+        content = response.data.decode('utf8')
+        assert comment.title in content
 
 
 @pytest.mark.usefixtures('database', 'request_ctx')

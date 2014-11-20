@@ -90,6 +90,13 @@ class Comment(db.Model, TextItemMixin):
         server_default=''
     )
 
+    is_hidden = db.Column(
+        db.Boolean(),
+        nullable=False,
+        default=False,
+        server_default='FALSE'
+    )
+
     __table_args__ = (db.CheckConstraint(
         db.or_(
             db.and_(
