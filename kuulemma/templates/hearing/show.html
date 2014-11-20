@@ -28,7 +28,7 @@
       </p>
       <p>
         <i class="fa fa-comment-o"></i>
-        {{ hearing.comments|length }} kpl.
+        {{ hearing.comment_count }} kpl.
       </p>
 
       <h2>Sisällys</h2>
@@ -44,7 +44,7 @@
         {% endif %}
         <a href="#hearing-comments" class="list-group-item">
           Mielipiteet
-          <span class="badge">{{ hearing.comments|length }}</span>
+          <span class="badge">{{ hearing.comment_count }}</span>
         </a>
       </div>
 

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import pytest
 from flask import render_template
+from flexmock import flexmock
 
 from tests.factories import AlternativeFactory, HearingFactory, ImageFactory
 
@@ -9,6 +10,11 @@ from tests.factories import AlternativeFactory, HearingFactory, ImageFactory
 class ShowHearingTemplateTestCase(object):
     @pytest.fixture(scope='class')
     def content(self, hearing):
+        (
+            flexmock(hearing)
+            .should_receive('comment_count')
+            .and_return(2)
+        )
         return render_template(
             'hearing/show.html',
             hearing=hearing

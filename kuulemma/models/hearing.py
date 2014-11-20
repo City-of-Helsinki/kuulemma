@@ -139,6 +139,10 @@ class Hearing(db.Model, TextItemMixin):
         comment_criteria.append(Comment.comment_id.in_(comment_parent_ids))
         return Comment.query.filter(db.or_(*comment_criteria))
 
+    @property
+    def comment_count(self):
+        return self.all_comments.count()
+
     def get_commentable_sections_string(self):
         """
         Return in string format id, name pairs of all the commentable sections
