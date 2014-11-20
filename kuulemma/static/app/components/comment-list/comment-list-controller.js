@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('kuulemmaApp')
-  .controller('CommentListController', function ($scope, $rootScope, CommentListService, $attrs) {
+  .controller('CommentListController', function ($scope, $rootScope, CommentListService, $attrs, $timeout) {
     $scope.hearingId = $attrs.hearingId;
     CommentListService.get($scope.hearingId).then(function(response) {
       $scope.comments = response.data.comments || [];
@@ -15,7 +15,16 @@ angular.module('kuulemmaApp')
     }
 
     $rootScope.$on('hearing-' + $attrs.hearingId + '-comment-added', function(event, comment) {
-      $scope.comments.unshift(comment);
-      $scope.popularComments.push(comment);
+      var scrollDuration = 200;
+      if(comment.object_type === 'comment') {
+        $scope.scrollToCommentsTop({ duration: scrollDuration });
+        $timeout(function() {
+          $scope.comments.unshift(comment);
+          $scope.popularComments.push(comment);
+        }, scrollDuration);
+      } else {
+        $scope.comments.unshift(comment);
+        $scope.popularComments.push(comment);
+      }
     });
   });
