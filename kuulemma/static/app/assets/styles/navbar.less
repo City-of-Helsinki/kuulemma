@@ -3,20 +3,45 @@
     margin-right: 20px;
   }
   .navbar-brand {
-    font-size: 17px;
-    font-weight: bold;
+    .klm-heading-large;
+    margin-top: 0;
+    margin-bottom: 0;
     padding-top: 0px;
     padding-bottom: 0px;
     line-height: @navbar-height;
+    color: white;
 
     img {
       margin-right: 10px;
+      max-height: 70px;
     }
   }
 
   .navbar-nav > li > a {
     .klm-heading-smaller;
     color: white;
+    max-width: 150px;
+
+    &.navbar-info-link {
+      max-width: 220px;
+      padding: 0 @layout-margin-medium;
+      padding-top: @navbar-padding-vertical;
+      padding-bottom: @navbar-padding-vertical;
+
+      .heading {
+        display: block;
+        margin-bottom: @layout-margin-mini;
+      }
+
+      .info {
+        display: block;
+        font-weight: normal;
+        font-size: 13px;
+        line-height: 18px;
+        text-transform: none;
+      }
+    }
+
   }
 
   img {
