@@ -1,5 +1,52 @@
+// Styles for transitions from large to small navbar.
+
+.affix-top {
+  .navbar {
+    position: relative;
+  }
+}
+
+.affix {
+  > .container {
+    padding-top: @navbar-height + @navbar-margin-bottom + @navbar-height-small;
+  }
+
+  .navbar {
+    min-height: @navbar-height-small;
+    height: @navbar-height-small;
+    .navbar-brand {
+      .klm-heading-small;
+      height: @navbar-height-small;
+      margin-top: 0;
+      margin-bottom: 0;
+      line-height: @navbar-height-small;
+      color: white;
+
+      img {
+        max-height: @navbar-height-small - 8px;
+      }
+    }
+
+    .navbar-nav > li > a.navbar-info-link {
+      padding: 12px @layout-margin-medium;
+
+      .heading {
+        margin-bottom: 0;
+      }
+
+      .info {
+        display: none;
+      }
+    }
+    .login {
+      padding: 12px @navbar-padding-horizontal;
+    }
+  }
+}
+
 .navbar {
   .navbar-header {
+    width: 400px;
     margin-right: 20px;
   }
   .navbar-brand {
@@ -20,10 +67,9 @@
   .navbar-nav > li > a {
     .klm-heading-smaller;
     color: white;
-    max-width: 150px;
 
     &.navbar-info-link {
-      max-width: 220px;
+      width: 240px;
       padding: 0 @layout-margin-medium;
       padding-top: @navbar-padding-vertical;
       padding-bottom: @navbar-padding-vertical;
@@ -40,21 +86,6 @@
         line-height: 18px;
         text-transform: none;
       }
-    }
-
-  }
-
-  img {
-    max-height: @navbar-height - 8px;
-  }
-
-  .profile-img {
-    float: left;
-    line-height: @navbar-height;
-    a {
-      line-height: @navbar-height;
-      padding-top: 0px;
-      padding-bottom: 0px;
     }
   }
 
