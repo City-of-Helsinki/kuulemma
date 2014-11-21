@@ -21,14 +21,17 @@
       margin-bottom: 0;
       line-height: @navbar-height-small;
       color: white;
+      .animation(fadein 0.5s);
 
       img {
         max-height: @navbar-height-small - 8px;
+        .animation(fadein 0.5s);
       }
     }
 
     .navbar-nav > li > a.navbar-info-link {
       padding: 12px @layout-margin-medium;
+      .animation(fadein 0.5s);
 
       .heading {
         margin-bottom: 0;
@@ -39,6 +42,7 @@
       }
     }
     .login {
+      .animation(fadein 0.5s);
       padding: 12px @navbar-padding-horizontal;
     }
   }
