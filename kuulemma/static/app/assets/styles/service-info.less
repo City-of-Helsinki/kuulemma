@@ -1,7 +1,15 @@
 .service-info {
-  max-width: @layout-column-width-max;
+  .links {
+    .make-fixed-column(left, @layout-column-width-medium);
+    a {
+      .klm-heading-small;
+    }
+  }
 
-  .register-details {
-    margin-top: @layout-margin-large;
+  .content {
+    .make-fluid-column(right, @layout-column-width-medium + @layout-margin-large);
+    p {
+      max-width: @layout-column-width-max;
+    }
   }
 }
