@@ -5,8 +5,10 @@ from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask.ext.login import current_user, login_user, logout_user
 
 from kuulemma.extensions import db, login_manager
-from kuulemma.forms import LoginForm
+from kuulemma.forms.login import LoginForm
+from kuulemma.forms.sign_up import SignUpForm
 from kuulemma.models import User
+from kuulemma.services.email import send_registration_mail
 
 auth = Blueprint(
     name='auth',
@@ -65,6 +67,27 @@ def login():
             )
 
     return render_template('auth/login.html', form=form)
+
+
+@auth.route('/rekisteroidy', methods=['GET', 'POST'])
+def sign_up():
+    if current_user.is_authenticated():
+        return redirect(url_for('frontpage.index'))
+
+    form = SignUpForm(request.form)
+    if request.method == 'POST' and form.validate():
+        user = User()
+        form.populate_obj(user)
+        db.session.add(user)
+        db.session.commit()
+        send_registration_mail(user)
+        flash(
+            'Sähköpostiisi lähetettiin tilisi aktivointilinkki',
+            'info'
+        )
+        return redirect(url_for('frontpage.index'))
+    else:
+        return render_template('auth/sign_up.html', form=form)
 
 
 @auth.route('/kirjaudu-ulos')
