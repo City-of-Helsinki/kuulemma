@@ -50,6 +50,10 @@
 @layout-column-width-mini: 60px;
 
 
+// General
+//
+@logo-height: 70px;
+
 // Navbar
 //
 @navbar-height: 103px + 2 * @layout-margin-large;
@@ -65,9 +69,14 @@
 
 // Footer
 //
-@footer-height: 125px;
+@footer-mobile-padding-top: @layout-margin-large;
+@footer-mobile-padding-bottom: @layout-margin-small;
+@footer-mobile-brand-height: @logo-height + @footer-mobile-padding-top;
+@footer-mobile-row-height: 48px;
+@footer-mobile-height: @footer-mobile-brand-height + 3 * @footer-mobile-row-height + @footer-mobile-padding-top + @footer-mobile-padding-bottom;
+@footer-desktop-padding-vertical: @layout-margin-large;
+@footer-desktop-height: @logo-height + 2 * @footer-desktop-padding-vertical;
 @footer-margin: @layout-margin-large;
-@footer-padding-vertical: @layout-margin-medium;
 @footer-bg: @gray-light;
 @footer-link-color: @text-color;
 @footer-link-color-hover: @text-color;
