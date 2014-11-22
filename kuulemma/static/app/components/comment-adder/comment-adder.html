@@ -48,7 +48,7 @@
       <div ng-class="{disabled: !form.follow}" class="follow-email input-with-sidenote">
         <input ng-disabled="!form.follow" type="email" class="form-control" placeholder="Sähköposti" ng-model="form.email" required="form.follow">
       </div>
-      <div ng-class="{disabled: !form.follow}" class="side-note"><p>Sähköpostin lähettämistä varten anna sähköpostiosoitteesi tai  <a href="#" tabindex="-1">rekisteröidy</a>.</p></div>
+      <div ng-class="{disabled: !form.follow}" class="side-note"><p>Sähköpostin lähettämistä varten anna sähköpostiosoitteesi tai  <a href="{{ url_for('auth.sign_up')}}" tabindex="-1">rekisteröidy</a>.</p></div>
     </div>
 
     <div class="form-group submit-group">
