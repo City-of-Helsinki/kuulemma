@@ -72,19 +72,20 @@
           {% for alternative in hearing.alternatives %}
             <article class="alternative">
               <section class="preview">
-                <figure>
-                  <span class="option">{{ alternative.letter }}</span>
-                  <img src="{{ alternative.main_image.image_url }}" alt="Vaihtoehdon pääkuva">
-                </figure>
-                <div class="entry">
-                  <h3>{{ alternative.title }}</h3>
-                  <p>{{ alternative.lead }}</p>
-                </div>
                 <a data-toggle="collapse" data-parent=".alternatives" href="#alternative-{{ alternative.id }}" class="collapser collapsed">
+                  <span class="option">{{ alternative.letter }}</span>
+                  <figure>
+                    <img src="{{ alternative.main_image.image_url }}" alt="Vaihtoehdon pääkuva">
+                  </figure>
+                  <span class="preview-text">
+                    <h3><span>{{ alternative.title }}</span></h3>
+                    <p>{{ alternative.lead }}</p>
+                  </span>
                 </a>
               </section>
               <div class="collapse" id="alternative-{{ alternative.id }}">
                 <section class="content">
+                  {{ render_image(alternative.main_image, 'Vaihtoehdon kuva', class='main-image') }}
                   {{ alternative.body|safe }}
                   {% for image in alternative.images %}
                     {{ render_image(image, 'Vaihtoehdon kuva') }}

@@ -36,8 +36,8 @@
 {% endmacro %}
 
 
-{% macro render_image(image, alt) %}
-  <figure>
+{% macro render_image(image, alt, class=none) %}
+  <figure {% if class %}class="{{ class }}"{% endif %}>
     <img src="{{ image.image_url }}" alt="{{ alt }}">
     <figcaption>Kuva {{ image.number }}. {{ image.caption }}</figcaption>
   </figure>
