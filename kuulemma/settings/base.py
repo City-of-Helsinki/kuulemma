@@ -66,3 +66,5 @@ CSRF_COOKIE_HTTPONLY = True
 
 # A sentry compatible DSN.
 SENTRY_DSN = os.environ.get('SENTRY_DSN')
+
+MAIL_DEFAULT_SENDER = 'No Reply <noreply@hel.fi>'
