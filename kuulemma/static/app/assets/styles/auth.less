@@ -1,15 +1,16 @@
-.login-box {
-  padding: @layout-margin-medium;
-  background-color: @yellow-light;
-
+.login-page {
   h1 {
-    font-size: 23px;
-    font-weight: bold;
+    .klm-heading-medium;
   }
 
   button {
-    .primary-button;
-    padding: 8px 50px 6px;
+    text-transform: uppercase;
+  }
+
+  form input {
+    border: 1px solid @gray-dark;
+    height: 40px;
+    font-size: @font-size-base;
   }
 
   .form-actions {
