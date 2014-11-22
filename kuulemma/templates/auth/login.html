@@ -8,6 +8,7 @@
     <h1>Kirjaudu</h1>
 
     {% call render_form(class='form-horizontal', action=url_for('auth.login', next=request.args.next or None)) %}
+      {{ form.csrf_token }}
       {{ render_field(form.email, autofocus=true, width=4) }}
       {{ render_field(form.password, width=4) }}
       <div class="form-group">
