@@ -3,11 +3,13 @@ from datetime import datetime, timedelta
 
 from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask.ext.login import current_user, login_user, logout_user
+from itsdangerous import BadSignature
 
 from kuulemma.extensions import db, login_manager
 from kuulemma.forms.login import LoginForm
 from kuulemma.forms.sign_up import SignUpForm
 from kuulemma.models import User
+from kuulemma.serializers import account_activation_serializer
 from kuulemma.services.email import send_registration_mail
 
 auth = Blueprint(
@@ -88,6 +90,26 @@ def sign_up():
         return redirect(url_for('frontpage.index'))
     else:
         return render_template('auth/sign_up.html', form=form)
+
+
+@auth.route('/aktivoi-tili/<activation_hash>', methods=['GET'])
+def activate_account(activation_hash):
+    try:
+        email = account_activation_serializer.loads(activation_hash)
+    except BadSignature:
+        flash('Tarkista osoite', 'error')
+        return redirect(url_for('frontpage.index'))
+    else:
+        user = User.query.filter(User.email == email).one()
+        if user.active:
+            flash('Olet jo aktivoinut tilisi.', 'error')
+            return redirect(url_for('frontpage.index'))
+        else:
+            user.active = True
+            db.session.commit()
+            flash('Tilisi on aktivoitu.', 'info')
+            login_user(user)
+            return redirect(url_for('frontpage.index'))
 
 
 @auth.route('/kirjaudu-ulos')
