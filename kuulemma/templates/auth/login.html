@@ -14,7 +14,7 @@
       <div class="form-group">
         <div class="form-actions">
           <button class="btn btn-primary" type="submit" tabindex="1">Kirjaudu</button>
-          <p class="register-info">Jos sinulla ei ole vielä tunnuksia voit halutessasi <a href="#">rekisteröityä</a>.</p>
+          <p class="register-info">Jos sinulla ei ole vielä tunnuksia voit halutessasi <a href="{{ url_for('auth.sign_up')}}">rekisteröityä</a>.</p>
         </div>
       </div>
     {% endcall %}
