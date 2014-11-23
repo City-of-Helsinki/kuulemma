@@ -19,11 +19,16 @@ body {
   footer > .container,
   > .container {
     width: 100%;
-    padding-left: 16px;
-    padding-right: 16px;
+    padding-left: @layout-margin-small;
+    padding-right: @layout-margin-small;
 
-    @media (min-width: 1200px) {
-      width: 1200px;
+    @media (min-width: @screen-sm-min) {
+      padding-left: @layout-margin-large;
+      padding-right: @layout-margin-large;
+    }
+
+    @media (min-width: @max-container-width) {
+      width: @max-container-width;
     }
   }
 }
