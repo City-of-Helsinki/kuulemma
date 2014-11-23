@@ -16,43 +16,47 @@
 
     <aside>
       <h2>Kuuleminen</h2>
-      <p>
-        <i class="fa fa-clock-o"></i>
-        {% if hearing.days_open < 1 %}
-          Sulkeutunut
-        {% elif hearing.days_open == 1 %}
-          1 päivän avoinna
-        {% else %}
-          {{ hearing.days_open }} päivää avoinna
-        {% endif %}
-      </p>
-      <p>
-        <i class="fa fa-comment-o"></i>
-        {{ hearing.comment_count }} kpl.
-      </p>
-
-      <h2>Sisällys</h2>
-      <div class="table-of-contents list-group">
-        <a href="#hearing" class="list-group-item">
-          Johdanto
-        </a>
-        {% if hearing.alternatives %}
-          <a href="#hearing-alternatives" class="list-group-item">
-            Vaihtoehdot
-            <span class="badge">{{ hearing.alternatives|length }}</span>
-          </a>
-        {% endif %}
-        <a href="#hearing-comments" class="list-group-item">
-          Mielipiteet
-          <span class="badge">{{ hearing.comment_count }}</span>
-        </a>
+      <div class="info">
+        <span>
+          <i class="fa fa-clock-o"></i>
+          {% if hearing.days_open < 1 %}
+            Sulkeutunut
+          {% elif hearing.days_open == 1 %}
+            1 päivän avoinna
+          {% else %}
+            {{ hearing.days_open }} päivää avoinna
+          {% endif %}
+        </span>
+        <span>
+          <i class="fa fa-comment-o"></i>
+          {{ hearing.comment_count }} kpl.
+        </span>
       </div>
 
-      <h2>Työkalut</h2>
-      <p>
-        <i class="fa fa-share"></i>
-        Jaa
-      </p>
+      <div class="additional-info">
+        <h2>Sisällys</h2>
+        <div class="table-of-contents list-group">
+          <a href="#hearing" class="list-group-item">
+            Johdanto
+          </a>
+          {% if hearing.alternatives %}
+            <a href="#hearing-alternatives" class="list-group-item">
+              Vaihtoehdot
+              <span class="badge">{{ hearing.alternatives|length }}</span>
+            </a>
+          {% endif %}
+          <a href="#hearing-comments" class="list-group-item">
+            Mielipiteet
+            <span class="badge">{{ hearing.comment_count }}</span>
+          </a>
+        </div>
+
+        <h2>Työkalut</h2>
+        <p>
+          <i class="fa fa-share"></i>
+          Jaa
+        </p>
+      </div>
 
       <div location-map class="location-map" latitude="60.17" longitude="24.95" polygon="60.168,24.947 60.173,24.947 60.168,24.952"></div>
     </aside>
