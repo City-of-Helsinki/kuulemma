@@ -33,15 +33,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-          <ul class="login">
-            {% if current_user.is_authenticated() %}
-              <li>{{ current_user.username }}</li>
-              <li><a href="{{ url_for('auth.logout') }}">Kirjaudu ulos</a></li>
-            {% else %}
-              <li><a href="#">Rekisteröidy</a></li>
-              <li><a href="{{ url_for('auth.login') }}">Kirjaudu</a></li>
-            {% endif %}
-          </ul>
+          {% include "_auth_links.html" %}
         </li>
       </ul>
     </div>
