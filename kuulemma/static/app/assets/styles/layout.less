@@ -12,7 +12,10 @@ body {
   }
 
   > .container {
-    padding-top: @navbar-margin-bottom;
+    padding-top: @navbar-height + @navbar-margin-bottom-mobile;
+    @media (min-width: @screen-md-min) {
+      padding-top: @navbar-margin-bottom;
+    }
   }
 
   .navbar > .container,

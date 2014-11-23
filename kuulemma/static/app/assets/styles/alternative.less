@@ -1,5 +1,5 @@
 .alternative {
-  @letter-box-size: 64px;
+  @letter-width: 50px;
   @letter-font-size: 60px;
   @collapser-font-size: 24px;
 
@@ -72,7 +72,7 @@
     left: 0;
     z-index: 20;
     height: @letter-font-size;
-    width: @letter-font-size;
+    width: @letter-width;
     font-size: @letter-font-size;
     line-height: @letter-font-size;
     font-weight: normal;
@@ -81,6 +81,7 @@
 
     @media (min-width: @screen-sm-min) {
       top: 0;
+      width: @letter-font-size;
       text-align: center;
       line-height: 70px;
     }
@@ -88,13 +89,15 @@
 
   h3 {
     .vertically-align-text(@letter-font-size / 2);
-    padding-left: @letter-font-size;
+    padding-left: @letter-width;
     padding-right: @collapser-font-size + @layout-margin-mini;
+    font-size: 18px;
 
     @media (min-width: @screen-sm-min) {
       padding-left: 0;
       min-height: inherit;
       line-height: inherit;
+      font-size: 23px;
       span {
         line-height: inherit
       }
