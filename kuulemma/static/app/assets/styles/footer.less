@@ -27,12 +27,6 @@ footer {
     }
   }
 
-  .content {
-    @media (min-width: @screen-sm-min) {
-      .make-row();
-    }
-  }
-
   .brand {
     font-size: 32px;
     font-weight: bold;
@@ -40,7 +34,9 @@ footer {
     text-align: center;
 
     @media (min-width: @screen-sm-min) {
-      .make-column(3, 3, 4);
+      width: 350px;
+      float: left;
+      text-align: left;
       height: auto;
     }
 
@@ -54,7 +50,8 @@ footer {
     text-align: center;
 
     @media (min-width: @screen-sm-min) {
-      .make-column(3, 3, 4);
+      float: left;
+      width: auto;
       text-align: left;
     }
 
@@ -78,9 +75,7 @@ footer {
 
   .footer-login {
     @media (min-width: @screen-sm-min) {
-      .make-column-offset(3, 3, 0);
-      .make-column(3, 3, 4);
-      text-align: right;
+      float: right;
     }
 
     ul.login {
