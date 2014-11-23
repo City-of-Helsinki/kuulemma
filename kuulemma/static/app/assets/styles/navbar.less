@@ -4,17 +4,23 @@
   margin-bottom: 0;
 
   .navbar-header {
-    width: 290px;
-    margin-right: 20px;
+    width: 260px;
+    @media (min-width: @screen-lg-min) {
+      width: 400px;
+    }
   }
   .navbar-brand {
     .klm-heading-large;
+    font-size: 27px;
     margin-top: 0;
     margin-bottom: 0;
     padding-top: 0px;
     padding-bottom: 0px;
     line-height: @navbar-height-large;
     color: white;
+    @media (min-width: @screen-lg-min) {
+      font-size: 31px;
+    }
 
     img {
       margin-right: 10px;
@@ -145,6 +151,10 @@
 
   .navbar {
     .small-navbar-styles;
+
+    .navbar-toggle {
+      margin-right: 0;
+    }
 
     .navbar-nav {
       margin: @layout-margin-mini -15px;
