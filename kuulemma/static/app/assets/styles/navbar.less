@@ -17,6 +17,7 @@
     padding-top: 0px;
     padding-bottom: 0px;
     line-height: @navbar-height-large;
+    height: @navbar-height-large;
     color: white;
     @media (min-width: @screen-lg-min) {
       font-size: 31px;
@@ -37,6 +38,7 @@
       padding: 0 @layout-margin-medium;
       padding-top: @navbar-padding-vertical;
       padding-bottom: @navbar-padding-vertical;
+      height: @navbar-height-large;
 
       .heading {
         display: block;
@@ -89,6 +91,7 @@
 
   .navbar-nav > li > a.navbar-info-link {
     padding: 12px @layout-margin-medium;
+    height: @navbar-height;
 
     .heading {
       margin-bottom: 0;
@@ -107,10 +110,8 @@
 // Styles for transitions from large to small navbar.
 //
 @media (min-width: @screen-md-min) {
-  .affix-top {
-    .navbar {
-      position: relative;
-    }
+  .navbar {
+    position: relative;
   }
 
   .affix {
@@ -119,6 +120,7 @@
     }
 
     .navbar {
+      position: fixed;
       .small-navbar-styles;
 
       .navbar-brand {
