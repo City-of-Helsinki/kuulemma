@@ -49,6 +49,8 @@
 @layout-column-width-small: 120px;
 @layout-column-width-mini: 60px;
 
+// Point at which the navbar becomes uncollapsed.
+@grid-float-breakpoint:     @screen-md-min;
 
 // General
 //
@@ -56,9 +58,9 @@
 
 // Navbar
 //
-@navbar-height: 103px + 2 * @layout-margin-large;
+@navbar-height: 45px;
+@navbar-height-large: 103px + 2 * @layout-margin-large;
 @navbar-padding-vertical: @layout-margin-large;
-@navbar-height-small: 45px;
 @navbar-margin-bottom: @layout-margin-large;
 @navbar-inverse-color: white;
 @navbar-inverse-bg: @blue-dark;
