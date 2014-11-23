@@ -26,5 +26,5 @@ deployment:
   production:
     branch: master
     commands:
-      - git remote add production dokku@kerrokantasi.hel.fi
+      - git remote add production dokku@kerrokantasi.hel.fi:kerrokantasi.hel.fi
       - git push production master
