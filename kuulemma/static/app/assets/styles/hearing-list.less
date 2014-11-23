@@ -61,6 +61,17 @@
         margin-top: -(@line-height / 2);
       }
 
+      @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+        span {
+          display: block;
+
+          &.days-open {
+            margin-right: 0;
+            margin-bottom: @layout-margin-mini;
+          }
+        }
+      }
+
       .days-open {
         margin-right: @layout-margin-mini;
       }
