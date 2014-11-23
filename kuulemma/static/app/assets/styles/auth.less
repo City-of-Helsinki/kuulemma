@@ -1,6 +1,11 @@
 .login-page {
   h1 {
     .klm-heading-medium;
+    margin-bottom: @layout-margin-small;
+
+    @media (min-width: @screen-sm-min) {
+      margin-bottom: @layout-margin-medium;
+    }
   }
 
   button {
