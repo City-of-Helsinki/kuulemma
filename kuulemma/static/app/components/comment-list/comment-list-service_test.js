@@ -2,6 +2,12 @@
 
 describe('Service: CommentListService', function () {
 
+  var expectToBePromise = function(value) {
+    expect(angular.isFunction(value.then)).toBe(true);
+    expect(angular.isFunction(value.catch)).toBe(true);
+    expect(angular.isFunction(value.finally)).toBe(true);
+  };
+
   beforeEach(module('kuulemmaApp'));
 
   var service, $http, $httpBackend;
@@ -37,9 +43,79 @@ describe('Service: CommentListService', function () {
     });
 
     it('should return promise', function() {
-      expect(angular.isFunction(returnValue.then)).toBe(true);
-      expect(angular.isFunction(returnValue.catch)).toBe(true);
-      expect(angular.isFunction(returnValue.finally)).toBe(true);
+      expectToBePromise(returnValue);
+    });
+  });
+
+  describe('Like function', function() {
+    var likeHandler, returnValue;
+    beforeEach(function() {
+      spyOn($http, 'post').andCallThrough();
+      likeHandler = $httpBackend.expectPOST('/users/1/links/likes').respond(201);
+      returnValue = service.like({ userId: 1, commentId: 1 });
+      $httpBackend.flush();
+    });
+
+    afterEach(function() {
+      $httpBackend.verifyNoOutstandingExpectation();
+      $httpBackend.verifyNoOutstandingRequest();
+    });
+
+    it('should make a post request to correct api endpoint', function() {
+      expect($http.post.callCount).toBe(1);
+      expect($http.post).toHaveBeenCalledWith('/users/1/links/likes', { comment_id: 1 });
+    });
+
+    it('should return promise', function() {
+      expectToBePromise(returnValue);
+    });
+  });
+
+  describe('Unlike function', function() {
+    var likeHandler, returnValue;
+    beforeEach(function() {
+      spyOn($http, 'delete').andCallThrough();
+      likeHandler = $httpBackend.expectDELETE('/users/1/links/likes').respond(200);
+      returnValue = service.unlike({ userId: 1, commentId: 1 });
+      $httpBackend.flush();
+    });
+
+    afterEach(function() {
+      $httpBackend.verifyNoOutstandingExpectation();
+      $httpBackend.verifyNoOutstandingRequest();
+    });
+
+    it('should make a post request to correct api endpoint', function() {
+      expect($http.delete.callCount).toBe(1);
+      expect($http.delete).toHaveBeenCalledWith('/users/1/links/likes', { data: { comment_id: 1 }, method: 'delete', url: '/users/1/links/likes' });
+    });
+
+    it('should return promise', function() {
+      expectToBePromise(returnValue);
+    });
+  });
+
+  describe('Get user likes function', function() {
+    var getHandler, returnValue;
+    beforeEach(function() {
+      spyOn($http, 'get').andCallThrough();
+      getHandler = $httpBackend.expectGET('/users/1/links/likes').respond(200);
+      returnValue = service.getUserLikes(1);
+      $httpBackend.flush();
+    });
+
+    afterEach(function() {
+      $httpBackend.verifyNoOutstandingExpectation();
+      $httpBackend.verifyNoOutstandingRequest();
+    });
+
+    it('should make a post request to correct api endpoint', function() {
+      expect($http.get.callCount).toBe(1);
+      expect($http.get).toHaveBeenCalledWith('/users/1/links/likes');
+    });
+
+    it('should return promise', function() {
+      expectToBePromise(returnValue);
     });
   });
 });
