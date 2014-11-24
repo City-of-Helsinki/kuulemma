@@ -36,7 +36,6 @@
     margin-top: @comment-external-margin;
     padding: @comment-padding;
     background-color: @gray-background;
-    padding-bottom: 40px;
 
     h4 {
       margin-top: 0;
@@ -61,9 +60,16 @@
     }
 
     .info {
+      margin-bottom: 12px;
       padding-bottom: @comment-internal-margin;
       font-size: 15px;
+      line-height: 15px;
       border-bottom: 1px solid @border-color;
+    }
+
+    .tags li {
+      background-color: @yellow;
+      margin-bottom: 0;
     }
 
     .parent-preview {
@@ -81,13 +87,12 @@
     }
 
     .readmore, .readparent {
+      .klm-heading-mini;
       border: none;
       background-color: transparent;
       outline: none;
       box-shadow: none;
-      font-weight: bold;
-      font-size: 12px;
-      text-transform: uppercase;
+      margin-bottom: 0;
       font-style: normal;
     }
   }
