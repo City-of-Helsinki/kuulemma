@@ -1,5 +1,5 @@
 # -*coding: utf-8 -*-
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta
 from random import randrange
 
 from kuulemma.models import Alternative, Comment, Hearing, Image
@@ -171,6 +171,8 @@ def get_sample_hearing():
         published=True,
         main_image=get_image('Asemapiirros. Kuva: Arkkitehtitoimisto AJAK.'),
     )
+
+    hearing.slug = str(datetime.utcnow())
 
     hearing.images.append(
         get_image('Arkkitehdin luonnos uudesta rakennuksesta.')

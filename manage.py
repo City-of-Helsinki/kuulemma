@@ -51,9 +51,12 @@ def add_sample_data():
     from kuulemma.extensions import db
     from kuulemma.sample_data import get_sample_hearing
 
+    print('Start running script.')
     for _ in range(5):
         db.session.add(get_sample_hearing())
+        print('Hearing added.')
     db.session.commit()
+    print('Script completed succesfully.')
 
 
 @manager.command
