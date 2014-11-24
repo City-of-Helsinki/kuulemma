@@ -14,6 +14,7 @@ frontpage = Blueprint(
 def index():
     featured_hearing = (
         Hearing.query
+        .filter(Hearing.published)
         .order_by(db.desc(Hearing.closes_at))
         .limit(1)
         .first()
@@ -21,6 +22,7 @@ def index():
 
     latest_hearings = (
         Hearing.query
+        .filter(Hearing.published)
         .order_by(db.desc(Hearing.opens_at))
         .limit(5)
     )

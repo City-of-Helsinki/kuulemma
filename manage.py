@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import importlib
+
 from flask import current_app
 from flask.ext.failsafe import failsafe
 from flask.ext.script import Manager, Server
@@ -25,6 +27,19 @@ def make_shell_context():
     context.update(db.Model._decl_class_registry)
 
     return context
+
+
+@manager.command
+def run(script):
+    """Runs script from scripts folder in the application context.
+
+    Example: python manage.py run hearing.add_hameentie"""
+    module, function = script.rsplit('.', 1)
+    if not module.startswith('scripts.'):
+        module = 'scripts.%s' % module
+    module = importlib.import_module(module)
+    function = getattr(module, function)
+    function()
 
 
 @manager.command
