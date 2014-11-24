@@ -59,7 +59,7 @@ def hameentie():
     if not (current_user.is_official or current_user.is_admin):
         return abort(404)
 
-    HAMEENTIE_HEARING_ID = 1
+    HAMEENTIE_HEARING_ID = 11
     hearing = Hearing.query.get(HAMEENTIE_HEARING_ID)
 
     if not hearing:
