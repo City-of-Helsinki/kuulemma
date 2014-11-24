@@ -61,7 +61,7 @@ def login():
         else:
             flash(
                 'Syöttämäsi sähköpostiosoite ja salasana eivät täsmää.',
-                'error'
+                'danger'
             )
 
     return render_template('auth/login.html', form=form)

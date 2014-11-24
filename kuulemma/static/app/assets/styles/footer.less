@@ -2,9 +2,13 @@ footer {
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: @footer-height;
+  height: @footer-mobile-height;
   background-color: @footer-bg;
   color: @footer-color;
+
+  @media (min-width: @screen-sm-min) {
+    height: @footer-desktop-height;
+  }
 
   a {
     color: @footer-link-color;
@@ -14,39 +18,91 @@ footer {
   }
 
   > .container {
-    padding-top: @footer-padding-vertical;
-    padding-bottom: @footer-padding-vertical;
-  }
+    padding-top: @footer-mobile-padding-top;
+    padding-bottom: @footer-mobile-padding-bottom;
 
-  .content {
-    .make-row();
+    @media (min-width: @screen-sm-min) {
+      padding-top: @footer-desktop-padding-vertical;
+      padding-bottom: @footer-desktop-padding-vertical;
+    }
   }
 
   .brand {
     font-size: 32px;
     font-weight: bold;
-    .make-column(3, 3, 4);
+    height: @footer-mobile-brand-height;
+    text-align: center;
+
+    @media (min-width: @screen-sm-min) {
+      width: 350px;
+      float: left;
+      text-align: left;
+      height: auto;
+    }
+
     img {
-      max-height: 70px;
+      max-height: @logo-height;
       margin-right: @layout-margin-small;
     }
   }
 
   .footer-links {
-    .make-column(3, 3, 4);
-    .klm-heading-smaller;
+    text-align: center;
+
+    @media (min-width: @screen-sm-min) {
+      float: left;
+      width: auto;
+      text-align: left;
+    }
+
     ul {
       .reset-list();
+      li {
+        height: @footer-mobile-row-height;
+        line-height: @footer-mobile-row-height;
+        .klm-heading-medium;
+        text-transform: uppercase;
+        margin: 0;
+
+        @media (min-width: @screen-sm-min) {
+          height: inherit;
+          line-height: inherit;
+          .klm-heading-smaller;
+        }
+      }
     }
   }
 
   .footer-login {
-    .make-column-offset(3, 3, 0);
-    .make-column(3, 3, 4);
-    text-align: right;
+    @media (min-width: @screen-sm-min) {
+      float: right;
+    }
+
     ul.login {
       .reset-list();
-      .inline-list();
+      font-size: 18px;
+      height: @footer-mobile-row-height;
+      line-height: @footer-mobile-row-height;
+
+      @media (min-width: @screen-sm-min) {
+        .inline-list();
+        height: inherit;
+        line-height: inherit;
+        font-size: 15px;
+      }
+
+      li + li {
+        float: right;
+        @media (min-width: @screen-sm-min) {
+          float: none;
+        }
+      }
+      li {
+        float: left;
+        @media (min-width: @screen-sm-min) {
+          float: none;
+        }
+      }
     }
   }
 }

@@ -13,19 +13,34 @@
     margin-bottom: @margin-bottom;
 
     img {
+      display: none;
       float: left;
       width: @image-width;
+
+      @media (min-width: @screen-sm-min) {
+        display: block;
+      }
+    }
+
+    .tags {
+      margin-bottom: 0;
+
+      @media (min-width: @screen-sm-min) {
+        padding-left: @image-width + @horizontal-padding;
+      }
     }
 
     .content {
-      padding-top: @vertical-padding;
       padding-bottom: @vertical-padding;
-      padding-left: @image-width + @horizontal-padding;
-      padding-right: @info-width + @horizontal-padding;
+
+      @media (min-width: @screen-sm-min) {
+        padding-right: @info-width + @horizontal-padding;
+        padding-left: @image-width + @horizontal-padding;
+      }
 
       h3 {
         .klm-heading-small;
-        margin: 6px 0;
+        margin-bottom: 6px;
         a {
           color: @text-color-soft;
         }
@@ -34,12 +49,27 @@
 
     .info {
       position: absolute;
-      top: 50%;
       right: 0;
-      margin-top: -(@line-height / 2);
       line-height: @line-height;
       width: @info-width;
       text-align: right;
+      bottom: @vertical-padding;
+
+      @media (min-width: @screen-sm-min) {
+        top: 50%;
+        margin-top: -(@line-height / 2);
+      }
+
+      @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+        span {
+          display: block;
+
+          &.days-open {
+            margin-right: 0;
+            margin-bottom: @layout-margin-mini;
+          }
+        }
+      }
 
       .days-open {
         margin-right: @layout-margin-mini;

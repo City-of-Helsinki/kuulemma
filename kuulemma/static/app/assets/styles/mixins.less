@@ -1,15 +1,17 @@
 .make-column(@large, @medium, @small: 12, @tiny: 12) {
-  .make-lg-column(@large);
-  .make-md-column(@medium);
-  .make-sm-column(@small);
+  // Note that the order must be from smallest to biggest for responsiveness.
   .make-xs-column(@tiny);
+  .make-sm-column(@small);
+  .make-md-column(@medium);
+  .make-lg-column(@large);
 }
 
 .make-column-offset(@large, @medium, @small: 0, @tiny: 0) {
-  .make-lg-column-offset(@large);
-  .make-md-column-offset(@medium);
-  .make-sm-column-offset(@small);
+  // Note that the order must be from smallest to biggest for responsiveness.
   .make-xs-column-offset(@tiny);
+  .make-sm-column-offset(@small);
+  .make-md-column-offset(@medium);
+  .make-lg-column-offset(@large);
 }
 
 // Makes a fixed width column.
@@ -57,4 +59,15 @@
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+// Vertically aligns one or more rows of text inside the span of this element.
+.vertically-align-text(@line-height) {
+  min-height: 2 * @line-height;
+  line-height: 2 * @line-height;
+  span {
+    line-height: @line-height;
+    display: inline-block;
+    vertical-align: middle;
+  }
 }

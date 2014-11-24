@@ -1,7 +1,11 @@
 .home-page {
 
   .featured-hearing {
-    .make-fluid-column(left, @layout-column-width-large + @layout-margin-medium);
+    margin-bottom: @layout-margin-large;
+
+    @media (min-width: @screen-md-min) {
+      .make-fluid-column(left, @layout-column-width-large + @layout-margin-medium);
+    }
 
     .tags {
       margin-top: @layout-margin-mini;
@@ -9,8 +13,10 @@
 
     h2 {
       .klm-heading-medium;
-      color: @text-color-soft;
-      margin-bottom: @layout-margin-large;
+      margin-bottom: 0;
+      a {
+        color: @text-color-soft;
+      }
     }
 
     .info {
@@ -19,7 +25,10 @@
   }
 
   .latest-hearings {
-    .make-fluid-column(left, @layout-column-width-large + @layout-margin-medium);
+
+    @media (min-width: @screen-md-min) {
+      .make-fluid-column(left, @layout-column-width-large + @layout-margin-medium);
+    }
 
     h2 {
       margin-bottom: @layout-margin-medium;
@@ -27,7 +36,11 @@
   }
 
   .side-boxes {
-    .make-fixed-column(right, @layout-column-width-large);
+    margin-bottom: @layout-margin-large;
+
+    @media (min-width: @screen-md-min) {
+      .make-fixed-column(right, @layout-column-width-large);
+    }
 
     .feedback-box {
       padding: @layout-margin-large @layout-margin-small;

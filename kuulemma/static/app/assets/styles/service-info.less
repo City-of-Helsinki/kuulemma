@@ -1,7 +1,21 @@
 .service-info {
-  max-width: @layout-column-width-max;
+  .content {
+    p {
+      max-width: @layout-column-width-max;
+    }
+    @media (min-width: @screen-md-min) {
+      .make-fluid-column(right, @layout-column-width-medium + @layout-margin-large);
+    }
+  }
 
-  .register-details {
-    margin-top: @layout-margin-large;
+  .links {
+    margin-top: @layout-margin-medium;
+    a {
+      .klm-heading-small;
+    }
+    @media (min-width: @screen-md-min) {
+      .make-fixed-column(left, @layout-column-width-medium);
+      margin-top: 0;
+    }
   }
 }

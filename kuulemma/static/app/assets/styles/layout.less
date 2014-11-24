@@ -6,19 +6,41 @@ html {
 body {
   position: static !important; // To make the sticky navbar work.
   transform: none !important; // To make the sticky navbar work.
-  margin-bottom: @footer-height + @footer-margin;
+  margin-bottom: @footer-mobile-height + @footer-margin;
+  @media (min-width: @screen-sm-min) {
+    margin-bottom: @footer-desktop-height + @footer-margin;
+  }
 
   > .container {
-    padding-top: @navbar-margin-bottom;
+    padding-top: @navbar-height + @navbar-margin-bottom-mobile;
+    @media (min-width: @screen-md-min) {
+      padding-top: @navbar-margin-bottom;
+    }
   }
 
   .navbar > .container,
   footer > .container,
   > .container {
     width: 100%;
+    padding-left: @layout-margin-small;
+    padding-right: @layout-margin-small;
 
-    @media (min-width: 1200px) {
-      width: 1200px;
+    @media (min-width: @screen-sm-min) {
+      padding-left: @layout-margin-large;
+      padding-right: @layout-margin-large;
+    }
+
+    @media (min-width: @max-container-width) {
+      width: @max-container-width;
     }
   }
 }
+
+// These are needed to fix the media query issues in
+// Internet Explorer 10 in Windows 8 and Windows Phone 8.
+// See http://getbootstrap.com/getting-started/#support-ie10-width for more details.
+@-webkit-viewport   { width: device-width; }
+@-moz-viewport      { width: device-width; }
+@-ms-viewport       { width: device-width; }
+@-o-viewport        { width: device-width; }
+@viewport           { width: device-width; }

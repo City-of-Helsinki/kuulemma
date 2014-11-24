@@ -1,66 +1,27 @@
-// Styles for transitions from large to small navbar.
-
-.affix-top {
-  .navbar {
-    position: relative;
-  }
-}
-
-.affix {
-  > .container {
-    padding-top: @navbar-height + @navbar-margin-bottom + @navbar-height-small;
-  }
-
-  .navbar {
-    min-height: @navbar-height-small;
-    height: @navbar-height-small;
-    .navbar-brand {
-      .klm-heading-small;
-      height: @navbar-height-small;
-      margin-top: 0;
-      margin-bottom: 0;
-      line-height: @navbar-height-small;
-      color: white;
-      .animation(fadein 0.5s);
-
-      img {
-        max-height: @navbar-height-small - 8px;
-        .animation(fadein 0.5s);
-      }
-    }
-
-    .navbar-nav > li > a.navbar-info-link {
-      padding: 12px @layout-margin-medium;
-      .animation(fadein 0.5s);
-
-      .heading {
-        margin-bottom: 0;
-      }
-
-      .info {
-        display: none;
-      }
-    }
-    .login {
-      .animation(fadein 0.5s);
-      padding: 12px @navbar-padding-horizontal;
-    }
-  }
-}
-
+// Large navbar styles.
+//
 .navbar {
+  margin-bottom: 0;
+
   .navbar-header {
-    width: 400px;
-    margin-right: 20px;
+    width: 260px;
+    @media (min-width: @screen-lg-min) {
+      width: 400px;
+    }
   }
   .navbar-brand {
     .klm-heading-large;
+    font-size: 27px;
     margin-top: 0;
     margin-bottom: 0;
     padding-top: 0px;
     padding-bottom: 0px;
-    line-height: @navbar-height;
+    line-height: @navbar-height-large;
+    height: @navbar-height-large;
     color: white;
+    @media (min-width: @screen-lg-min) {
+      font-size: 31px;
+    }
 
     img {
       margin-right: 10px;
@@ -77,6 +38,7 @@
       padding: 0 @layout-margin-medium;
       padding-top: @navbar-padding-vertical;
       padding-bottom: @navbar-padding-vertical;
+      height: @navbar-height-large;
 
       .heading {
         display: block;
@@ -105,6 +67,103 @@
       &:hover {
         color: @navbar-inverse-link-hover-color;
       }
+    }
+  }
+}
+
+// Small navbar styles.
+//
+.small-navbar-styles {
+  min-height: @navbar-height;
+  height: auto;
+  .navbar-brand {
+    .klm-heading-small;
+    height: @navbar-height;
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: @navbar-height;
+    color: white;
+
+    img {
+      max-height: @navbar-height - 8px;
+    }
+  }
+
+  .navbar-nav > li > a.navbar-info-link {
+    padding: 12px @layout-margin-medium;
+    height: @navbar-height;
+
+    .heading {
+      margin-bottom: 0;
+    }
+
+    .info {
+      display: none;
+    }
+  }
+  .login {
+    padding: 12px @navbar-padding-horizontal;
+  }
+}
+
+
+// Styles for transitions from large to small navbar.
+//
+@media (min-width: @screen-md-min) {
+  .navbar {
+    position: relative;
+  }
+
+  .affix {
+    > .container {
+      padding-top: @navbar-height-large + @navbar-margin-bottom;
+    }
+
+    .navbar {
+      position: fixed;
+      .small-navbar-styles;
+
+      .navbar-brand {
+        .animation(fadein 0.5s);
+        img {
+          .animation(fadein 0.5s);
+        }
+      }
+
+      .navbar-nav > li > a.navbar-info-link {
+        span {
+          .animation(fadein 0.5s);
+        }
+      }
+      .login {
+        .animation(fadein 0.5s);
+      }
+    }
+  }
+}
+
+// Styles for mobile navbar,
+// The navbar styles must be desktop first to make the large navbar render
+// on desktop without flickering.
+//
+@media (max-width: @screen-sm-max) {
+  .navbar {
+    .small-navbar-styles;
+
+    .navbar-toggle {
+      margin-right: 0;
+    }
+
+    .navbar-nav {
+      margin: @layout-margin-mini -15px;
+
+      > li > a.navbar-info-link {
+        padding: 12px @layout-margin-small;
+      }
+    }
+
+    .login {
+      padding: 12px @layout-margin-small;
     }
   }
 }

@@ -46,16 +46,26 @@
 @layout-column-width-max: 600px;
 @layout-column-width-large: 310px;
 @layout-column-width-medium: 220px;
+@layout-column-width-medium-tablet: 180px;
 @layout-column-width-small: 120px;
 @layout-column-width-mini: 60px;
 
+@max-container-width: 1280px;
+
+// Point at which the navbar becomes uncollapsed.
+@grid-float-breakpoint:     @screen-md-min;
+
+// General
+//
+@logo-height: 70px;
 
 // Navbar
 //
-@navbar-height: 103px + 2 * @layout-margin-large;
+@navbar-height: 45px;
+@navbar-height-large: 103px + 2 * @layout-margin-large;
 @navbar-padding-vertical: @layout-margin-large;
-@navbar-height-small: 45px;
 @navbar-margin-bottom: @layout-margin-large;
+@navbar-margin-bottom-mobile: @layout-margin-small;
 @navbar-inverse-color: white;
 @navbar-inverse-bg: @blue-dark;
 @navbar-inverse-link-active-bg: @blue;
@@ -65,9 +75,14 @@
 
 // Footer
 //
-@footer-height: 125px;
+@footer-mobile-padding-top: @layout-margin-large;
+@footer-mobile-padding-bottom: @layout-margin-small;
+@footer-mobile-brand-height: @logo-height + @footer-mobile-padding-top;
+@footer-mobile-row-height: 48px;
+@footer-mobile-height: @footer-mobile-brand-height + 3 * @footer-mobile-row-height + @footer-mobile-padding-top + @footer-mobile-padding-bottom;
+@footer-desktop-padding-vertical: @layout-margin-large;
+@footer-desktop-height: @logo-height + 2 * @footer-desktop-padding-vertical;
 @footer-margin: @layout-margin-large;
-@footer-padding-vertical: @layout-margin-medium;
 @footer-bg: @gray-light;
 @footer-link-color: @text-color;
 @footer-link-color-hover: @text-color;
