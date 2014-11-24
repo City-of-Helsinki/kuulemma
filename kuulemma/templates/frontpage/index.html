@@ -7,13 +7,15 @@
   <div class="home-page">
     {% if featured_hearing %}
       <section class="featured-hearing">
-        <figure>
-          <figcaption>
-            <i class="fa fa-exclamation-circle"></i>
-            Puhuttava asia
-          </figcaption>
-          <img src="{{ featured_hearing.main_image.image_url }}" alt="{{ featured_hearing.main_image.caption }}">
-        </figure>
+        <a href="{{ url_for('hearing.show', hearing_id=featured_hearing.id, slug=featured_hearing.slug) }}">
+          <figure>
+            <figcaption>
+              <i class="fa fa-exclamation-circle"></i>
+              Puhuttava asia
+            </figcaption>
+            <img src="{{ featured_hearing.main_image.image_url }}" alt="{{ featured_hearing.main_image.caption }}">
+          </figure>
+        </a>
         <ul class="tags small">
           <li>Kaavoitus</li>
           <li>Punavuori</li>
@@ -28,7 +30,11 @@
             {{ featured_hearing.comment_count }} kpl.
           </div>
         </div>
-        <h2>{{ featured_hearing.title }}</h2>
+        <h2>
+          <a href="{{ url_for('hearing.show', hearing_id=featured_hearing.id, slug=featured_hearing.slug) }}">
+            {{ featured_hearing.title }}
+          </a>
+        </h2>
       </section>
     {% endif %}
 
