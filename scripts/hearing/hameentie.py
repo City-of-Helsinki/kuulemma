@@ -6,6 +6,8 @@ from datetime import date
 
 title = 'Millainen on Hämeentien tulevaisuus?'
 
+slug = 'hameentie'
+
 main_image = {
     'url': '/static/images/hameentie/main_image.jpg',
     'caption': (
@@ -178,6 +180,7 @@ alternative_3_body = '''
 # -------
 
 hearing = {
+    'slug': slug,
     'title': title,
     'main_image': main_image,
     'lead': lead,
