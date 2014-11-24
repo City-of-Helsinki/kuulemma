@@ -33,8 +33,8 @@ module.exports = {
     dest: dest + '/css'
   },
   img: {
-    src: [src + '/img/**'],
-    dest: dest + '/img'
+    src: [src + '/images/**'],
+    dest: dest + '/images'
   },
   server: {
     host: 'localhost',
