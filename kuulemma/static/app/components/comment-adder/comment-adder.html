@@ -22,7 +22,7 @@
         <div class="side-note short-side-note"><p>Voit halutessasi myös <a href="#" tabindex="-1">rekisteröityä</a>.</p></div>
       </div>
 
-      <div ng-if="!commentingOnComment()" class="form-group option-group">
+      <div ng-if="commentOptions.length > 1" class="form-group option-group">
         <label for="inputHearing" class="control-label">Mielipide liittyy</label>
         <div class="input-with-sidenote">
           <select class="form-control" ng-model="form.commentsOn" ng-options="option.label for option in commentOptions track by option.key"></select>

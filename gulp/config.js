@@ -16,7 +16,7 @@ module.exports = {
     src: {
       vendor: wiredep().js.concat([src + '/bower_components/moment/locale/fi.js']),
       vendorTest: wiredep({ devDependencies: true }).js.concat([src + '/bower_components/moment/locale/fi.js']),
-      app: [src + '/app/**/*.js', '!' + src + '/app/**/*_test.js'],
+      app: [src + '/app/app.js', src + '/app/**/*.js', '!' + src + '/app/**/*_test.js'],
       mocks: [src + '/mocks/**/*.js'],
       test: [src + '/app/**/*_test.js'],
       e2e: [root + '/tests/e2e/**/*.js']

@@ -94,6 +94,7 @@
                   {% for image in alternative.images %}
                     {{ render_image(image, 'Vaihtoehdon kuva') }}
                   {% endfor %}
+                <div comment-adder button-text="Kerro mielipiteesi tästä vaihtoehdosta ({{ alternative.letter }})" hearing-id="{{ hearing.id }}" context-list="alternative-{{ alternative.id }}:alternative"></div>
                 </section>
               </div>
             </article>
