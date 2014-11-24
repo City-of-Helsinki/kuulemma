@@ -19,6 +19,7 @@
         var L = $window.L;
         var map = L.map(element[0] ,{
           zoomControl:false,
+          scrollWheelZoom: false,
           dragging:false,
           touchZoom:false,
           tap:false,
@@ -33,7 +34,7 @@
             attribution: osmAttribution
         });
 
-        map.setView(new L.LatLng(scope.latitude,scope.longitude), zoom);
+        map.setView(new L.LatLng(scope.latitude, scope.longitude), zoom);
         map.addLayer(osm);
 
         if (scope.polygon) {
