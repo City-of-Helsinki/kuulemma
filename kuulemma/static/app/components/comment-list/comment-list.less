@@ -49,9 +49,14 @@
       right: @comment-padding;
       color: @text-color;
 
-      &:hover {
+      &.active:hover {
+        cursor: pointer;
         text-decoration: none;
         color: @text-color-soft;
+      }
+
+      &.liked {
+        color: @blue-darker;
       }
     }
 

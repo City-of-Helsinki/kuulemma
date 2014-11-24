@@ -1,9 +1,9 @@
 <article class="comment" data-id="{{ $parent.comment.id }}">
   <h4>{{ $parent.comment.title }}</h4>
-  <a href="#" class="like">
+  <span class="like" ng-class="{ liked: $parent.alreadyLiked($parent.comment.id), active: $parent.userId }" ng-click="$parent.toggleLike($parent.comment.id)">
     <i class="fa fa-thumbs-o-up"></i>
     <span class="like_count">{{ $parent.comment.like_count }}</span>
-  </a>
+  </span>
   <p class="info">{{ $parent.comment.created_at | dateTimeFormat }} &middot; {{ $parent.comment.username }}</p>
   <ul ng-if="$parent.comment.tag" class="tags">
     <li>{{ $parent.$parent.comment.tag }}</li>
