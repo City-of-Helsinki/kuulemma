@@ -1,0 +1,121 @@
+.alternative {
+  @letter-box-size: 64px;
+  @letter-font-size: 60px;
+  @collapser-font-size: 24px;
+
+  border-top: 1px solid @border-color;
+  margin-top: @layout-margin-small;
+
+  .preview {
+    .clearfix();
+    position: relative;
+
+    figure {
+      display: none;
+
+      @media (min-width: @screen-sm-min) {
+        display: block;
+        .make-fixed-column(left, @layout-column-width-medium-tablet);
+      }
+
+      @media (min-width: @screen-md-min) {
+        .make-fixed-column(left, @layout-column-width-medium);
+      }
+    }
+
+    .preview-text {
+      @media (min-width: @screen-sm-min) {
+        display: block;
+        .make-fluid-column(right, @layout-column-width-medium-tablet + @layout-margin-small);
+      }
+
+      @media (min-width: @screen-md-min) {
+        .make-fluid-column(right, @layout-column-width-medium + @layout-margin-small);
+      }
+    }
+  }
+
+  .collapser {
+    display: block;
+
+    &:after {
+      position: absolute;
+      height: @letter-font-size;
+      top: @layout-margin-mini + (@letter-font-size / 2) - (@collapser-font-size / 2);
+      right: 0;
+      content: "\f077";
+      font-family: FontAwesome;
+      font-size: @collapser-font-size;
+      color: @blue-dark;
+
+      @media (min-width: @screen-sm-min) {
+        margin-top: -(@collapser-font-size / 2);
+      }
+    }
+
+    &:hover {
+      text-decoration: none;
+
+      &:after {
+        color: @blue-darker;
+      }
+    }
+
+    &.collapsed:after {
+      content: "\f078";
+    }
+  }
+
+  .option {
+    position: absolute;
+    top: @layout-margin-small;
+    left: 0;
+    z-index: 20;
+    height: @letter-font-size;
+    width: @letter-font-size;
+    font-size: @letter-font-size;
+    line-height: @letter-font-size;
+    font-weight: normal;
+    color: @blue-dark;
+    background-color: white;
+
+    @media (min-width: @screen-sm-min) {
+      top: 0;
+      text-align: center;
+      line-height: 70px;
+    }
+  }
+
+  h3 {
+    .vertically-align-text(@letter-font-size / 2);
+    padding-left: @letter-font-size;
+    padding-right: @collapser-font-size + @layout-margin-mini;
+
+    @media (min-width: @screen-sm-min) {
+      padding-left: 0;
+      min-height: inherit;
+      line-height: inherit;
+      span {
+        line-height: inherit
+      }
+    }
+  }
+
+  .content {
+    figure {
+      margin-bottom: @layout-margin-mini;
+    }
+
+    @media (min-width: @screen-sm-min) {
+      padding-left: @layout-column-width-medium-tablet + @layout-margin-small;
+
+      .main-image {
+        display: none;
+      }
+    }
+
+    @media (min-width: @screen-md-min) {
+      padding-left: @layout-column-width-medium + @layout-margin-small;
+    }
+  }
+}

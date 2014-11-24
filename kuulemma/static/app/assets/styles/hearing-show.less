@@ -5,7 +5,9 @@
   }
 
   > aside {
-    .make-fixed-column(left, @layout-column-width-medium);
+    @media (min-width: @screen-md-min) {
+      .make-fixed-column(left, @layout-column-width-medium);
+    }
 
     h2:first-child {
       margin-top: 0;
@@ -14,6 +16,36 @@
     h2 {
       margin-top: @layout-margin-medium;
       margin-bottom: @layout-margin-mini;
+    }
+
+    .info {
+      margin-bottom: @layout-margin-medium;
+
+      span + span {
+        margin-left: @layout-margin-mini;
+      }
+
+      @media (min-width: @screen-md-min) {
+        span {
+          display: block;
+          + span {
+            margin-left: 0;
+          }
+        }
+      }
+    }
+
+    .additional-info {
+      float: left;
+      width: 50%;
+      margin-bottom: @layout-margin-medium;
+      padding-right: @layout-margin-small;
+
+      @media (min-width: @screen-md-min) {
+        float: none;
+        width: 100%;
+        padding-right: 0;
+      }
     }
 
     .table-of-contents {
@@ -36,13 +68,19 @@
     }
 
     .location-map {
-      margin-top: @layout-margin-medium;
+      margin-bottom: @layout-margin-medium;
+
+      @media (min-width: @screen-md-min) {
+        margin-top: @layout-margin-medium;
+      }
     }
 
   }
 
   > .content {
-    .make-fluid-column(right, @layout-column-width-medium + @layout-margin-medium);
+    @media (min-width: @screen-md-min) {
+      .make-fluid-column(right, @layout-column-width-medium + @layout-margin-medium);
+    }
 
     section + section {
       padding-top: 2 * @layout-margin-large;
@@ -56,66 +94,6 @@
           font-size: 22px;
         }
         font-size: 18px;
-      }
-    }
-
-    .alternative {
-      border-top: 1px solid @border-color;
-      margin-top: @layout-margin-small;
-
-      .preview {
-        .clearfix();
-        position: relative;
-
-        figure {
-          .make-fixed-column(left, @layout-column-width-medium);
-
-          .option {
-            @size: 64px;
-            position: absolute;
-            height: @size;
-            width: @size;
-            font-size: 60px;
-            line-height: 74px;
-            font-weight: normal;
-            color: @blue-dark;
-            background-color: white;
-            text-align: center;
-          }
-        }
-
-        .entry {
-          .make-fluid-column(right, @layout-column-width-medium + @layout-margin-small);
-          padding-right: @layout-column-width-mini;
-        }
-
-        .collapser {
-          height: 120px;
-          width: @layout-column-width-mini;
-          display: block;
-          position: absolute;
-          right: 0;
-
-          &:after {
-            @icon-font-size: 24px;
-            position: absolute;
-            top: 50%;
-            right: (@layout-column-width-mini / 2) - (@icon-font-size / 2);
-            margin-top: -(@icon-font-size / 2);
-            font-family: FontAwesome;
-            content: "\f077";
-            font-size: @icon-font-size;
-            color: @blue-dark;
-          }
-
-          &:hover:after {
-            color: @blue-darker;
-          }
-
-          &.collapsed:after {
-            content: "\f078";
-          }
-        }
       }
     }
 

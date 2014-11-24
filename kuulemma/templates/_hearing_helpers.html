@@ -3,12 +3,20 @@
     <a href="{{ url_for('hearing.show', slug=hearing.slug) }}">
       <img src="http://placehold.it/120x100" alt="Kuulemisen kuvan paikkamerkki">
     </a>
+    <ul class="tags small">
+      <li>Kaavoitus</li>
+      <li>Punavuori</li>
+    </ul>
     <div class="content">
+<<<<<<< HEAD
       <ul class="tags small">
         <li>Kaavoitus</li>
         <li>Punavuori</li>
       </ul>
       <h3><a href="{{ url_for('hearing.show', slug=hearing.slug) }}">{{ hearing.title }}</a></h3>
+=======
+      <h3><a href="{{ url_for('hearing.show', hearing_id=hearing.id, slug=hearing.slug) }}">{{ hearing.title }}</a></h3>
+>>>>>>> Add mobile styles to frontpage
       <span class="opened">
         Avattu
         <time datetime="{{ hearing.opens_at }}" class="opened">{{ hearing.opens_at|dateformat }}</time>
@@ -28,8 +36,8 @@
 {% endmacro %}
 
 
-{% macro render_image(image, alt) %}
-  <figure>
+{% macro render_image(image, alt, class=none) %}
+  <figure {% if class %}class="{{ class }}"{% endif %}>
     <img src="{{ image.image_url }}" alt="{{ alt }}">
     <figcaption>Kuva {{ image.number }}. {{ image.caption }}</figcaption>
   </figure>

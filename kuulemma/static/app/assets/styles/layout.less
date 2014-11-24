@@ -6,7 +6,10 @@ html {
 body {
   position: static !important; // To make the sticky navbar work.
   transform: none !important; // To make the sticky navbar work.
-  margin-bottom: @footer-height + @footer-margin;
+  margin-bottom: @footer-mobile-height + @footer-margin;
+  @media (min-width: @screen-sm-min) {
+    margin-bottom: @footer-desktop-height + @footer-margin;
+  }
 
   > .container {
     padding-top: @navbar-margin-bottom;
@@ -16,9 +19,16 @@ body {
   footer > .container,
   > .container {
     width: 100%;
+    padding-left: @layout-margin-small;
+    padding-right: @layout-margin-small;
 
-    @media (min-width: 1200px) {
-      width: 1200px;
+    @media (min-width: @screen-sm-min) {
+      padding-left: @layout-margin-large;
+      padding-right: @layout-margin-large;
+    }
+
+    @media (min-width: @max-container-width) {
+      width: @max-container-width;
     }
   }
 }

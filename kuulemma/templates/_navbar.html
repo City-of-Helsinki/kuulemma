@@ -1,0 +1,41 @@
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <div class="navbar-header">
+      <a class="navbar-brand" href="{{ url_for('frontpage.index') }}">
+        <img src="{{ url_for('static', filename='images/helsinki-coat-of-arms-white.png') }}" alt="Helsingin vaakuna">
+        <span>Kerrokantasi</span>
+      </a>
+    </div>
+    <div id="navbar-collapse" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li {% if hearing_page_active %}class="active"{% endif %}>
+          <a class="navbar-info-link" href="{{ url_for('hearing.index') }}">
+            <span class="heading">Kuulemiset</span>
+            <span class="info">
+              Kuulemisen tavoitteena on taata kuntalaisille mahdollisuus vaikuttaa käsiteltäviin asioihin.
+            </span>
+          </a>
+        </li>
+        <li {% if request.endpoint == 'static_pages.service_info' %}class="active"{% endif %}>
+          <a class="navbar-info-link" href="{{ url_for('static_pages.service_info') }}">
+            <span class="heading">Tietoa palvelusta</span>
+            <span class="info">
+              Tämä on palvelun väliaikainen prototyyppi, joka on saatavilla toistaiseksi vain suomeksi.
+            </span>
+          </a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          {% include "_auth_links.html" %}
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
