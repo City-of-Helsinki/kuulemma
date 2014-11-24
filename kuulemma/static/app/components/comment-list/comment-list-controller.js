@@ -1,12 +1,40 @@
 'use strict';
 
 angular.module('kuulemmaApp')
-  .controller('CommentListController', function ($scope, $rootScope, CommentListService, $attrs, $timeout) {
-    $scope.hearingId = $attrs.hearingId;
-    CommentListService.get($scope.hearingId).then(function(response) {
-      $scope.comments = response.data.comments || [];
+  .controller('CommentListController', function ($scope, $q, $rootScope, CommentListService, $timeout) {
+    var hearingComments = CommentListService.get($scope.hearingId);
+    var userLikes = CommentListService.getUserLikes($scope.userId);
+
+    $q.all([hearingComments, userLikes]).then(function(response) {
+      $scope.comments = response[0].data.comments || [];
       $scope.popularComments = getPopularComments();
+      $scope.userLikes = response[1].data.comments || [];
     });
+
+    $scope.toggleLike = function(commentId) {
+      var comment = _.findWhere($scope.comments, { id: commentId });
+      if($scope.alreadyLiked(commentId)) {
+        $scope.userLikes = _.without($scope.userLikes, commentId);
+        comment.like_count--;
+        CommentListService.unlike({ userId: $scope.userId, commentId: commentId })
+          .error(function() {
+            $scope.userLikes.push(commentId);
+            comment.like_count++;
+        });
+      } else {
+        $scope.userLikes.push(commentId);
+        comment.like_count++;
+        CommentListService.like({ userId: $scope.userId, commentId: commentId })
+          .error(function() {
+            $scope.userLikes = _.without($scope.userLikes, commentId);
+            comment.like_count--;
+        });
+      }
+    };
+
+    $scope.alreadyLiked = function(commentId) {
+      return _.contains($scope.userLikes, commentId);
+    };
 
     function getPopularComments() {
       return _.sortBy($scope.comments, function(comment) {
@@ -14,7 +42,7 @@ angular.module('kuulemmaApp')
       });
     }
 
-    $rootScope.$on('hearing-' + $attrs.hearingId + '-comment-added', function(event, comment) {
+    $rootScope.$on('hearing-' + $scope.hearingId + '-comment-added', function(event, comment) {
       var scrollDuration = 200;
       $scope.scrollToCommentsTop({ duration: scrollDuration });
       $timeout(function() {
