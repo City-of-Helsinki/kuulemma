@@ -9,6 +9,7 @@ def _add_hearing(hearing_data):
     ))
 
     hearing = Hearing(
+        slug=hearing_data['slug'],
         title=hearing_data['title'].strip(),
         lead=hearing_data['lead'].strip(),
         body=hearing_data['body'].strip(),
