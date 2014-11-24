@@ -4,9 +4,7 @@ from kuulemma.models import Alternative, Hearing, Image
 
 
 def _add_hearing(hearing_data):
-    print('Start adding hearing: "{title}".'.format(
-        title=hearing_data['title'].strip()
-    ))
+    print('Start adding hearing.')
 
     hearing = Hearing(
         slug=hearing_data['slug'],
@@ -24,7 +22,7 @@ def _add_hearing(hearing_data):
     )
     print('Main content added.')
 
-    for alternative_data in hearing_data['alternatives']:
+    for index, alternative_data in enumerate(hearing_data['alternatives']):
         alternative = Alternative(
             title=alternative_data['title'].strip(),
             lead=alternative_data['lead'].strip(),
@@ -37,9 +35,7 @@ def _add_hearing(hearing_data):
         )
 
         hearing.alternatives.append(alternative)
-        print('Alternative "{title}"" added.'.format(
-            title=alternative_data['title'].strip()
-        ))
+        print('Alternative {index} added.'.format(index=index + 1))
 
     db.session.add(hearing)
     db.session.commit()
