@@ -43,3 +43,8 @@ def _add_hearing(hearing_data):
     db.session.add(hearing)
     db.session.commit()
     print('Script completed! Hearing was successfully added.')
+
+
+def add_hameentie():
+    from .hameentie import hearing
+    _add_hearing(hearing)
