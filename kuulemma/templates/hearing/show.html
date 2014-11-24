@@ -76,11 +76,9 @@
           {% for alternative in hearing.alternatives %}
             <article class="alternative">
               <section class="preview">
-                <a data-toggle="collapse" data-parent=".alternatives" href="#alternative-{{ alternative.id }}" class="collapser collapsed">
+                <a data-toggle="collapse" href="#alternative-{{ alternative.id }}" class="collapser collapsed">
                   <span class="option">{{ alternative.letter }}</span>
-                  <figure>
-                    <img src="{{ alternative.main_image.image_url }}" alt="Vaihtoehdon pääkuva">
-                  </figure>
+                  {{ render_image(alternative.main_image, 'Vaihtoehdon pääkuva') }}
                   <span class="preview-text">
                     <h3><span>{{ alternative.title }}</span></h3>
                     <p>{{ alternative.lead }}</p>
