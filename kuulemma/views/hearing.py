@@ -1,4 +1,5 @@
-from flask import Blueprint, redirect, render_template, url_for
+from flask import abort, Blueprint, redirect, render_template, url_for
+from flask.ext.login import current_user
 
 from ..models import Hearing
 
@@ -12,7 +13,11 @@ hearing = Blueprint(
 # Redirects to the first hearing before the real index page is implemented.
 @hearing.route('')
 def index():
-    hearing = Hearing.query.first()
+    hearing = (
+        Hearing.query
+        .filter(Hearing.published)
+        .first()
+    )
     if not hearing:
         return redirect(url_for('frontpage.index'))
 
@@ -26,6 +31,13 @@ def index():
 @hearing.route('/<int:hearing_id>-<slug>')
 def show(hearing_id, slug):
     hearing = Hearing.query.get_or_404(hearing_id)
+
+    if not (
+        hearing.published or
+        current_user.is_authenticated() and
+        (current_user.is_official or current_user.is_admin)
+    ):
+        return abort(404)
 
     if hearing.slug != slug:
         return redirect(
