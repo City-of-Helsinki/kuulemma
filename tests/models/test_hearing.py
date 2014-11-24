@@ -2,13 +2,14 @@
 from datetime import date, datetime, timedelta
 
 import pytest
-from inflection import parameterize
 from sqlalchemy_continuum.utils import count_versions
 from sqlalchemy_utils import (
     assert_max_length,
     assert_non_nullable,
     assert_nullable
 )
+
+from tests.asserts.models import assert_unique
 
 from ..factories import (
     AlternativeFactory,
@@ -26,9 +27,6 @@ class TestHearing(object):
     def test_repr(self, hearing):
         expected = '<Hearing title=\'{title}\'>'.format(title=hearing.title)
         assert repr(hearing) == expected
-
-    def test_uses_parametrized_title_as_slug(self, hearing):
-        assert hearing.slug == parameterize(hearing.title)
 
     def test_commentable_id(self, hearing):
         expected = 'hearing-{id}'.format(id=hearing.id)
@@ -76,6 +74,7 @@ class TestHearingWithDatabase(object):
             'title',
             'lead',
             'body',
+            'slug',
             'published'
         ]
     )
@@ -102,6 +101,9 @@ class TestHearingWithDatabase(object):
 
     def test_body_defaults_to_empty_string(self):
         assert HearingFactory(body=None).body == ''
+
+    def test_slug_is_unique(self):
+        assert_unique(HearingFactory, 'slug')
 
     def test_opens_at_is_nullable(self, hearing):
         assert_nullable(hearing, 'opens_at')

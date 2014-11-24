@@ -7,18 +7,19 @@ from tests.sqlalchemy_model_factory import SQLAlchemyModelFactory
 
 class AlternativeFactory(SQLAlchemyModelFactory):
     FACTORY_FOR = Alternative
-    title = factory.Sequence(lambda n: u'Alternative {0}'.format(n))
+    title = factory.Sequence(lambda n: 'Alternative {0}'.format(n))
 
 
 class HearingFactory(SQLAlchemyModelFactory):
     FACTORY_FOR = Hearing
-    title = factory.Sequence(lambda n: u'Hearing {0}'.format(n))
+    title = factory.Sequence(lambda n: 'Hearing {0}'.format(n))
+    slug = factory.Sequence(lambda n: 'slug-{0}'.format(n))
 
 
 class CommentFactory(SQLAlchemyModelFactory):
     FACTORY_FOR = Comment
-    title = factory.Sequence(lambda n: u'Comment {0}'.format(n))
-    username = factory.Sequence(lambda n: u'Commenter {0}'.format(n))
+    title = factory.Sequence(lambda n: 'Comment {0}'.format(n))
+    username = factory.Sequence(lambda n: 'Commenter {0}'.format(n))
     hearing = factory.SubFactory(HearingFactory)
 
 

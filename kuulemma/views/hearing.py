@@ -6,12 +6,12 @@ from ..models import Hearing
 hearing = Blueprint(
     name='hearing',
     import_name=__name__,
-    url_prefix='/kuulemiset'
+    url_prefix=''
 )
 
 
 # Redirects to the first hearing before the real index page is implemented.
-@hearing.route('')
+@hearing.route('/kuulemiset')
 def index():
     hearing = (
         Hearing.query
@@ -21,16 +21,19 @@ def index():
     if not hearing:
         return redirect(url_for('frontpage.index'))
 
-    return redirect(url_for(
-        'hearing.show',
-        hearing_id=hearing.id,
-        slug=hearing.slug
-    ))
+    return redirect(url_for('hearing.show', slug=hearing.slug))
 
 
-@hearing.route('/<int:hearing_id>-<slug>')
-def show(hearing_id, slug):
-    hearing = Hearing.query.get_or_404(hearing_id)
+@hearing.route('/<slug>')
+def show(slug):
+    hearing = (
+        Hearing.query
+        .filter(Hearing.slug == slug)
+        .first()
+    )
+
+    if not hearing:
+        return abort(404)
 
     if not (
         hearing.published or
@@ -38,11 +41,6 @@ def show(hearing_id, slug):
         (current_user.is_official or current_user.is_admin)
     ):
         return abort(404)
-
-    if hearing.slug != slug:
-        return redirect(
-            url_for('hearing.show', hearing_id=hearing_id, slug=hearing.slug)
-        )
 
     commentable_sections_string = hearing.get_commentable_sections_string()
 

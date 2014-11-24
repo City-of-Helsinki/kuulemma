@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from datetime import date
 
-from inflection import parameterize
 from sqlalchemy.ext.orderinglist import ordering_list
 
 from kuulemma.extensions import db
@@ -16,6 +15,14 @@ class Hearing(db.Model, TextItemMixin):
     __tablename__ = 'hearing'
 
     id = db.Column(db.Integer, primary_key=True)
+
+    slug = db.Column(
+        db.Unicode(255),
+        nullable=False,
+        unique=True,
+        default='',
+        server_default=''
+    )
 
     opens_at = db.Column(
         db.Date,
@@ -88,10 +95,6 @@ class Hearing(db.Model, TextItemMixin):
             id=self.commentable_id,
             name=self.commentable_name
         )
-
-    @property
-    def slug(self):
-        return parameterize(self.title)
 
     @property
     def days_open(self):
