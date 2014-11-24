@@ -1,35 +1,95 @@
+// Styles for transitions from large to small navbar.
+
+.affix-top {
+  .navbar {
+    position: relative;
+  }
+}
+
+.affix {
+  > .container {
+    padding-top: @navbar-height + @navbar-margin-bottom + @navbar-height-small;
+  }
+
+  .navbar {
+    min-height: @navbar-height-small;
+    height: @navbar-height-small;
+    .navbar-brand {
+      .klm-heading-small;
+      height: @navbar-height-small;
+      margin-top: 0;
+      margin-bottom: 0;
+      line-height: @navbar-height-small;
+      color: white;
+      .animation(fadein 0.5s);
+
+      img {
+        max-height: @navbar-height-small - 8px;
+        .animation(fadein 0.5s);
+      }
+    }
+
+    .navbar-nav > li > a.navbar-info-link {
+      padding: 12px @layout-margin-medium;
+      .animation(fadein 0.5s);
+
+      .heading {
+        margin-bottom: 0;
+      }
+
+      .info {
+        display: none;
+      }
+    }
+    .login {
+      .animation(fadein 0.5s);
+      padding: 12px @navbar-padding-horizontal;
+    }
+  }
+}
+
 .navbar {
   .navbar-header {
+    width: 400px;
     margin-right: 20px;
   }
   .navbar-brand {
-    font-size: 17px;
-    font-weight: bold;
+    .klm-heading-large;
+    margin-top: 0;
+    margin-bottom: 0;
     padding-top: 0px;
     padding-bottom: 0px;
     line-height: @navbar-height;
+    color: white;
 
     img {
       margin-right: 10px;
+      max-height: 70px;
     }
   }
 
   .navbar-nav > li > a {
     .klm-heading-smaller;
     color: white;
-  }
 
-  img {
-    max-height: @navbar-height - 8px;
-  }
+    &.navbar-info-link {
+      width: 240px;
+      padding: 0 @layout-margin-medium;
+      padding-top: @navbar-padding-vertical;
+      padding-bottom: @navbar-padding-vertical;
 
-  .profile-img {
-    float: left;
-    line-height: @navbar-height;
-    a {
-      line-height: @navbar-height;
-      padding-top: 0px;
-      padding-bottom: 0px;
+      .heading {
+        display: block;
+        margin-bottom: @layout-margin-mini;
+      }
+
+      .info {
+        display: block;
+        font-weight: normal;
+        font-size: 13px;
+        line-height: 18px;
+        text-transform: none;
+      }
     }
   }
 
