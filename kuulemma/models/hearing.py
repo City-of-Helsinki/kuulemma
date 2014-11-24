@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from datetime import date
 
+from geoalchemy2 import Geometry
+from geoalchemy2.shape import from_shape, to_shape
 from sqlalchemy.ext.orderinglist import ordering_list
 
 from kuulemma.extensions import db
@@ -76,6 +78,10 @@ class Hearing(db.Model, TextItemMixin):
         collection_class=ordering_list('position'),
         backref='hearing'
     )
+
+    _map_coordinates = db.Column(Geometry('POINT'))
+
+    _area = db.Column(Geometry('POLYGON'))
 
     @property
     def commentable_id(self):
@@ -170,3 +176,31 @@ class Hearing(db.Model, TextItemMixin):
             )
 
         return sections_string
+
+    @property
+    def area(self):
+        if self._area is not None:
+            return to_shape(self._area)
+        return self._area
+
+    @area.setter
+    def area(self, value):
+        self._area = from_shape(value)
+
+    @property
+    def map_coordinates(self):
+        if self._map_coordinates is not None:
+            return to_shape(self._map_coordinates)
+        return self._map_coordinates
+
+    @map_coordinates.setter
+    def map_coordinates(self, value):
+        self._map_coordinates = from_shape(value)
+
+    @property
+    def area_as_string(self):
+        coords = list(self.area.exterior.coords)
+        rv = ""
+        for point in coords:
+            rv = "%s%0.4f,%0.4f " % (rv, point[0], point[1])
+        return rv

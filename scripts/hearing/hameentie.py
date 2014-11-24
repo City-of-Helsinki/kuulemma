@@ -59,6 +59,10 @@ closes_at = date(2014, 12, 31)
 
 published = False
 
+map_coordinates = (60.17, 24.95)
+
+area = [(60.168, 24.947), (60.173, 24.947), (60.168, 24.952)]
+
 # Alternative 1
 # -------------
 
@@ -189,6 +193,8 @@ hearing = {
     'opens_at': opens_at,
     'closes_at': closes_at,
     'published': published,
+    'map_coordinates': map_coordinates,
+    'area': area,
     'alternatives': [
         {
             'title': alternative_1_title,

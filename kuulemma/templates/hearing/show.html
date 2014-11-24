@@ -58,7 +58,11 @@
         </p>
       </div>
 
-      <div location-map class="location-map" latitude="60.17" longitude="24.95" polygon="60.168,24.947 60.173,24.947 60.168,24.952"></div>
+      <div location-map class="location-map"
+        latitude="{{ hearing.map_coordinates.x|string }}"
+        longitude="{{ hearing.map_coordinates.y|string }}"
+        polygon="{{ hearing.area_as_string }}">
+      </div>
     </aside>
 
     <div class="content">
