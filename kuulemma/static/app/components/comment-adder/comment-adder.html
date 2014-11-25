@@ -35,9 +35,9 @@
       <div class="form-group">
         <label for="commentContent" class="control-label">Mielipiteeni</label>
         <div>
-          <textarea class="form-control" name="body" id="inputSubject" cols="30" rows="10" ng-model="form.body" ng-required ng-maxlength="10000"></textarea>
+          <textarea class="form-control" name="body" id="inputSubject" cols="30" rows="10" ng-model="form.body" ng-required ng-maxlength="5000"></textarea>
           <span class="validation-error" ng-if="(newCommentForm.$submitted || newCommentForm.body.$touched) && newCommentForm.body.$error.required">Mielipiteeni on pakollinen kenttä</span>
-          <span class="validation-error" ng-if="(newCommentForm.$submitted || newCommentForm.body.$touched) && newCommentForm.body.$error.maxlength">Mielipiteen enimmäispituus on 10 000 merkkiä</span>
+          <span class="validation-error" ng-if="(newCommentForm.$submitted || newCommentForm.body.$touched) && newCommentForm.body.$error.maxlength">Mielipiteen enimmäispituus on 5 000 merkkiä</span>
         </div>
       </div>
 
