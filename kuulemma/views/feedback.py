@@ -1,4 +1,4 @@
-from flask import Blueprint, abort, jsonify, request
+from flask import abort, Blueprint, jsonify, request
 from flask.ext.mail import Message
 
 from kuulemma.extensions import db, mail
