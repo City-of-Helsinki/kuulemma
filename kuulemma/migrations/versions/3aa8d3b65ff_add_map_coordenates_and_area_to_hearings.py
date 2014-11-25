@@ -2,7 +2,7 @@
 
 # revision identifiers, used by Alembic.
 revision = '3aa8d3b65ff'
-down_revision = '4f28160821c'
+down_revision = '15b72abdb27'
 
 import geoalchemy2 as ga
 import sqlalchemy as sa
