@@ -118,4 +118,72 @@ describe('Service: CommentListService', function () {
       expectToBePromise(returnValue);
     });
   });
+
+  describe('Hiding comments', function() {
+    var putHandler, returnValue, testData;
+    beforeEach(function() {
+      testData = {
+        comment: {
+          id: 2,
+          body: 'Hello!',
+          title: 'Title',
+          username: 'tester',
+          is_hidden: true
+        },
+        hearingId: 1
+      };
+      spyOn($http, 'put').andCallThrough();
+      putHandler = $httpBackend.expectPUT('/hearings/1/links/comments/2').respond(200);
+      returnValue = service.hideComment(testData);
+      $httpBackend.flush();
+    });
+
+    afterEach(function() {
+      $httpBackend.verifyNoOutstandingExpectation();
+      $httpBackend.verifyNoOutstandingRequest();
+    });
+
+    it('should make a put request to correct api endpoint', function() {
+      expect($http.put.callCount).toBe(1);
+      expect($http.put).toHaveBeenCalledWith('/hearings/1/links/comments/2', {body: 'Hello!', title: 'Title', username: 'tester', is_hidden: true});
+    });
+
+    it('should return promise', function() {
+      expectToBePromise(returnValue);
+    });
+  });
+
+  describe('Unhiding comments', function() {
+    var putHandler, returnValue, testData;
+    beforeEach(function() {
+      testData = {
+        comment: {
+          id: 2,
+          body: 'Hello!',
+          title: 'Title',
+          username: 'tester',
+          is_hidden: false
+        },
+        hearingId: 1
+      };
+      spyOn($http, 'put').andCallThrough();
+      putHandler = $httpBackend.expectPUT('/hearings/1/links/comments/2').respond(200);
+      returnValue = service.unhideComment(testData);
+      $httpBackend.flush();
+    });
+
+    afterEach(function() {
+      $httpBackend.verifyNoOutstandingExpectation();
+      $httpBackend.verifyNoOutstandingRequest();
+    });
+
+    it('should make a put request to correct api endpoint', function() {
+      expect($http.put.callCount).toBe(1);
+      expect($http.put).toHaveBeenCalledWith('/hearings/1/links/comments/2', { is_hidden : false, body : 'Hello!', title : 'Title', username : 'tester' });
+    });
+
+    it('should return promise', function() {
+      expectToBePromise(returnValue);
+    });
+  });
 });

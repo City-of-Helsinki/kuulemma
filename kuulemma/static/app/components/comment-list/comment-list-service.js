@@ -23,10 +23,30 @@ angular.module('kuulemmaApp')
       });
     }
 
+    function hideComment(params) {
+      return $http.put('/hearings/' + params.hearingId + '/links/comments/' + params.comment.id, {
+        is_hidden: true,
+        body: params.comment.body,
+        title: params.comment.title,
+        username: params.comment.username
+      });
+    }
+
+    function unhideComment(params) {
+      return $http.put('/hearings/' + params.hearingId + '/links/comments/' + params.comment.id, {
+        is_hidden: false,
+        body: params.comment.body,
+        title: params.comment.title,
+        username: params.comment.username
+      });
+    }
+
     return {
       get: get,
       like: like,
       unlike: unlike,
-      getUserLikes: getUserLikes
+      getUserLikes: getUserLikes,
+      hideComment: hideComment,
+      unhideComment: unhideComment
     };
   });
