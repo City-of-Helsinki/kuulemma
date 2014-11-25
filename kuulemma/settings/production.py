@@ -62,3 +62,10 @@ CSRF_COOKIE_SECURE = True
 # ----------
 
 SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
+
+
+#
+# Analytics
+#
+
+PIWIK_ON = True
