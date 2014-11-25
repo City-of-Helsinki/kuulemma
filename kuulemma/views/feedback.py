@@ -1,7 +1,9 @@
 from flask import Blueprint, jsonify, request
+from flask.ext.mail import Message
 
-from kuulemma.extensions import db
+from kuulemma.extensions import db, mail
 from kuulemma.models import Feedback
+from kuulemma.settings.base import FEEDBACK_RECIPIENTS
 
 feedback = Blueprint(
     name='feedback',
@@ -23,6 +25,15 @@ def create():
     feedback = Feedback(content=content)
     db.session.add(feedback)
     db.session.commit()
+
+    message = Message(
+        sender='noreply@hel.fi',
+        recipients=FEEDBACK_RECIPIENTS,
+        charset='utf8',
+        subject='Kerrokantasi palaute',
+        body=feedback.content
+    )
+    mail.send(message)
 
     return jsonify({
         'feedback': {
