@@ -51,12 +51,19 @@
       <div ng-class="{disabled: !form.follow}" class="side-note"><p>Sähköpostin lähettämistä varten anna sähköpostiosoitteesi tai  <a href="#" tabindex="-1">rekisteröidy</a>.</p></div>
     </div>
 
+    <div class="form-group hp">
+      <label for="inputInfo" class="control-label">Control</label>
+      <input type="text" class="form-control" id="inputHP" ng-model="form.hp">
+    </div>
+
     <div class="form-group submit-group">
       <div class="submit-container" ng-class="{'no-follow': commentingOnComment()}">
         <button type="submit">Lähetä ja julkaise</button>
       </div>
       <p class="disclaimer">Lähettämällä mielipiteesi annat suostumuksesi viestisi julkaisemiseen. Ks. <a href="/tietoa-palvelusta">tietoa palvelusta</a>.</p>
     </div>
+
+
   </form>
   </section>
 </div>

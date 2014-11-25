@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, abort, jsonify, request
 from flask.ext.mail import Message
 
 from kuulemma.extensions import db, mail
@@ -17,11 +17,12 @@ def create():
     if not request.get_json():
         return jsonify({'error': 'Data should be in json format'}), 400
 
-    content = request.get_json().get('content', '')
+    if is_spam(request.get_json()):
+        abort(400)
 
+    content = request.get_json().get('content', '')
     if not content:
         return jsonify({'error': 'There was no content'}), 400
-
     feedback = Feedback(content=content)
     db.session.add(feedback)
     db.session.commit()
@@ -41,3 +42,7 @@ def create():
             'content': feedback.content
         }
     }), 201
+
+
+def is_spam(json):
+    return json.get('hp') is not None

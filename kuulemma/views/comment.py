@@ -51,6 +51,9 @@ def create(hearing_id):
     if errors:
         return jsonify({'error': errors}), 400
 
+    if is_spam(request.get_json()):
+        abort(400)
+
     commented_object = (
         COMMENTABLE_TYPES[data['object_type']].query
         .get(int(data['object_id']))
@@ -87,7 +90,7 @@ def update(hearing_id, comment_id):
     Hearing.query.get_or_404(hearing_id)
     comment = Comment.query.get_or_404(comment_id)
 
-    if not request.get_json():
+    if not request.get_json() or is_spam(request.get_json()):
         abort(400)
 
     schema = CommentSchema(
@@ -111,3 +114,7 @@ def update(hearing_id, comment_id):
     )
 
     return jsonify({'comment': serialized.data}), 200
+
+
+def is_spam(json):
+    return json.get('hp') is not None
