@@ -11,6 +11,7 @@
     };
 
     $scope.toggleFeedbackBox = function() {
+      $scope.buttonText = ''
       if ($scope.feedbackBoxOpen) {
         $scope.closeFeedbackBox();
       } else {
@@ -23,6 +24,7 @@
       request.success(function(response) {
         $rootScope.$broadcast('feedback-added', response.feedbacks);
         $scope.emptyForm();
+        $scope.thankUser();
       });
     };
 
@@ -32,6 +34,11 @@
       };
       $scope.form = angular.copy(emptyFields);
     };
+
+    $scope.thankUser = function() {
+      $scope.closeFeedbackBox();
+      $scope.buttonText = 'Kiitoksia palautteesta!'
+    }
 
     $scope.emptyForm();
   });
