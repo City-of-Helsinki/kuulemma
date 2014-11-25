@@ -79,8 +79,6 @@ class Hearing(db.Model, TextItemMixin):
         backref='hearing'
     )
 
-    _map_coordinates = db.Column(Geometry('POINT'))
-
     _area = db.Column(Geometry('POLYGON'))
 
     @property
@@ -187,20 +185,23 @@ class Hearing(db.Model, TextItemMixin):
     def area(self, value):
         self._area = from_shape(value)
 
+    @staticmethod
+    def _get_polygon_center(polygon):
+        from shapely.geometry import Point
+        x0, y0, x1, y1 = polygon.bounds
+        y = y0 + ((y1 - y0) / 2)
+        x = x0 + ((x1 - x0) / 2)
+        return Point(x, y)
+
     @property
     def map_coordinates(self):
-        if self._map_coordinates is not None:
-            return to_shape(self._map_coordinates)
-        return self._map_coordinates
-
-    @map_coordinates.setter
-    def map_coordinates(self, value):
-        self._map_coordinates = from_shape(value)
+        if self.area:
+            return self._get_polygon_center(self.area)
+        return None
 
     @property
-    def area_as_string(self):
-        coords = list(self.area.exterior.coords)
-        rv = ""
-        for point in coords:
-            rv = "%s%0.4f,%0.4f " % (rv, point[0], point[1])
-        return rv
+    def area_as_geoJSON_string(self):
+        import json
+        from shapely.geometry import mapping, shape
+
+        return json.dumps(mapping(self.area)) or "{}"

@@ -9,13 +9,6 @@
         polygon: '@'
       },
       link: function(scope, element) {
-        var parsePolygon = function (polygon) {
-          return _.map(polygon.split(' '), function(vertex){
-            return _.map(vertex.split(','), function(coordenate) {
-              return parseFloat(coordenate);
-            });
-          });
-        };
         var L = $window.L;
         var map = L.map(element[0] ,{
           zoomControl:false,
@@ -36,11 +29,10 @@
 
         map.setView(new L.LatLng(scope.latitude, scope.longitude), zoom);
         map.addLayer(osm);
-
         if (scope.polygon) {
-          L.polygon(parsePolygon(scope.polygon)).addTo(map);
+          var poly = L.geoJson(JSON.parse(scope.polygon));
+          poly.addTo(map);
         }
-
       }
     };
   });

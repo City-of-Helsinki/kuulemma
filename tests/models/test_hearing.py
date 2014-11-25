@@ -2,6 +2,7 @@
 from datetime import date, datetime, timedelta
 
 import pytest
+from shapely.geometry import Polygon, Point
 from sqlalchemy_continuum.utils import count_versions
 from sqlalchemy_utils import (
     assert_max_length,
@@ -345,52 +346,43 @@ class TestGetCommentableSectionsString(object):
 
 
 @pytest.mark.usefixtures('database')
-class TestMapCoordenates(object):
+class TestMapCoordinates(object):
     @pytest.fixture
     def hearing(self):
         return HearingFactory()
 
     @pytest.fixture
     def map_hearing(self):
-        from shapely.geometry import Polygon, Point
         hearing = HearingFactory(
-            area=Polygon([(0, 0), (1, 1), (1, 0), (0.5, 0.5)]),
-            map_coordinates=Point((1, 1))
+            area=Polygon([(0, 0), (1, 2), (1, 0), (0.5, 0.5)]),
         )
         return hearing
 
-    def test_map_coordinates_setter(self, hearing):
-        from shapely.geometry import Point
-        from kuulemma.extensions import db
-        assert hearing._map_coordinates is None
-        assert hearing.map_coordinates is None
-        point = Point((1, 1))
-        hearing.map_coordinates = point
-        db.session.commit()
-        assert hearing.map_coordinates is not None
-        assert hearing._map_coordinates is not None
-
     def test_area_setter(self, hearing):
-        from shapely.geometry import Polygon
         from kuulemma.extensions import db
         assert hearing._area is None
         assert hearing.area is None
-        area = Polygon([(0, 0), (1, 1), (1, 0), (0.5, 0.5)])
+        area = Polygon([(0, 0), (1, 2), (1, 0), (0.5, 0.5)])
         hearing.area = area
         db.session.commit()
         assert hearing.area is not None
         assert hearing._area is not None
 
     def test_map_coordinates_getter(self, map_hearing):
-        from shapely.geometry import Point
         assert isinstance(map_hearing.map_coordinates, Point)
 
     def test_area_getter(self, map_hearing):
-        from shapely.geometry import Polygon
         assert isinstance(map_hearing.area, Polygon)
 
-    def test_get_area_as_string(self, map_hearing):
-        assert map_hearing.area_as_string == (
-            "0.0000,0.0000 1.0000,1.0000 1.0000,0.0000 " +
-            "0.5000,0.5000 0.0000,0.0000 "
+    def test_calculate_map_coordinates(self, map_hearing):
+        assert map_hearing.map_coordinates.x == Point(0.5, 1).x
+        assert map_hearing.map_coordinates.y == Point(0.5, 1).y
+
+    def test_get_area_as_geoJSON_string(self, map_hearing):
+        import json
+        hearing_geoJson = json.loads(map_hearing.area_as_geoJSON_string)
+        result = json.loads(
+            '{"coordinates": [[[0.0, 0.0], [1.0, 2.0], [1.0, 0.0], ' +
+            '[0.5, 0.5], [0.0, 0.0]]], "type": "Polygon"}'
         )
+        assert hearing_geoJson == result

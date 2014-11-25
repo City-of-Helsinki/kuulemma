@@ -20,14 +20,6 @@ def upgrade():
         )
     )
     op.add_column(
-        'hearing',
-        sa.Column(
-            '_map_coordinates',
-            ga.Geometry(geometry_type='POINT'),
-            nullable=True
-        )
-    )
-    op.add_column(
         'hearing_version',
         sa.Column(
             '_area',
@@ -36,20 +28,9 @@ def upgrade():
             nullable=True
         )
     )
-    op.add_column(
-        'hearing_version',
-        sa.Column(
-            '_map_coordinates',
-            ga.Geometry(geometry_type='POINT'),
-            autoincrement=False,
-            nullable=True
-        )
-    )
 
 
 def downgrade():
-    op.drop_column('hearing_version', '_map_coordinates')
     op.drop_column('hearing_version', '_area')
-    op.drop_column('hearing', '_map_coordinates')
     op.drop_column('hearing', '_area')
     op.execute('DROP EXTENSION postgis')

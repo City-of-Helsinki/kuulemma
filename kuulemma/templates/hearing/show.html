@@ -57,12 +57,13 @@
           Jaa
         </p>
       </div>
-
-      <div location-map class="location-map"
-        latitude="{{ hearing.map_coordinates.x|string }}"
-        longitude="{{ hearing.map_coordinates.y|string }}"
-        polygon="{{ hearing.area_as_string }}">
-      </div>
+      {% if hearing.area != None %}
+        <div location-map class="location-map"
+          longitude="{{ hearing.map_coordinates.x|string }}"
+          latitude="{{ hearing.map_coordinates.y|string }}"
+          polygon='{{ hearing.area_as_geoJSON_string }}'>
+        </div>
+      {% endif %}
     </aside>
 
     <div class="content">
