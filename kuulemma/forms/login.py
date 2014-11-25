@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
-from wtforms_components import EmailField
-
-from kuulemma.forms import Form
+from flask_wtf import Form
 from wtforms.fields import PasswordField
+from wtforms_components import EmailField
 
 
 class LoginForm(Form):
