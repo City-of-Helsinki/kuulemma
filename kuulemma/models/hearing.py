@@ -202,6 +202,5 @@ class Hearing(db.Model, TextItemMixin):
     @property
     def area_as_geoJSON_string(self):
         import json
-        from shapely.geometry import mapping, shape
-
+        from shapely.geometry import mapping
         return json.dumps(mapping(self.area)) or "{}"

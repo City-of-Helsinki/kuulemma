@@ -2,7 +2,7 @@
 from datetime import date, datetime, timedelta
 
 import pytest
-from shapely.geometry import Polygon, Point
+from shapely.geometry import Point, Polygon
 from sqlalchemy_continuum.utils import count_versions
 from sqlalchemy_utils import (
     assert_max_length,
