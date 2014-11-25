@@ -56,6 +56,12 @@ class User(db.Model, UserMixin):
         default=''
     )
 
+    active = db.Column(
+        db.Boolean,
+        nullable=False,
+        default=False
+    )
+
     def __repr__(self):
         return '<{cls} username={name!r}, email={email!r}>'.format(
             cls=self.__class__.__name__,

@@ -23,7 +23,7 @@ class LoginTestCase(object):
 
     @pytest.fixture
     def user(self, password):
-        user = UserFactory(password=password)
+        user = UserFactory(password=password, active=True)
         # The user password hash is calculated only on commit.
         db.session.commit()
         return user
@@ -52,6 +52,29 @@ class TestSuccessfullLogin(LoginTestCase):
     def test_redirects_to_home_page(self, response):
         redirect_url = url_for('frontpage.index', _external=False)
         assert_redirects(response, redirect_url)
+
+
+class TestNonActiveUserLogin(LoginTestCase):
+    @pytest.fixture
+    def user(self, password):
+        user = UserFactory(password=password, active=False)
+        # The user password hash is calculated only on commit.
+        db.session.commit()
+        return user
+
+    @pytest.fixture
+    def data(self, user, password):
+        return {
+            'email': user.email,
+            'password': password,
+        }
+
+    def test_status_code_should_be_200(self, response):
+        assert response.status_code == 200
+
+    def test_shows_error_message(self, response):
+        message = 'Sinun täytyy aktivoida tilisi.'
+        assert message in response.data.decode('utf8')
 
 
 class TestInvalidEmailLogin(LoginTestCase):

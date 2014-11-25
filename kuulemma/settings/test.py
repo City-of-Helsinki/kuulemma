@@ -30,6 +30,8 @@ TESTING = True
 
 LOGIN_DISABLED = False
 
+WTF_CSRF_ENABLED = False
+
 #
 # SQLAlchemy
 # ----------

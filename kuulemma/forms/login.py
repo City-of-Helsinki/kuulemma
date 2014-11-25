@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-from wtforms import Form
-from wtforms.fields import PasswordField
 from wtforms_components import EmailField
+
+from kuulemma.forms import Form
+from wtforms.fields import PasswordField
 
 
 class LoginForm(Form):
