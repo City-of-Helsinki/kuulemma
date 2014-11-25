@@ -7,13 +7,31 @@ from wtforms.fields import PasswordField, TextField
 from wtforms.validators import Length, Required, ValidationError
 
 
+required = Required(message='Tämä kenttä on pakollinen.')
+
+
 class SignUpForm(Form):
     email = EmailField(u'Sähköpostiosoite', validators=[Required()])
     username = TextField(
-        u'Käyttäjänimi', validators=[Required(), Length(min=4, max=100)]
+        u'Käyttäjänimi', validators=[
+            required,
+            Length(
+                min=4,
+                max=100,
+                message='Käyttäjänimi täytyy olla vähintään 4 merkkiä pitkä.'
+            )
+        ]
     )
     password = PasswordField(
-        u'Salasana', validators=[Required(), Length(min=6, max=100)]
+        u'Salasana',
+        validators=[
+            required,
+            Length(
+                min=6,
+                max=100,
+                message='Salasana täytyy olla vähintään 6 merkkiä pitkä.'
+            )
+        ]
     )
 
     def validate_email(self, field):
