@@ -114,6 +114,14 @@ div[comment-adder] {
     label {
       .make-sm-column(2.3);
       padding-left: 0;
+
+      &.disabled {
+        background-color: #f0f0f0 !important;
+        &:hover {
+          cursor: not-allowed !important;
+        }
+
+      }
     }
 
     .side-note {
