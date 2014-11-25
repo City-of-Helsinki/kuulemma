@@ -56,8 +56,7 @@ def login():
     if request.method == 'POST' and form.validate():
         user = User.query.filter_by(email=form.email.data).first()
         if user and user.password == form.password.data:
-            if user.active:
-                login_user(user, remember=True)
+            if login_user(user, remember=True):
                 flash('Olet nyt kirjautuneena sisään.', 'success')
                 return redirect(
                     request.args.get('next') or
@@ -65,6 +64,7 @@ def login():
                 )
             else:
                 flash('Sinun täytyy aktivoida tilisi.', 'error')
+                return render_template('auth/login.html', form=form)
         else:
             flash(
                 'Syöttämäsi sähköpostiosoite ja salasana eivät täsmää.',
