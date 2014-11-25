@@ -8,7 +8,7 @@
   <ul ng-if="$parent.comment.tag" class="tags">
     <li>{{ $parent.$parent.comment.tag }}</li>
   </ul>
-  <div class="parent-preview">
+  <div ng-if="$parent.comment.parent_preview" class="parent-preview">
     <p ng-repeat="(index, paragraph) in previewParagraphs track by index">{{ paragraph }}</p>
     <button class="readparent">Lue lisää</button>
   </div>

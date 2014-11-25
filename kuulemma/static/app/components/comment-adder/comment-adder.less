@@ -55,6 +55,7 @@ div[comment-adder] {
       font-size: 12px;
       border: none;
       padding: 5px;
+      padding-bottom: 0;
       text-transform: uppercase;
 
       i {
@@ -65,13 +66,25 @@ div[comment-adder] {
     }
   }
 
+  .close-button {
+    border: none;
+    background: transparent;
+    font-size: 22px;
+    margin-top: @layout-margin-small;
+    margin-right: @layout-margin-mini;
+
+    &:hover {
+      color: @text-color-soft;
+    }
+  }
+
   h2 {
     float: left;
-    padding-left: 20px;
+    padding-left: @layout-margin-small;
     font-weight: bold;
     font-size: 19px;
-    margin-top: 20px;
-    margin-bottom: 38px;
+    margin-top: @layout-margin-small;
+    margin-bottom: @layout-margin-large;
     text-transform: none;
 
     i {
@@ -101,6 +114,14 @@ div[comment-adder] {
     label {
       .make-sm-column(2.3);
       padding-left: 0;
+
+      &.disabled {
+        background-color: #f0f0f0 !important;
+        &:hover {
+          cursor: not-allowed !important;
+        }
+
+      }
     }
 
     .side-note {
@@ -179,13 +200,8 @@ div[comment-adder] {
 
   button[type="submit"] {
     .primary-button;
-    max-width: 120px;
     min-width: 80px;
     padding: 8px 20px 6px;
-  }
-
-  button.cancel-button {
-    .secondary-button;
   }
 
   .submit-container {
@@ -194,8 +210,7 @@ div[comment-adder] {
   }
 
   .disclaimer {
-    .make-sm-column(11);
-    .make-sm-column-offset(1);
+    .make-sm-column-offset(2.3);
   }
 
   .follow-group {
@@ -275,7 +290,7 @@ div[comment-adder] > div.narrow {
 
     .submit-group {
       .submit-container {
-        margin-left: 5%;
+        margin-left: 0;
 
         &.no-follow {
           margin-top: 20px;
@@ -285,6 +300,7 @@ div[comment-adder] > div.narrow {
       .disclaimer {
         .make-xs-column(12) !important;
         margin-left: 0 !important;
+        padding-left: 0 !important;
       }
     }
   }

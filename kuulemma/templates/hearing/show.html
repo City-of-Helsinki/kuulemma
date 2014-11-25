@@ -7,9 +7,9 @@
   <article class="hearing" id="hearing">
     <header>
       <ul class="tags">
-        <li>Opetus ja koulutus</li>
-        <li>Kaavoitus</li>
-        <li>Pikku-huopalahti</li>
+        <li class="tag-traffic">Liikenne</li>
+        <li class="tag-area">Kallio</li>
+        <li class="tag-area">Sörnäinen</li>
       </ul>
       <h1>{{ hearing.title }}</h1>
     </header>
@@ -76,11 +76,9 @@
           {% for alternative in hearing.alternatives %}
             <article class="alternative">
               <section class="preview">
-                <a data-toggle="collapse" data-parent=".alternatives" href="#alternative-{{ alternative.id }}" class="collapser collapsed">
+                <a data-toggle="collapse" href="#alternative-{{ alternative.id }}" class="collapser collapsed">
                   <span class="option">{{ alternative.letter }}</span>
-                  <figure>
-                    <img src="{{ alternative.main_image.image_url }}" alt="Vaihtoehdon pääkuva">
-                  </figure>
+                  {{ render_image(alternative.main_image, 'Vaihtoehdon pääkuva') }}
                   <span class="preview-text">
                     <h3><span>{{ alternative.title }}</span></h3>
                     <p>{{ alternative.lead }}</p>
@@ -106,7 +104,7 @@
         <header>
           <h2>Mielipiteet</h2>
           <p>
-            Kuulemisen tavoitteena on taata kuntalaisille mahdollisuus vaikuttaa käsiteltäviin asioihin koko valmistelutyön ajan. Asioiden kommentointi onnistuu myös ilman tunnuksia. Klikkaa nappia ja jätä ensimmäinen kommenttisi!
+            Voit vaikuttaa valmistelussa oleviin tai sinne tuleviin asioihin kertomalla mielipiteesi. Mielipiteen antaminen onnistuu ilman rekisteröitymistä.
           </p>
         </header>
         <div comment-adder class="comment-adder" hearing-id="{{ hearing.id }}" context-list="{{ commentable_sections_string }}"></div>
