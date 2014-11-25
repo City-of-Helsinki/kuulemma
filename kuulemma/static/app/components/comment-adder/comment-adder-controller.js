@@ -18,7 +18,10 @@
       };
     });
 
-    $scope.saveComment = function() {
+    $scope.saveComment = function(form) {
+      if(form.$invalid) {
+        return;
+      }
       var request = CommentService.save($scope.hearingId, $scope.form);
       request.success(function(response) {
         $rootScope.$broadcast('hearing-' + $scope.hearingId + '-comment-added', response.comments);
