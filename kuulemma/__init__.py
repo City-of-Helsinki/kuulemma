@@ -47,6 +47,7 @@ class Application(Flask):
     def _init_blueprints(self):
         from .views.auth import auth
         from .views.comment import comment
+        from .views.feedback import feedback
         from .views.frontpage import frontpage
         from .views.hearing import hearing
         from .views.like import like
@@ -54,6 +55,7 @@ class Application(Flask):
 
         self.register_blueprint(auth)
         self.register_blueprint(comment)
+        self.register_blueprint(feedback)
         self.register_blueprint(frontpage)
         self.register_blueprint(hearing)
         self.register_blueprint(like)

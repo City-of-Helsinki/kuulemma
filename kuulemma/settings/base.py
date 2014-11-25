@@ -66,3 +66,9 @@ CSRF_COOKIE_HTTPONLY = True
 
 # A sentry compatible DSN.
 SENTRY_DSN = os.environ.get('SENTRY_DSN')
+
+
+FEEDBACK_RECIPIENTS = [
+    'lauri@fastmonkeys.com',
+    'Heli.K.Rantanen@hel.fi'
+]

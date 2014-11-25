@@ -1,0 +1,63 @@
+div[feedback-adder] {
+  @width: 320px;
+
+  max-width: @width;
+  position: relative;
+  text-align: center;
+
+  .open-feedback-box {
+    border: none;
+    background-color: @yellow;
+    padding: 6px 40px;
+    max-width: @width;
+    min-height: 54px;
+    font-weight: bold;
+    margin: auto;
+  }
+
+  .feedback-box {
+    position: absolute;
+    left: 0;
+    top: 60px;
+    background-color: @yellow-light;
+    border: 1px solid @gray-lighter;
+    box-shadow: 2px -2px 15px 1px @gray-lighter;
+    padding: @layout-margin-small;
+    z-index: 1000;
+
+    .close-button {
+      border: none;
+      background-color: transparent;
+      font-size: 22px;
+      margin-top: -6px;
+      &:hover {
+        color: @text-color-soft;
+      }
+
+    }
+
+    h1 {
+      .klm-heading-small;
+      text-align: center;
+      margin-bottom: @layout-margin-small;
+    }
+
+    p {
+      text-align: center;
+    }
+
+    textarea {
+      border: 1px solid @gray-light !important;
+      margin-bottom: 16px;
+      margin-top: 16px;
+    }
+
+    .submit-group {
+      text-align: center;
+      margin-top: 20px;
+      .btn-primary {
+        min-width: 140px;
+      }
+    }
+  }
+}
