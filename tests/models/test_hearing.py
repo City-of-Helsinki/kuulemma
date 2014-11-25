@@ -2,6 +2,7 @@
 from datetime import date, datetime, timedelta
 
 import pytest
+from shapely.geometry import Point, Polygon
 from sqlalchemy_continuum.utils import count_versions
 from sqlalchemy_utils import (
     assert_max_length,
@@ -342,3 +343,46 @@ class TestGetCommentableSectionsString(object):
         hearing.main_image = image
         content = hearing.get_commentable_sections_string()
         assert len(content.split(';')) == 2
+
+
+@pytest.mark.usefixtures('database')
+class TestMapCoordinates(object):
+    @pytest.fixture
+    def hearing(self):
+        return HearingFactory()
+
+    @pytest.fixture
+    def map_hearing(self):
+        hearing = HearingFactory(
+            area=Polygon([(0, 0), (1, 2), (1, 0), (0.5, 0.5)]),
+        )
+        return hearing
+
+    def test_area_setter(self, hearing):
+        from kuulemma.extensions import db
+        assert hearing._area is None
+        assert hearing.area is None
+        area = Polygon([(0, 0), (1, 2), (1, 0), (0.5, 0.5)])
+        hearing.area = area
+        db.session.commit()
+        assert hearing.area is not None
+        assert hearing._area is not None
+
+    def test_map_coordinates_getter(self, map_hearing):
+        assert isinstance(map_hearing.map_coordinates, Point)
+
+    def test_area_getter(self, map_hearing):
+        assert isinstance(map_hearing.area, Polygon)
+
+    def test_calculate_map_coordinates(self, map_hearing):
+        assert map_hearing.map_coordinates.x == Point(0.5, 1).x
+        assert map_hearing.map_coordinates.y == Point(0.5, 1).y
+
+    def test_get_area_as_geoJSON_string(self, map_hearing):
+        import json
+        hearing_geoJson = json.loads(map_hearing.area_as_geoJSON_string)
+        result = json.loads(
+            '{"coordinates": [[[0.0, 0.0], [1.0, 2.0], [1.0, 0.0], ' +
+            '[0.5, 0.5], [0.0, 0.0]]], "type": "Polygon"}'
+        )
+        assert hearing_geoJson == result

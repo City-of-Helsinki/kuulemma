@@ -1,4 +1,6 @@
 # -*coding: utf-8 -*-
+from shapely.geometry import shape
+
 from kuulemma.extensions import db
 from kuulemma.models import Alternative, Hearing, Image
 
@@ -14,6 +16,7 @@ def _add_hearing(hearing_data):
         opens_at=hearing_data['opens_at'],
         closes_at=hearing_data['closes_at'],
         published=hearing_data['published'],
+        area=shape(hearing_data['area']),
     )
 
     hearing.main_image = Image(

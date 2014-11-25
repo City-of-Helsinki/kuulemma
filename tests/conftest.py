@@ -91,6 +91,8 @@ def client(request, app):
 @pytest.yield_fixture(scope='session')
 def database_schema(request, app, database_guard):
     with database_guard.disabled(), app.app_context():
+        db.session.execute('CREATE EXTENSION IF NOT EXISTS postgis')
+        db.session.commit()
         db.create_all()
 
     yield

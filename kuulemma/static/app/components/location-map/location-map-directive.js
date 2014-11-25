@@ -9,16 +9,10 @@
         polygon: '@'
       },
       link: function(scope, element) {
-        var parsePolygon = function (polygon) {
-          return _.map(polygon.split(' '), function(vertex){
-            return _.map(vertex.split(','), function(coordenate) {
-              return parseFloat(coordenate);
-            });
-          });
-        };
         var L = $window.L;
         var map = L.map(element[0] ,{
           zoomControl:false,
+          scrollWheelZoom: false,
           dragging:false,
           touchZoom:false,
           tap:false,
@@ -28,18 +22,19 @@
         var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
         var osmAttribution = 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
         var osm = new L.TileLayer(osmUrl, {
-            minZoom: zoom,
-            maxZoom: zoom,
+            minzoom: 1,
+            maxzoom: 15,
             attribution: osmAttribution
         });
 
-        map.setView(new L.LatLng(scope.latitude,scope.longitude), zoom);
+        map.setView(new L.LatLng(scope.latitude, scope.longitude), zoom);
         map.addLayer(osm);
-
         if (scope.polygon) {
-          L.polygon(parsePolygon(scope.polygon)).addTo(map);
+          var poly = L.geoJson(JSON.parse(scope.polygon));
+          poly.addTo(map);
+          // Center and zoom map
+          map.fitBounds(poly.getBounds());
         }
-
       }
     };
   });

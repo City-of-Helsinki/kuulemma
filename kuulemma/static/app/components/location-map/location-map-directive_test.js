@@ -39,16 +39,19 @@ describe('Directive: locationMap', function () {
     beforeEach(inject(function($compile, $window) {
       L = $window.L;
       element = angular.element(
-        '<div location-map latitude="0" longitude="0" polygon="1,1 2,2 3,3"></div>');
+        '<div location-map latitude="0" longitude="0" polygon=\'{"coordinates": [[[0.0, 0.0], [1.0, 2.0], [0.0, 0.0]]], "type": "Polygon"}\'></div>'
+      );
       spyOn(document, 'getElementById').andReturn(element[0]);
-      spyOn(L, 'polygon').andCallThrough();
+      spyOn(L, 'geoJson').andCallThrough();
       element = $compile(element)(scope);
       scope.$digest();
       isolateScope = element.isolateScope();
     }));
 
     it('parses the polygon string into an array of vertex', function () {
-      expect(L.polygon).toHaveBeenCalledWith([[1,1],[2,2],[3,3]]);
+      expect(L.geoJson).toHaveBeenCalledWith(
+        JSON.parse('{"coordinates": [[[0.0, 0.0], [1.0, 2.0], [0.0, 0.0]]], "type": "Polygon"}')
+      );
     });
   });
 });
