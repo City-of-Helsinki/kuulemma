@@ -22,8 +22,8 @@
         var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
         var osmAttribution = 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
         var osm = new L.TileLayer(osmUrl, {
-            minZoom: zoom,
-            maxZoom: zoom,
+            minzoom: 1,
+            maxzoom: 15,
             attribution: osmAttribution
         });
 
@@ -32,6 +32,8 @@
         if (scope.polygon) {
           var poly = L.geoJson(JSON.parse(scope.polygon));
           poly.addTo(map);
+          // Center and zoom map
+          map.fitBounds(poly.getBounds());
         }
       }
     };
