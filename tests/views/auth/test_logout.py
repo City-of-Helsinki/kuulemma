@@ -18,7 +18,7 @@ def test_logout_url():
 class TestLogout(object):
     @pytest.fixture(scope='class')
     def user(self):
-        return UserFactory()
+        return UserFactory(active=True)
 
     @pytest.fixture(scope='class')
     def login(self, client, user):

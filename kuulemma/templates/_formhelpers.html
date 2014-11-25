@@ -1,6 +1,5 @@
 {% macro render_form(method="POST") %}
   <form method="{{ method}}"{{ kwargs|xmlattr }} role="form">
-    <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
     {{ caller() }}
   </form>
 {% endmacro %}

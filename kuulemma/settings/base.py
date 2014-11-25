@@ -68,6 +68,12 @@ CSRF_COOKIE_HTTPONLY = True
 SENTRY_DSN = os.environ.get('SENTRY_DSN')
 
 
+#
+# Mail
+# ----
+
+MAIL_DEFAULT_SENDER = 'No Reply <noreply@hel.fi>'
+
 FEEDBACK_RECIPIENTS = [
     'lauri@fastmonkeys.com',
     'Heli.K.Rantanen@hel.fi'

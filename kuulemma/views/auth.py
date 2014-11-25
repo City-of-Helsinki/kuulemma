@@ -3,10 +3,14 @@ from datetime import datetime, timedelta
 
 from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask.ext.login import current_user, login_user, logout_user
+from itsdangerous import BadSignature
 
 from kuulemma.extensions import db, login_manager
-from kuulemma.forms import LoginForm
+from kuulemma.forms.login import LoginForm
+from kuulemma.forms.sign_up import SignUpForm
 from kuulemma.models import User
+from kuulemma.serializers import account_activation_serializer
+from kuulemma.services.email import send_registration_mail
 
 auth = Blueprint(
     name='auth',
@@ -52,12 +56,15 @@ def login():
     if request.method == 'POST' and form.validate():
         user = User.query.filter_by(email=form.email.data).first()
         if user and user.password == form.password.data:
-            login_user(user, remember=True)
-            flash('Olet nyt kirjautuneena sisään.', 'success')
-            return redirect(
-                request.args.get('next') or
-                url_for('frontpage.index')
-            )
+            if login_user(user, remember=True):
+                flash('Olet nyt kirjautuneena sisään.', 'success')
+                return redirect(
+                    request.args.get('next') or
+                    url_for('frontpage.index')
+                )
+            else:
+                flash('Sinun täytyy aktivoida tilisi.', 'error')
+                return render_template('auth/login.html', form=form)
         else:
             flash(
                 'Syöttämäsi sähköpostiosoite ja salasana eivät täsmää.',
@@ -65,6 +72,47 @@ def login():
             )
 
     return render_template('auth/login.html', form=form)
+
+
+@auth.route('/rekisteroidy', methods=['GET', 'POST'])
+def sign_up():
+    if current_user.is_authenticated():
+        return redirect(url_for('frontpage.index'))
+
+    form = SignUpForm(request.form)
+    if request.method == 'POST' and form.validate():
+        user = User()
+        form.populate_obj(user)
+        db.session.add(user)
+        db.session.commit()
+        send_registration_mail(user)
+        flash(
+            'Sähköpostiisi lähetettiin tilisi aktivointilinkki',
+            'info'
+        )
+        return redirect(url_for('frontpage.index'))
+    else:
+        return render_template('auth/sign_up.html', form=form)
+
+
+@auth.route('/aktivoi-tili/<activation_hash>', methods=['GET'])
+def activate_account(activation_hash):
+    try:
+        email = account_activation_serializer.loads(activation_hash)
+    except BadSignature:
+        flash('Tarkista osoite', 'error')
+        return redirect(url_for('frontpage.index'))
+    else:
+        user = User.query.filter(User.email == email).one()
+        if user.active:
+            flash('Olet jo aktivoinut tilisi.', 'error')
+            return redirect(url_for('frontpage.index'))
+        else:
+            user.active = True
+            db.session.commit()
+            flash('Tilisi on aktivoitu.', 'info')
+            login_user(user)
+            return redirect(url_for('frontpage.index'))
 
 
 @auth.route('/kirjaudu-ulos')

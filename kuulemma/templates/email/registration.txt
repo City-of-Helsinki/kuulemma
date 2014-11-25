@@ -1,0 +1,4 @@
+Hei {{ user.username }},
+
+Klikkaa tästä aktivoidaksesi Kerrokantasi -palvelun käyttäjätilisi.
+{{ confirmation_url }}

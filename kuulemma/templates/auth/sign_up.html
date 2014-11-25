@@ -1,0 +1,23 @@
+{% from "_formhelpers.html" import render_form, render_field %}
+{% extends "layout.html" %}
+
+{% block title %}Rekisteröityminen{% endblock %}
+
+{% block content %}
+  <div class="signup-page">
+    <h1>Rekistöidy</h1>
+
+    {% call render_form(class='form-horizontal', action=url_for('auth.sign_up', next=request.args.next or None)) %}
+      {{ form.csrf_token }}
+      {{ render_field(form.email, autofocus=true, width=4) }}
+      {{ render_field(form.username, autofocus=true, width=4) }}
+      {{ render_field(form.password, width=4) }}
+      <div class="form-group">
+        <div class="form-actions">
+          <button class="btn btn-primary" type="submit" tabindex="1">Rekisteröidy</button>
+          <p class="register-info">Onko sinulla jo tunnukset? <a href="{{ url_for('auth.login') }}">Kirjaudu sisään</a>.</p>
+        </div>
+      </div>
+    {% endcall %}
+  </div>
+{% endblock %}

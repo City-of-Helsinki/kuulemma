@@ -3,7 +3,7 @@
     <li>{{ current_user.username }}</li>
     <li><a href="{{ url_for('auth.logout') }}">Kirjaudu ulos</a></li>
   {% else %}
-    <li><a href="#">Rekisteröidy</a></li>
+    <li><a href="{{ url_for('auth.sign_up') }}">Rekisteröidy</a></li>
     <li><a href="{{ url_for('auth.login') }}">Kirjaudu</a></li>
   {% endif %}
 </ul>
