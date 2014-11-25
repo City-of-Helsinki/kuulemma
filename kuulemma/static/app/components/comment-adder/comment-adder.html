@@ -10,7 +10,7 @@
       <div class="form-group">
         <label for="inputSubject" class="control-label">Aihe</label>
         <div>
-          <input type="text" class="form-control" name="title" id="inputSubject" ng-model="form.title" placeholder="Kirjoita tähän mielipiteesi aihe" ng-required autofocus>
+          <input type="text" class="form-control" name="title" id="inputSubject" ng-model="form.title" placeholder="Kirjoita tähän mielipiteesi aihe" required autofocus>
           <span class="validation-error" ng-if="(newCommentForm.$submitted || newCommentForm.title.$touched) && newCommentForm.title.$invalid">Aihe on pakollinen kenttä</span>
         </div>
       </div>
@@ -18,7 +18,7 @@
       <div class="form-group">
         <label for="inputAlias" class="control-label">Nimi tai nimimerkki</label>
         <div class="input-with-sidenote">
-          <input type="text" class="form-control" name="username" id="inputAlias" placeholder="Kirjoita tähän nimesi tai nimimerkkisi" ng-model="form.username" ng-required>
+          <input type="text" class="form-control" name="username" id="inputAlias" placeholder="Kirjoita tähän nimesi tai nimimerkkisi" ng-model="form.username" required>
           <span class="validation-error" ng-if="(newCommentForm.$submitted || newCommentForm.username.$touched) && newCommentForm.username.$invalid">Nimi tai nimimerkki on pakollinen kenttä</span>
         </div>
         <div class="side-note short-side-note"><p>Jos haluat kannattaa toisten mielipiteitä, <a href="#" tabindex="-1">rekisteröidy</a>.</p></div>
@@ -35,7 +35,7 @@
       <div class="form-group">
         <label for="commentContent" class="control-label">Mielipiteeni</label>
         <div>
-          <textarea class="form-control" name="body" id="inputSubject" cols="30" rows="10" ng-model="form.body" ng-required ng-maxlength="5000"></textarea>
+          <textarea class="form-control" name="body" id="inputSubject" cols="30" rows="10" ng-model="form.body" required ng-maxlength="5000"></textarea>
           <span class="validation-error" ng-if="(newCommentForm.$submitted || newCommentForm.body.$touched) && newCommentForm.body.$error.required">Mielipiteeni on pakollinen kenttä</span>
           <span class="validation-error" ng-if="(newCommentForm.$submitted || newCommentForm.body.$touched) && newCommentForm.body.$error.maxlength">Mielipiteen enimmäispituus on 5 000 merkkiä</span>
         </div>
