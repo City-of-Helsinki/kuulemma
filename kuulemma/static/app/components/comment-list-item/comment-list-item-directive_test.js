@@ -42,8 +42,8 @@ describe('Directive: commentListItemDirective', function () {
 
     describe('One line comment', function() {
       it('should create paragraphs array with only one item', function() {
-        expect(isolateScope.paragraphs).toEqual(['comment']);
-        expect(isolateScope.previewParagraphs).toEqual([]);
+        expect(isolateScope.parsedComment).toEqual('comment');
+        expect(isolateScope.parsedParentPreview).toEqual('');
         expect(element.find('.body p').length).toBe(1);
         expect(element.find('.parent-preview p').length).toBe(0);
       });
@@ -57,10 +57,8 @@ describe('Directive: commentListItemDirective', function () {
       });
 
       it('should create paragraphs array with two items', function() {
-        expect(isolateScope.paragraphs).toEqual(['line 1', 'line 2']);
-        expect(isolateScope.previewParagraphs).toEqual(['line 1', 'line 2']);
-        expect(element.find('.body p').length).toBe(2);
-        expect(element.find('.parent-preview p').length).toBe(2);
+        expect(isolateScope.parsedComment).toEqual('line 1<br>line 2');
+        expect(isolateScope.parsedParentPreview).toEqual('line 1<br>line 2');
       });
     });
 
@@ -72,10 +70,8 @@ describe('Directive: commentListItemDirective', function () {
       });
 
       it('should create four lines in comment box', function() {
-        expect(isolateScope.paragraphs).toEqual(['line 1', 'line 3', 'line 4', 'line 5']);
-        expect(isolateScope.previewParagraphs).toEqual(['line 1', 'line 3', 'line 4', 'line 5']);
-        expect(element.find('.body p').length).toBe(4);
-        expect(element.find('.parent-preview p').length).toBe(4);
+        expect(isolateScope.parsedComment).toEqual('line 1<br><br>line 3<br>line 4<br><br><br><br><br>line 5');
+        expect(isolateScope.parsedParentPreview).toEqual('line 1<br><br>line 3<br>line 4<br><br><br><br><br>line 5');
       });
     });
   });

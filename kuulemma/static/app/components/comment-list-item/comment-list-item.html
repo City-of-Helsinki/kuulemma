@@ -9,12 +9,10 @@
     <li>{{ $parent.$parent.comment.tag }}</li>
   </ul>
   <div ng-if="$parent.comment.parent_preview" class="parent-preview">
-    <p ng-repeat="(index, paragraph) in previewParagraphs track by index">{{ paragraph }}</p>
-    <button class="readparent">Lue lisää</button>
+    <p ng-bind-html="parsedParentPreview"></p>
   </div>
   <div class="body">
-    <p ng-repeat="(index, paragraph) in paragraphs track by index">{{ paragraph }}</p>
-    <button class="readmore">Lue lisää</button>
+    <p ng-bind-html="parsedComment"></p>
   </div>
   <div ng-if="!$parent.comment.parent_preview" comment-adder size="small" hearing-id="{{ $parent.hearingId }}" button-text="Kommentoi" context-list="comment-{{ $parent.$parent.comment.id }}:comment"></div>
 </article>

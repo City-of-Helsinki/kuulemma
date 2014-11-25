@@ -63,7 +63,7 @@ describe('Controller: AddCommentController', function () {
     });
   });
 
-  describe('Saving comment', function() {
+  describe('Saving valid comment', function() {
     var initialValues = {
       title : 'Title',
       username : 'user',
@@ -94,7 +94,7 @@ describe('Controller: AddCommentController', function () {
       });
       spyOn(CommentService, 'save').andCallThrough();
       scope.hearingId = '1';
-      scope.saveComment();
+      scope.saveComment({$invalid: false});
     });
 
     afterEach(function() {
@@ -122,5 +122,13 @@ describe('Controller: AddCommentController', function () {
         body: 'Hello there!'
       });
     }));
+  });
+
+  describe('Saving invalid form', function() {
+    it('should not save', function() {
+      spyOn(CommentService, 'save');
+      scope.saveComment({$invalid: true});
+      expect(CommentService.save).not.toHaveBeenCalled();
+    });
   });
 });

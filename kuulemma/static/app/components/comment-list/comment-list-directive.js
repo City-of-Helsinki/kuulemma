@@ -13,7 +13,7 @@ angular.module('kuulemmaApp')
       link: function postLink(scope) {
         scope.scrollToCommentsTop = function(params) {
           $('html, body').animate({
-            scrollTop: $('#latest-comments').offset().top
+            scrollTop: $('#comment-list').offset().top
           }, params.duration);
         };
       }

@@ -1,23 +1,25 @@
 <div ng-controller="AddCommentController">
-  <button ng-if="!commentBoxOpen" class="open-comment-box" ng-class="{ 'comment-comment': commentingOnComment() }" ng-click="openCommentBox()"><i class="fa fa-comment-o"></i>{{ buttonText || 'Kerro mielipiteesi' }}</button>
-  <section ng-if="commentBoxOpen" class="add-comment-box">
+  <button ng-hide="commentBoxOpen" class="open-comment-box" ng-class="{ 'comment-comment': commentingOnComment() }" ng-click="openCommentBox()"><i class="fa fa-comment-o"></i>{{ buttonText || 'Kerro mielipiteesi' }}</button>
+  <section ng-hide="!commentBoxOpen" class="add-comment-box">
     <button class="close-button pull-right" ng-click="closeCommentBox()">X</button>
     <h2 ng-if="!commentingOnComment()"><i class="fa fa-comment-o"></i>Uusi mielipide</h2>
     <h2 ng-if="commentingOnComment()">Kommentoi</h2>
 
-    <form class="form-horizontal" ng-submit="saveComment()">
+    <form class="form-horizontal" name="newCommentForm" ng-submit="saveComment(newCommentForm)" novalidate>
 
       <div class="form-group">
         <label for="inputSubject" class="control-label">Aihe</label>
         <div>
-          <input type="text" class="form-control" id="inputSubject" ng-model="form.title" placeholder="Kirjoita tähän mielipiteesi aihe" required autofocus>
+          <input type="text" class="form-control" name="title" id="inputSubject" ng-model="form.title" placeholder="Kirjoita tähän mielipiteesi aihe" required autofocus>
+          <span class="validation-error" ng-if="(newCommentForm.$submitted || newCommentForm.title.$touched) && newCommentForm.title.$invalid">Aihe on pakollinen kenttä</span>
         </div>
       </div>
 
       <div class="form-group">
         <label for="inputAlias" class="control-label">Nimi tai nimimerkki</label>
         <div class="input-with-sidenote">
-          <input type="text" class="form-control" id="inputAlias" placeholder="Kirjoita tähän nimesi tai nimimerkkisi" ng-model="form.username" required>
+          <input type="text" class="form-control" name="username" id="inputAlias" placeholder="Kirjoita tähän nimesi tai nimimerkkisi" ng-model="form.username" required>
+          <span class="validation-error" ng-if="(newCommentForm.$submitted || newCommentForm.username.$touched) && newCommentForm.username.$invalid">Nimi tai nimimerkki on pakollinen kenttä</span>
         </div>
         <div class="side-note short-side-note"><p>Jos haluat kannattaa toisten mielipiteitä, <a href="/rekisteroidy" tabindex="-1">rekisteröidy</a>.</p></div>
       </div>
@@ -33,7 +35,9 @@
       <div class="form-group">
         <label for="commentContent" class="control-label">Mielipiteeni</label>
         <div>
-          <textarea class="form-control" id="inputSubject" cols="30" rows="10" ng-model="form.body" required></textarea>
+          <textarea class="form-control" name="body" id="inputSubject" cols="30" rows="10" ng-model="form.body" required ng-maxlength="5000"></textarea>
+          <span class="validation-error" ng-if="(newCommentForm.$submitted || newCommentForm.body.$touched) && newCommentForm.body.$error.required">Mielipiteeni on pakollinen kenttä</span>
+          <span class="validation-error" ng-if="(newCommentForm.$submitted || newCommentForm.body.$touched) && newCommentForm.body.$error.maxlength">Mielipiteen enimmäispituus on 5 000 merkkiä</span>
         </div>
       </div>
 
@@ -46,7 +50,7 @@
       <p class="side-note long-side-note">Palvelun seuraavassa versiossa voit seurata asian käsittelyä ja siihen liittyviä päätöksiä.</p>
 
       <div ng-class="{disabled: !form.follow}" class="follow-email input-with-sidenote">
-        <input ng-disabled="!form.follow" type="email" class="form-control" placeholder="Sähköposti" ng-model="form.email" required="form.follow">
+        <input ng-disabled="!form.follow" type="email" class="form-control" placeholder="Sähköposti" ng-model="form.email" ng-required="form.follow">
       </div>
       <div ng-class="{disabled: !form.follow}" class="side-note"><p>Sähköpostin lähettämistä varten anna sähköpostiosoitteesi tai  <a href="/rekisteroidy" tabindex="-1">rekisteröidy</a>.</p></div>
     </div>

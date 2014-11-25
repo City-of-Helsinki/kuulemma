@@ -1,9 +1,9 @@
-<section id="latest-comments" class="latest-comments" ng-if="comments">
-  <h3>Uusimmat kommentit</h3>
+<section class="latest-comments" ng-if="comments.length">
+  <h3>Uusimmat mielipiteet</h3>
   <div comment-list-item comment="comment" hearing-id="{{ hearingId }}" ng-repeat="comment in comments"></div>
 </section>
 
-<section class="popular-comments" ng-if="comments">
-  <h3>Suosituimmat kommentit</h3>
+<section class="popular-comments" ng-if="comments.length">
+  <h3>Suosituimmat mielipiteet</h3>
   <div comment-list-item comment="comment" hearing-id="{{ hearingId }}" ng-repeat="comment in popularComments"></div>
 </section>

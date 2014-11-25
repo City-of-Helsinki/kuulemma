@@ -11,7 +11,7 @@
     };
 
     $scope.toggleFeedbackBox = function() {
-      $scope.buttonText = ''
+      $scope.buttonText = '';
       if ($scope.feedbackBoxOpen) {
         $scope.closeFeedbackBox();
       } else {
@@ -30,15 +30,15 @@
 
     $scope.emptyForm = function() {
       var emptyFields = {
-        content: '',
+        content: ''
       };
       $scope.form = angular.copy(emptyFields);
     };
 
     $scope.thankUser = function() {
       $scope.closeFeedbackBox();
-      $scope.buttonText = 'Kiitoksia palautteesta!'
-    }
+      $scope.buttonText = 'Kiitoksia palautteesta!';
+    };
 
     $scope.emptyForm();
   });
