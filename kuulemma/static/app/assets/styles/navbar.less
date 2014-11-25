@@ -69,6 +69,14 @@
       }
     }
   }
+  div[feedback-adder] {
+    position: absolute;
+    right: 0;
+    top: @navbar-height-large;
+    .open-feedback-box {
+      background-color: rgba(255, 199, 0, 0.8);
+    }
+  }
 }
 
 // Small navbar styles.
@@ -103,6 +111,10 @@
   }
   .login {
     padding: 12px @navbar-padding-horizontal;
+  }
+
+  div[feedback-adder] {
+    top: @navbar-height;
   }
 }
 
