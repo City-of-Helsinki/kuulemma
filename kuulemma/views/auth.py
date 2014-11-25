@@ -50,6 +50,7 @@ def update_user_last_seen(response):
 @auth.route('/kirjaudu-sisaan', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated():
+        flash('Olet jo kirjautuneena sisään.', 'info')
         return redirect(url_for('frontpage.index'))
 
     form = LoginForm(request.form)
@@ -77,6 +78,11 @@ def login():
 @auth.route('/rekisteroidy', methods=['GET', 'POST'])
 def sign_up():
     if current_user.is_authenticated():
+        flash(
+            'Olet jo kirjautuneena sisään. '
+            'Luodaksesi uuden tilin, kirjaudu ensin ulos.',
+            'info'
+            )
         return redirect(url_for('frontpage.index'))
 
     form = SignUpForm(request.form)
