@@ -13,8 +13,8 @@ class TestSignUpFormValidation(object):
 
         assert form.errors == {
             'email': ['Sähköpostiosoite on pakollinen.'],
-            'username': ['Käyttäjänimi on pakollinen.'],
-            'password': ['Salasana on pakollinen.']
+            'username': ['Tämä kenttä on pakollinen.'],
+            'password': ['Tämä kenttä on pakollinen.']
         }
 
     def test_should_validate_when_all_data_present(self):

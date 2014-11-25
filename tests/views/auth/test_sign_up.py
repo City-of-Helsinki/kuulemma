@@ -83,5 +83,5 @@ class TestUnSuccessfullSignUp(TestSignUpPost):
         assert User.query.count() == 0
 
     def test_error_message(self, response):
-        message = 'Käyttäjänimi on pakollinen.'
+        message = 'Tämä kenttä on pakollinen.'
         assert message in response.data.decode('utf8')
