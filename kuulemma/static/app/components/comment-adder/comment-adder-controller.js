@@ -48,6 +48,11 @@
         email: ''
       };
       $scope.form = angular.copy(emptyFields);
+
+      if($scope.newCommentForm) {
+        $scope.newCommentForm.$setUntouched();
+        $scope.newCommentForm.$setPristine();
+      }
     };
 
     $scope.emptyForm();
