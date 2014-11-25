@@ -1,7 +1,15 @@
 # -*- coding: utf-8 -*-
 import factory
 
-from kuulemma.models import Alternative, Comment, Hearing, Image, Like, User
+from kuulemma.models import (
+    Alternative,
+    Comment,
+    Feedback,
+    Hearing,
+    Image,
+    Like,
+    User
+)
 from tests.sqlalchemy_model_factory import SQLAlchemyModelFactory
 
 
@@ -44,3 +52,8 @@ class ImageFactory(SQLAlchemyModelFactory):
     FACTORY_FOR = Image
     image_url = '/static/images/hearings/1/sample-image.jpg'
     caption = 'This is the caption of the sample image.'
+
+
+class FeedbackFactory(SQLAlchemyModelFactory):
+    FACTORY_FOR = Feedback
+    content = 'This site is superb!'

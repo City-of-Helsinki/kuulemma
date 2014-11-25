@@ -2,6 +2,7 @@ import sqlalchemy as sa
 
 from .alternative import Alternative  # noqa
 from .comment import Comment  # noqa
+from .feedback import Feedback  # noqa
 from .hearing import Hearing  # noqa
 from .image import Image  # noqa
 from .like import Like  # noqa
