@@ -15,18 +15,10 @@ angular.module('kuulemmaApp')
         function makeContainerTruncatable(params) {
           _.defer(function () {
             var commentBodyContainer = element.find(params.selector);
-            commentBodyContainer.dotdotdot({height: 150, after: params.readmore});
-            commentBodyContainer.trigger('isTruncated', function(isTruncated) {
-              if(!isTruncated) {
-                element.find(params.readmore).remove();
-              }
-            });
+            commentBodyContainer.dotdotdot({height: 150, after: '<button class="' + params.readmore.slice(1) + '">Lue lisää</button>'});
 
-            element.find(params.readmore).on('click', function() {
+            commentBodyContainer.find(params.readmore).on('click', function() {
               commentBodyContainer.trigger('destroy.dot');
-              _.defer(function() {
-                element.find(params.readmore).remove();
-              });
             });
           });
         }
