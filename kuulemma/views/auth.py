@@ -63,7 +63,7 @@ def login():
                     url_for('frontpage.index')
                 )
             else:
-                flash('Sinun täytyy aktivoida tilisi.', 'error')
+                flash('Sinun täytyy aktivoida tilisi.', 'danger')
                 return render_template('auth/login.html', form=form)
         else:
             flash(
