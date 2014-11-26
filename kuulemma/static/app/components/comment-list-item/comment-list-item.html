@@ -1,4 +1,19 @@
-<article class="comment" data-id="{{ $parent.comment.id }}">
+<div ng-if="$parent.isAdmin || $parent.isOfficial" class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" tabindex="-1">
+    <i class="fa fa-ban"></i>
+  </button>
+  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+    <li ng-click="$parent.$parent.hideComment($parent.$parent.comment)" ng-hide="$parent.comment.is_hidden" role="presentation">
+      <span role="menuitem" tabindex="-1">Piilota kommentti</span>
+    </li>
+    <li ng-click="$parent.$parent.unhideComment($parent.$parent.comment)" ng-hide="!$parent.comment.is_hidden" role="presentation">
+      <span role="menuitem" tabindex="-1">Palauta kommentti näkyviin</span>
+    </li>
+  </ul>
+</div>
+
+<p ng-hide="!$parent.comment.is_hidden" class="hidden-message">Ylläpito on piilottanut mielipiteen. Mielipiteen voi palauttaa näkyviin mielipiteen ylläpitovalikosta.</p>
+<article class="comment" ng-class="{'hidden-comment': $parent.comment.is_hidden}" data-id="{{ $parent.comment.id }}">
   <h4>{{ $parent.comment.title }}</h4>
   <span class="like" ng-class="{ liked: $parent.alreadyLiked($parent.comment.id), active: $parent.userId }" ng-click="$parent.toggleLike($parent.comment.id)">
     <i class="fa fa-thumbs-o-up"></i>

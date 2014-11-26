@@ -31,11 +31,62 @@
     }
   }
 
+  .dropdown {
+    float: right;
+    position: relative;
+    left: 12px;
+    bottom: 12px;
+    z-index: 1;
+
+    button {
+      border-radius: 50%;
+      .square(30px);
+      padding: 0;
+
+      &:focus {
+        box-shadow: none;
+        outline: none;
+      }
+    }
+
+    .dropdown-menu {
+      left: -202px;
+      right: 14px;
+      top: 27px;
+      padding: 10px;
+
+      li {
+        cursor: pointer;
+        span:active {
+          outline: none;
+          box-shadow: none;
+        }
+      }
+    }
+  }
+
+  .hidden-message {
+    position: absolute;
+    margin-top: 20px;
+    width: 100%;
+    padding-right: 32px;
+    color: red;
+    font-weight: bold;
+    font-size: 22px;
+    text-align: center;
+  }
+
   .comment {
     position: relative;
     margin-top: @comment-external-margin;
     padding: @comment-padding;
     background-color: @gray-background;
+
+    .transition(0.2s ease-in opacity);
+
+    &.hidden-comment {
+      opacity: 0.2;
+    }
 
     h4 {
       margin-top: 0;

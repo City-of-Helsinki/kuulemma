@@ -11,7 +11,10 @@ describe('Directive: commentListDirective', function () {
   ));
 
   var element,
-    scope;
+    scope,
+    createElement,
+    createAdminElement,
+    createOfficialElement;
 
   beforeEach(inject(function ($rootScope, $templateCache, $compile, $httpBackend) {
     var commentListTemplate = $templateCache.get('kuulemma/static/app/components/comment-list/comment-list.html');
@@ -29,22 +32,69 @@ describe('Directive: commentListDirective', function () {
 
     scope = $rootScope.$new();
 
-    element = angular.element('<div hearing-id="1" user-id="2" comment-list></div>');
-    element = $compile(element)(scope);
-    scope.$digest();
-    $httpBackend.flush();
+    createElement = function createElement() {
+      element = angular.element('<div hearing-id="1" user-id="2" comment-list></div>');
+      element = $compile(element)(scope);
+      scope.$digest();
+      $httpBackend.flush();
+    };
+
+    createAdminElement = function createElement() {
+      element = angular.element('<div hearing-id="1" user-id="2" comment-list is-admin="True"></div>');
+      element = $compile(element)(scope);
+      scope.$digest();
+      $httpBackend.flush();
+    };
+
+    createOfficialElement = function createElement() {
+      element = angular.element('<div hearing-id="1" user-id="2" comment-list is-official="True"></div>');
+      element = $compile(element)(scope);
+      scope.$digest();
+      $httpBackend.flush();
+    };
   }));
 
-  it('should pass hearing id to controller', function () {
-    expect(element.isolateScope().hearingId).toBe('1');
+  describe('User comment list', function() {
+    beforeEach(function() {
+      createElement();
+    });
+
+    it('should have isAdmin and isOfficial as false', function() {
+      expect(element.isolateScope().isAdmin).toBe(false);
+      expect(element.isolateScope().isOfficial).toBe(false);
+    });
+
+    it('should pass hearing id to controller', function () {
+      expect(element.isolateScope().hearingId).toBe('1');
+    });
+
+    it('should pass user id to controller', function() {
+      expect(element.isolateScope().userId).toBe('2');
+    });
+
+    it('should render comments', function() {
+      expect(angular.toJson(element.isolateScope().comments))
+        .toEqual(angular.toJson([ { id : '5', title : 'Comment title', username : 'test-user', body : 'Hello there!', parent_preview: '', created_at : '2014-12-12' } ]));
+    });
   });
 
-  it('should pass user id to controller', function() {
-    expect(element.isolateScope().userId).toBe('2');
+  describe('Admin comment list', function() {
+    beforeEach(function() {
+      createAdminElement();
+    });
+
+    it('should add isAdmin to scope as truthy value', function() {
+      expect(element.isolateScope().isAdmin).toBeTruthy();
+    });
   });
 
-  it('should render comments', function() {
-    expect(angular.toJson(element.isolateScope().comments))
-      .toEqual(angular.toJson([ { id : '5', title : 'Comment title', username : 'test-user', body : 'Hello there!', parent_preview: '', created_at : '2014-12-12' } ]));
+  describe('Official comment list', function() {
+    beforeEach(function() {
+      createOfficialElement();
+    });
+
+    it('should add isOfficial to scope as truthy value', function() {
+      expect(element.isolateScope().isOfficial).toBeTruthy();
+    });
   });
 });
