@@ -40,6 +40,11 @@
       $scope.buttonText = 'Kiitoksia palautteesta!';
     };
 
+    $rootScope.$on('open-feedback-box', function() {
+      $scope.openFeedbackBox();
+      $scope.$apply();
+    });
+
     $scope.emptyForm();
   });
 
