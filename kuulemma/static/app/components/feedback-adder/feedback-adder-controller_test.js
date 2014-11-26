@@ -40,6 +40,10 @@ describe('Controller: AddFeedbackController', function () {
     it('should have content as empty initially', function() {
       expect(scope.form.content).toBe('');
     });
+
+    it('should not have defined honey pot initially', function() {
+      expect(scope.form.hp).not.toBeDefined();
+    });
   });
 
   describe('Saving feedback', function() {

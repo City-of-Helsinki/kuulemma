@@ -161,3 +161,45 @@ class TestUpdateCommentOnError(object):
             )
         )
         assert response.status_code == 400
+
+
+@pytest.mark.usefixtures('database', 'request_ctx')
+class TestUpdateCommentSpamHoneyPotFilter(object):
+    @pytest.fixture
+    def user(self):
+        return UserFactory(is_official=True)
+
+    @pytest.fixture
+    def hearing(self):
+        return HearingFactory()
+
+    @pytest.fixture
+    def comment(self, hearing):
+        return CommentFactory(hearing=hearing)
+
+    @pytest.fixture
+    def comment_data(self, hearing):
+        return {
+            'title': 'Updated title',
+            'body': 'Updated body',
+            'username': 'New username',
+            'is_hidden': True,
+            'hp': ''
+        }
+
+    @pytest.fixture
+    @freeze_time('2012-01-14 12:00:00')
+    def response(self, client, user, hearing, comment, comment_data):
+        login_user(client, user)
+        return client.put(
+            url_for(
+                'comment.update',
+                hearing_id=hearing.id,
+                comment_id=comment.id
+            ),
+            data=json.dumps(comment_data),
+            content_type='application/json'
+        )
+
+    def test_returns_400(self, response):
+        assert response.status_code == 400

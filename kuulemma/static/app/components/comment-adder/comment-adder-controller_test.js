@@ -61,6 +61,10 @@ describe('Controller: AddCommentController', function () {
     it('should have email as empty initially', function() {
       expect(scope.form.email).toBe('');
     });
+
+    it('should not have defined honey pot initially', function() {
+      expect(scope.form.hp).not.toBeDefined();
+    });
   });
 
   describe('Saving valid comment', function() {

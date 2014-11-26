@@ -286,3 +286,32 @@ class TestCreateCommentOnError(object):
             content_type='application/json'
         )
         assert response.status_code == 400
+
+
+@pytest.mark.usefixtures('database', 'request_ctx')
+class TestCreateCommentHoneyPotSpamFilter(object):
+    @pytest.fixture
+    def hearing(self):
+        return HearingFactory()
+
+    @pytest.fixture
+    def comment_data(self, hearing):
+        return {
+            'title': 'Hello World!',
+            'body': 'I really don\'t like this death star idea!',
+            'username': 'Luke Skywalker',
+            'object_type': 'hearing',
+            'object_id': hearing.id,
+            'hp': ''
+        }
+
+    @pytest.fixture
+    def response(self, client, hearing, comment_data):
+        return client.post(
+            url_for('comment.create', hearing_id=hearing.id),
+            data=json.dumps(comment_data),
+            content_type='application/json'
+        )
+
+    def test_returns_400(self, response):
+        assert response.status_code == 400

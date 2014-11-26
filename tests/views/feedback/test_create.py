@@ -75,3 +75,24 @@ class TestCreateFeedbackOnError(object):
             content_type='application/json'
         )
         assert response.status_code == 400
+
+
+@pytest.mark.usefixtures('database', 'request_ctx')
+class TestCreateFeedbackHoneyPotSpamFilter(object):
+    @pytest.fixture
+    def feedback_data(self):
+        return {
+            'content': 'This is feedback!',
+            'hp': ''
+        }
+
+    @pytest.fixture
+    def response(self, client, feedback_data):
+        return client.post(
+            url_for('feedback.create'),
+            data=json.dumps(feedback_data),
+            content_type='application/json'
+        )
+
+    def test_returns_400(self, response):
+        assert response.status_code == 400
