@@ -290,6 +290,10 @@ class TestCommentCountProperty(object):
             CommentFactory(hearing=None, alternative=alternative)
         assert hearing.comment_count == expected
 
+    def test_should_not_count_hidden_comments(self, hearing):
+        CommentFactory(hearing=hearing, is_hidden=True)
+        assert hearing.comment_count == 0
+
 
 @pytest.mark.usefixtures('database')
 class TestGetCommentableSectionsString(object):
