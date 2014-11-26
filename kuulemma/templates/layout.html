@@ -23,7 +23,9 @@
 
     <div class="container">
       <!--[if lt IE 9]>
-        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <div class="alert alert-danger">
+          <p class="browsehappy">Käytät <strong>vanhentunutta</strong> selainta. <a href="http://browsehappy.com/">Päivitä selaimesi</a> parhaan käyttökokemuksen takaamiseksi.</p>
+        </div>
       <![endif]-->
       {% include "_messages.html" %}
       {% block content %}{% endblock %}

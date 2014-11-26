@@ -148,7 +148,12 @@ class Hearing(db.Model, TextItemMixin):
 
     @property
     def comment_count(self):
-        return self.all_comments.count()
+        from .comment import Comment
+        return (
+            self.all_comments
+            .filter(Comment.is_hidden.is_(False))
+            .count()
+        )
 
     def get_commentable_sections_string(self):
         """

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask_wtf import Form
 from wtforms.fields import PasswordField, TextField
-from wtforms.validators import Length, Required, ValidationError
+from wtforms.validators import Email, Length, Required, ValidationError
 from wtforms_components import EmailField
 
 from kuulemma.models import User
@@ -12,7 +12,10 @@ required = Required(message='Tämä kenttä on pakollinen.')
 class SignUpForm(Form):
     email = EmailField(
         u'Sähköpostiosoite',
-        validators=[Required(message='Sähköpostiosoite on pakollinen.')]
+        validators=[
+            Required(message='Sähköpostiosoite on pakollinen.'),
+            Email(message='Sähköpostiosoitteen täytyy sisältää @ ja . merkit.')
+        ]
     )
     username = TextField(
         u'Käyttäjänimi', validators=[
