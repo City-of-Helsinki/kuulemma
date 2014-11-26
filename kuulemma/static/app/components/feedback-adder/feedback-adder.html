@@ -4,6 +4,16 @@
     {{ buttonText || 'Anna palautetta palvelun prototyypistä' }}
   </button>
 
+  <div class="open-feedback-box-big" ng-click="toggleFeedbackBox()">
+    <h2>
+      {{ buttonText || 'Kerro meille miten tätä palvelua pitäisi kehittää!' }}
+    </h2>
+    <p>
+      <i class="fa fa-comment-o"></i>
+      <strong>Anna palautetta</strong>
+    </p>
+  </div>
+
   <section ng-if="feedbackBoxOpen" class="feedback-box">
     <button class="close-button pull-right" ng-click="closeFeedbackBox()">X</button>
     <h1>Anna palautetta</h1>
