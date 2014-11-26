@@ -78,3 +78,10 @@ FEEDBACK_RECIPIENTS = [
     'lauri@fastmonkeys.com',
     'Heli.K.Rantanen@hel.fi'
 ]
+
+
+#
+# Analytics
+#
+
+PIWIK_ON = False

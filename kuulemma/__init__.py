@@ -44,6 +44,10 @@ class Application(Flask):
         settings_module = 'kuulemma.settings.' + environment
         self.config.from_object(settings_module)
 
+        @self.context_processor
+        def inject_settings():
+            return dict(PIWIK_ON=self.config.get('PIWIK_ON'))
+
     def _init_blueprints(self):
         from .views.auth import auth
         from .views.comment import comment
