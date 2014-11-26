@@ -1,11 +1,12 @@
 {% macro render_hearing_list_item(hearing) %}
   <li>
     <a href="{{ url_for('hearing.show', slug=hearing.slug) }}">
-      <img src="http://placehold.it/120x100" alt="Kuulemisen kuvan paikkamerkki">
+      <img src="{{ hearing.main_image.image_url }}" alt="{{ hearing.main_image.caption }}">
     </a>
     <ul class="tags small">
-      <li>Kaavoitus</li>
-      <li>Punavuori</li>
+      <li class="tag-traffic">Liikenne</li>
+      <li class="tag-area">Kallio</li>
+      <li class="tag-area">Sörnäinen</li>
     </ul>
     <div class="content">
       <h3><a href="{{ url_for('hearing.show', slug=hearing.slug) }}">{{ hearing.title }}</a></h3>
