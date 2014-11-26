@@ -19,8 +19,8 @@
           doubleClickZoom:false,
         });
         var zoom = 14;
-        var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-        var osmAttribution = 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
+        var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+        var osmAttribution = 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors';
         var osm = new L.TileLayer(osmUrl, {
             minzoom: 1,
             maxzoom: 15,
