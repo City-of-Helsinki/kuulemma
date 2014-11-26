@@ -23,9 +23,14 @@
       font-size: 31px;
     }
 
-    img {
-      margin-right: 10px;
-      max-height: 70px;
+    .coat-of-arms {
+      display: inline-block;
+      vertical-align: middle;
+      height: @logo-height;
+      width: @logo-width;
+      margin-right: @layout-margin-mini;
+      background: url(../../images/helsinki-coat-of-arms-white-big.png) no-repeat;
+      background-size: contain;
     }
   }
 
@@ -92,8 +97,12 @@
     line-height: @navbar-height;
     color: white;
 
-    img {
-      max-height: @navbar-height - 8px;
+    .coat-of-arms {
+      display: inline-block;
+      height: @logo-height-small;
+      width: @logo-width-small;
+      background: url(../../images/helsinki-coat-of-arms-white-small.png) no-repeat;
+      background-size: contain;
     }
   }
 
