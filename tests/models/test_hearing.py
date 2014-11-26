@@ -325,10 +325,20 @@ class TestGetCommentableSectionsString(object):
             hearing.get_commentable_sections_string()
         )
 
-    def test_contains_main_image(self, hearing, image):
+    def test_contains_main_image_if_has_images(self, hearing, image, images):
         hearing.main_image = image
+        hearing.images = images
         assert (
             image.commentable_id in hearing.get_commentable_sections_string()
+        )
+
+    def test_does_not_contain_main_image_data_if_it_is_the_only_image(
+        self, hearing, image
+    ):
+        hearing.main_image = image
+        assert (
+            image.commentable_id not in
+            hearing.get_commentable_sections_string()
         )
 
     def test_contains_data_of_all_the_images(self, hearing, images):
@@ -343,10 +353,11 @@ class TestGetCommentableSectionsString(object):
         assert alternatives[0].commentable_id in content
         assert alternatives[1].commentable_id in content
 
-    def test_data_is_separated_with_semi_colon(self, hearing, image):
+    def test_data_is_separated_with_semi_colons(self, hearing, image, images):
         hearing.main_image = image
+        hearing.images = images
         content = hearing.get_commentable_sections_string()
-        assert len(content.split(';')) == 2
+        assert ';' in content
 
 
 @pytest.mark.usefixtures('database')

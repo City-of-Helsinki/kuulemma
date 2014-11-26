@@ -162,14 +162,15 @@ class Hearing(db.Model, TextItemMixin):
         """
         sections = []
         sections.append(self.commentable_option)
-        if self.main_image:
-            sections.append(
-                self.main_image.commentable_option
-            )
-        for image in self.images:
-            sections.append(
-                image.commentable_option
-            )
+        if self.images:
+            if self.main_image:
+                sections.append(
+                    self.main_image.commentable_option
+                )
+            for image in self.images:
+                sections.append(
+                    image.commentable_option
+                )
 
         sections_string = ';'.join(sections)
 

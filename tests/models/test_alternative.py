@@ -141,10 +141,22 @@ class TestGetCommentableSectionsString(object):
             alternative.get_commentable_sections_string()
         )
 
-    def test_contains_main_image_data(self, alternative, image):
+    def test_contains_main_image_data_if_has_images(
+        self, alternative, image, images
+    ):
         alternative.main_image = image
+        alternative.images = images
         assert (
             image.commentable_id in
+            alternative.get_commentable_sections_string()
+        )
+
+    def test_does_not_contain_main_image_data_if_it_is_the_only_image(
+        self, alternative, image
+    ):
+        alternative.main_image = image
+        assert (
+            image.commentable_id not in
             alternative.get_commentable_sections_string()
         )
 
