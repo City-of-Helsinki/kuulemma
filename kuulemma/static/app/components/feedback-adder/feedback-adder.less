@@ -15,6 +15,38 @@ div[feedback-adder] {
     margin: auto;
   }
 
+  .open-feedback-box-big {
+    display: none;
+    cursor: pointer;
+    padding: @layout-margin-large @layout-margin-small;
+    text-align: center;
+    background-color: @yellow;
+
+    h2 {
+      .klm-heading-large;
+      color: white;
+    }
+    p {
+      .klm-heading-medium;
+      color: white;
+    }
+    i {
+      font-size: 30px;
+    }
+  }
+
+  &.big {
+    .open-feedback-box-big {
+      display: block;
+    }
+    .open-feedback-box {
+      display: none;
+    }
+    .feedback-box {
+      top: 0;
+    }
+  }
+
   .feedback-box {
     position: absolute;
     left: 0;
@@ -33,7 +65,6 @@ div[feedback-adder] {
       &:hover {
         color: @text-color-soft;
       }
-
     }
 
     h1 {
