@@ -5,7 +5,9 @@ angular.module('kuulemmaApp')
       templateUrl: '/static/dist/partials/components/comment-list-item/comment-list-item.html',
       restrict: 'A',
       scope: {
-        comment: '&',
+        comment: '=',
+        hideComment: '&',
+        unhideComment: '&',
         hearingId: '@'
       },
       link: function postLink(scope, element) {

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('kuulemmaApp')
-  .controller('CommentListController', function ($scope, $q, $rootScope, CommentListService, $timeout) {
+  .controller('CommentListController', function ($scope, $q, $rootScope, CommentListService, $timeout, $window) {
     var hearingComments = CommentListService.get($scope.hearingId);
     var userLikes = $scope.userId ? CommentListService.getUserLikes($scope.userId) : {data: {}};
 
@@ -33,6 +33,31 @@ angular.module('kuulemmaApp')
             comment.like_count--;
         });
       }
+    };
+
+    $scope.hideComment = function(comment) {
+      var confirm = $window.confirm('Haluatko varmasti piilottaa kommentin? Kommentin voi myöhemmin palauttaa takaisin näkyviin.');
+      if(!confirm) {
+        return;
+      }
+
+      CommentListService.hideComment({
+        hearingId: $scope.hearingId,
+        comment: comment
+      })
+        .success(function() {
+          comment.is_hidden = true;
+        });
+    };
+
+    $scope.unhideComment = function(comment) {
+      CommentListService.unhideComment({
+        hearingId: $scope.hearingId,
+        comment: comment
+      })
+        .success(function() {
+          comment.is_hidden = false;
+        });
     };
 
     $scope.alreadyLiked = function(commentId) {
