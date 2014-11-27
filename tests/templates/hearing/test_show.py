@@ -25,7 +25,7 @@ class TestMainContent(ShowHearingTemplateTestCase):
     @pytest.fixture(scope='class')
     def main_image(self):
         return ImageFactory.build(
-            image_url='main/image/url.jpg',
+            filename='main/image/url.jpg',
             caption='Main image caption'
         )
 
@@ -33,11 +33,11 @@ class TestMainContent(ShowHearingTemplateTestCase):
     def images(self):
         return [
             ImageFactory.build(
-                image_url='regular/image/url.jpg',
+                filename='regular/image/url.jpg',
                 caption='Regular image caption'
             ),
             ImageFactory.build(
-                image_url='another/image/url.jpg',
+                filename='another/image/url.jpg',
                 caption='Another image caption'
             )
         ]
@@ -66,14 +66,14 @@ class TestMainContent(ShowHearingTemplateTestCase):
         assert hearing.body in content
 
     def test_renders_main_image(self, content, hearing, main_image):
-        assert main_image.image_url in content
+        assert main_image.filename in content
 
     def test_renders_main_image_caption(self, content, hearing, main_image):
         assert main_image.caption in content
 
     def test_renders_all_regular_images(self, content, hearing, images):
-        assert images[0].image_url in content
-        assert images[1].image_url in content
+        assert images[0].filename in content
+        assert images[1].filename in content
 
     def test_renders_captions_for_all_regular_images(
         self, content, hearing, images
@@ -86,7 +86,7 @@ class TestAlternatives(ShowHearingTemplateTestCase):
     @pytest.fixture(scope='class')
     def main_image(self):
         return ImageFactory.build(
-            image_url='main/image/url.jpg',
+            filename='main/image/url.jpg',
             caption='Main image caption'
         )
 
@@ -94,11 +94,11 @@ class TestAlternatives(ShowHearingTemplateTestCase):
     def images(self):
         return [
             ImageFactory.build(
-                image_url='regular/image/url.jpg',
+                filename='regular/image/url.jpg',
                 caption='Regular image caption'
             ),
             ImageFactory.build(
-                image_url='another/image/url.jpg',
+                filename='another/image/url.jpg',
                 caption='Another image caption'
             )
         ]
@@ -131,11 +131,11 @@ class TestAlternatives(ShowHearingTemplateTestCase):
         assert alternative.body in content
 
     def test_renders_main_image(self, content, hearing, main_image):
-        assert main_image.image_url in content
+        assert main_image.filename in content
 
     def test_renders_all_regular_images(self, content, hearing, images):
-        assert images[0].image_url in content
-        assert images[1].image_url in content
+        assert images[0].filename in content
+        assert images[1].filename in content
 
     def test_renders_captions_for_all_regular_images(
         self, content, hearing, images

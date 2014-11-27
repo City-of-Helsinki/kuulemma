@@ -13,7 +13,7 @@
               <i class="fa fa-exclamation-circle"></i>
               Puhuttava asia
             </figcaption>
-            <img src="{{ featured_hearing.main_image.image_url }}" alt="{{ featured_hearing.main_image.caption }}">
+            <img src="{{ url_for('static', filename=featured_hearing.main_image.filename) }}" alt="{{ featured_hearing.main_image.caption }}">
           </figure>
         </a>
         <ul class="tags small">

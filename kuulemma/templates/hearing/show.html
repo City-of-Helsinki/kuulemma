@@ -3,6 +3,13 @@
 
 {% block title %}{{ hearing.title }}{% endblock %}
 
+{% block opengraph_metadata %}
+  <meta property="og:title" content="{{ hearing.title }}">
+  <meta property="og:url" content="{{ url_for('hearing.show', slug=hearing.slug, _external=true) }}">
+  <meta property="og:image" content="{{ url_for('static', filename=hearing.main_image.filename, _external=true) }}">
+  <meta property="og:description" content="{{ hearing.lead }}">
+{% endblock %}
+
 {% block content %}
   <article class="hearing" id="hearing">
     <header>

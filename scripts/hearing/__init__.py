@@ -20,7 +20,7 @@ def _add_hearing(hearing_data):
     )
 
     hearing.main_image = Image(
-        image_url=hearing_data['main_image']['url'],
+        filename=hearing_data['main_image']['filename'],
         caption=hearing_data['main_image']['caption']
     )
     print('Main content added.')
@@ -33,7 +33,7 @@ def _add_hearing(hearing_data):
         )
 
         alternative.main_image = Image(
-            image_url=alternative_data['main_image']['url'],
+            filename=alternative_data['main_image']['filename'],
             caption=alternative_data['main_image']['caption']
         )
 

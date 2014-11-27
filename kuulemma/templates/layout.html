@@ -10,6 +10,17 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <!-- Open Graph data -->
+    <meta property="og:site_name" content="Kerrokantasi">
+    <meta property="og:locale" content="fi_FI">
+    <meta property="og:type" content="website">
+    {% block opengraph_metadata %}
+      <meta property="og:title" content="Kerrokantasi">
+      <meta property="og:url" content="{{ request.url_root }}">
+      <meta property="og:image" content="{{ url_for('static', filename='images/og_main_image.jpg', _external=true) }}">
+      <meta property="og:description" content="Kerrokantasi on Helsingin kaupungin ylläpitämä verkkopalvelu, jossa kuntalaiset voivat kertoa mielipiteensä ja tulla kuulluksi eri tyyppisistä valmisteluun tulevista tai valmistelussa jo olevista asioista.">
+    {% endblock %}
+
     <link rel="icon" href="/static/images/favicon.ico">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename=get_asset_path('css', 'all.css')) }}">

@@ -50,7 +50,7 @@ class LikeFactory(SQLAlchemyModelFactory):
 
 class ImageFactory(SQLAlchemyModelFactory):
     FACTORY_FOR = Image
-    image_url = '/static/images/hearings/1/sample-image.jpg'
+    filename = 'images/hearings/1/sample-image.jpg'
     caption = 'This is the caption of the sample image.'
 
 

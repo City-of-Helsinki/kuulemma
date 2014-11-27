@@ -28,8 +28,8 @@ class TestImage(object):
         return ImageFactory.build(id=1)
 
     def test_repr(self, image):
-        expected = '<Image image_url=\'{image_url}\'>'.format(
-            image_url=image.image_url
+        expected = '<Image filename=\'{filename}\'>'.format(
+            filename=image.filename
         )
         assert repr(image) == expected
 
@@ -107,7 +107,7 @@ class TestImageWithDatabase(object):
         'column_name',
         [
             'created_at',
-            'image_url',
+            'filename',
             'caption',
         ]
     )
@@ -129,11 +129,11 @@ class TestImageWithDatabase(object):
             datetime
         )
 
-    def test_image_url_max_length_is_255(self, image):
-        assert_max_length(image, 'image_url', 255)
+    def test_filename_max_length_is_255(self, image):
+        assert_max_length(image, 'filename', 255)
 
-    def test_image_url_defaults_to_empty_string(self):
-        assert ImageFactory(image_url=None).image_url == ''
+    def test_filename_defaults_to_empty_string(self):
+        assert ImageFactory(filename=None).filename == ''
 
     def test_caption_defaults_to_empty_string(self):
         assert ImageFactory(caption=None).caption == ''
