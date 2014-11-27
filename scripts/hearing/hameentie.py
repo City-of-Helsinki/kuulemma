@@ -10,7 +10,7 @@ title = 'Millainen on Hämeentien tulevaisuus?'
 slug = 'hameentie'
 
 main_image = {
-    'url': '/static/images/hameentie/main_image.jpg',
+    'filename': 'images/hameentie/main_image.jpg',
     'caption': (
         'Liikenne nykyisin Hämeentiellä. '
         '(Helsingin kaupungin aineistopankki / Seppo Laakso)'
@@ -165,7 +165,7 @@ area = {
 alternative_1_title = 'Vaihtoehto 1'
 
 alternative_1_main_image = {
-    'url': '/static/images/hameentie/alternative_1/main_image.jpg',
+    'filename': 'images/hameentie/alternative_1/main_image.jpg',
     'caption': 'Vaihtoehdon 1 esimerkkikuva.'
 }
 
@@ -200,7 +200,7 @@ alternative_1_body = '''
 alternative_2_title = 'Vaihtoehto 2'
 
 alternative_2_main_image = {
-    'url': '/static/images/hameentie/alternative_2/main_image.jpg',
+    'filename': 'images/hameentie/alternative_2/main_image.jpg',
     'caption': 'Vaihtoehdon 2 esimerkkikuva.'
 }
 
@@ -244,7 +244,7 @@ alternative_2_body = '''
 alternative_3_title = 'Vaihtoehto 3'
 
 alternative_3_main_image = {
-    'url': '/static/images/hameentie/alternative_3/main_image.jpg',
+    'filename': 'images/hameentie/alternative_3/main_image.jpg',
     'caption': 'Vaihtoehdon 3 esimerkkikuva.'
 }
 

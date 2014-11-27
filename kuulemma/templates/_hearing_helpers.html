@@ -1,7 +1,7 @@
 {% macro render_hearing_list_item(hearing) %}
   <li>
     <a href="{{ url_for('hearing.show', slug=hearing.slug) }}">
-      <img src="{{ hearing.main_image.image_url }}" alt="{{ hearing.main_image.caption }}">
+      <img src="{{ url_for('static', filename=hearing.main_image.filename) }}">
     </a>
     <ul class="tags small">
       <li class="tag-traffic">Liikenne</li>
@@ -31,7 +31,7 @@
 
 {% macro render_image(image, alt, class=none) %}
   <figure {% if class %}class="{{ class }}"{% endif %}>
-    <img src="{{ image.image_url }}" alt="{{ alt }}">
+    <img src="{{ url_for('static', filename=image.filename) }}" alt="{{ alt }}">
     <figcaption>Kuva {{ image.number }}. {{ image.caption }}</figcaption>
   </figure>
 {% endmacro %}

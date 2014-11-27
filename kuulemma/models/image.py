@@ -43,7 +43,7 @@ class Image(db.Model):
         index=True
     )
 
-    image_url = db.Column(
+    filename = db.Column(
         db.Unicode(255),
         nullable=False,
         default='',
@@ -80,9 +80,9 @@ class Image(db.Model):
     ), )
 
     def __repr__(self):
-        return '<{cls} image_url={image_url!r}>'.format(
+        return '<{cls} filename={filename!r}>'.format(
             cls=self.__class__.__name__,
-            image_url=self.image_url,
+            filename=self.filename,
         )
 
     @property

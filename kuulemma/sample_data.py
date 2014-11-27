@@ -156,7 +156,7 @@ def get_random_past_date(range):
 
 def get_image(caption='Asemapiirros lorem ipsum dolores ja niin edelleen.'):
     return Image(
-        image_url='/static/images/ph1920.jpg',
+        filename='images/ph1920.jpg',
         caption=caption
     )
 
