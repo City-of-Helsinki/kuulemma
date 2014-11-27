@@ -67,6 +67,21 @@
       }
     }
 
+    .social-sharing {
+      position: relative;
+
+      .addthis_native_toolbox {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+      }
+
+      .share-button {
+        .reset-button-styles;
+      }
+    }
+
     .location-map {
       cursor: default;
       margin-bottom: @layout-margin-medium;
@@ -111,4 +126,9 @@
       }
     }
   }
+}
+
+// This will keep the addthis social share popover hidden on hover.
+#at15s {
+  display: none !important;
 }
