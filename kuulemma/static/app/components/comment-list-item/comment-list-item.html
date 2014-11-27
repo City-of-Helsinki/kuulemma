@@ -1,4 +1,4 @@
-<div ng-if="$parent.isAdmin || $parent.isOfficial" class="dropdown">
+<div ng-if="$parent.$parent.isAdmin === 'True' || $parent.$parent.isOfficial === 'True'" class="dropdown">
   <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" tabindex="-1">
     <i class="fa fa-ban"></i>
   </button>
