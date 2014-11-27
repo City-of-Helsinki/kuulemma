@@ -109,7 +109,7 @@
         <header>
           <h2>Mielipiteet</h2>
           <p>
-            Voit vaikuttaa valmistelussa oleviin tai sinne tuleviin asioihin kertomalla mielipiteesi. Mielipiteen antaminen onnistuu ilman rekisteröitymistä.
+            Voit vaikuttaa valmistelussa oleviin tai sinne tuleviin asioihin kertomalla mielipiteesi. Mielipiteen antaminen onnistuu ilman rekisteröitymistä. Mielipiteen kannattaminen (=peukuttaminen) edellyttää <a href="{{ url_for('auth.sign_up') }}">rekisteröitymistä</a> käyttäjäksi.
           </p>
         </header>
         <div comment-adder class="comment-adder" hearing-id="{{ hearing.id }}" context-list="{{ commentable_sections_string }}"></div>
