@@ -110,15 +110,13 @@ describe('Controller: CommentListController', function () {
       });
 
       describe('Popular comments', function() {
-        it('should sort comments by popularity automatically', function() {
-          expect(_.pluck(scope.popularComments, 'id')).toEqual([2, 1, 3]);
+        it('should show only liked comments', function() {
+          expect(_.pluck(scope.popularComments, 'id')).not.toContain(3);
         });
 
-        it('should put the just added comment to be the least popular', inject(function($timeout) {
-          $rootScope.$broadcast('hearing-1-comment-added', {id: 4});
-          $timeout.flush();
-          expect(_.pluck(scope.popularComments, 'id')).toEqual([2, 1, 3, 4]);
-        }));
+        it('should sort comments by popularity automatically', function() {
+          expect(_.pluck(scope.popularComments, 'id')).toEqual([2, 1]);
+        });
       });
     });
 
@@ -161,6 +159,13 @@ describe('Controller: CommentListController', function () {
           $httpBackend.flush();
           expect(_.findWhere(scope.comments, {id: 5}).like_count).toBe(1);
         });
+
+        it('should put a first time liked comment to popular likes', function() {
+          expect(_.pluck(scope.popularComments, 'id')).not.toContain(5);
+          scope.toggleLike(5);
+          $httpBackend.flush();
+          expect(_.pluck(scope.popularComments, 'id')).toContain(5);
+        });
       });
 
       describe('Failed liking', function() {
@@ -178,6 +183,12 @@ describe('Controller: CommentListController', function () {
           scope.toggleLike(5);
           $httpBackend.flush();
           expect(_.findWhere(scope.comments, {id: 5}).like_count).toBe(0);
+        });
+
+        it('should remove a first time liked comment from popular likes', function() {
+          scope.toggleLike(5);
+          $httpBackend.flush();
+          expect(_.pluck(scope.popularComments, 'id')).not.toContain(5);
         });
       });
 
@@ -204,6 +215,13 @@ describe('Controller: CommentListController', function () {
           $httpBackend.flush();
           expect(_.findWhere(scope.comments, {id: 1}).like_count).toBe(0);
         });
+
+        it('should remove an only once liked comment from popular likes', function() {
+          expect(_.pluck(scope.popularComments, 'id')).toContain(1);
+          scope.toggleLike(1);
+          $httpBackend.flush();
+          expect(_.pluck(scope.popularComments, 'id')).not.toContain(1);
+        });
       });
 
       describe('Failed unlinking', function() {
@@ -221,6 +239,13 @@ describe('Controller: CommentListController', function () {
           scope.toggleLike(1);
           $httpBackend.flush();
           expect(_.findWhere(scope.comments, {id: 1}).like_count).toBe(1);
+        });
+
+        it('should put an only once liked comment back to popular likes', function() {
+          expect(_.pluck(scope.popularComments, 'id')).toContain(1);
+          scope.toggleLike(1);
+          $httpBackend.flush();
+          expect(_.pluck(scope.popularComments, 'id')).toContain(1);
         });
       });
     });

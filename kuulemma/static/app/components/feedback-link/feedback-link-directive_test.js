@@ -18,7 +18,7 @@ describe('Directive: feedbackLinkDirective', function () {
       scope.$digest();
     }));
 
-    iit('should broadcast a correct event after clicking', inject(function($rootScope) {
+    it('should broadcast a correct event after clicking', inject(function($rootScope) {
       spyOn($rootScope, '$broadcast');
       element.click();
       expect($rootScope.$broadcast.callCount).toBe(1);
