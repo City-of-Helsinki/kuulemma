@@ -70,15 +70,35 @@
     .social-sharing {
       position: relative;
 
-      .addthis_native_toolbox {
+      // Hide the default addthis toolbox.
+      .addthis_sharing_toolbox {
         position: absolute;
         top: 0;
         left: 0;
         opacity: 0;
+
+        // Adjust the size to match the visible button size.
+        .at-share-tbx-element .at-share-btn .at300bs {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 60px !important;
+          height: 31px !important;
+        }
       }
 
       .share-button {
-        .reset-button-styles;
+        .fa-plus-square {
+          color: @yellow;
+          font-size: 32px;
+
+        }
+        span {
+          font-size: 16px;
+          position: relative;
+          top: -5px;
+          margin-left: 3px;
+        }
       }
     }
 
