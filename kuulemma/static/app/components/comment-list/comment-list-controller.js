@@ -19,18 +19,30 @@ angular.module('kuulemmaApp')
       if($scope.alreadyLiked(commentId)) {
         $scope.userLikes = _.without($scope.userLikes, commentId);
         comment.like_count--;
+        if (comment.like_count < 1) {
+          $scope.popularComments = _.reject($scope.popularComments, { id: commentId });
+        }
         CommentListService.unlike({ userId: $scope.userId, commentId: commentId })
           .error(function() {
             $scope.userLikes.push(commentId);
             comment.like_count++;
+            if (comment.like_count === 1) {
+              $scope.popularComments.push(comment);
+            }
         });
       } else {
         $scope.userLikes.push(commentId);
         comment.like_count++;
+        if (comment.like_count === 1) {
+          $scope.popularComments.push(comment);
+        }
         CommentListService.like({ userId: $scope.userId, commentId: commentId })
           .error(function() {
             $scope.userLikes = _.without($scope.userLikes, commentId);
             comment.like_count--;
+            if (comment.like_count < 1) {
+              $scope.popularComments = _.reject($scope.popularComments, { id: commentId });
+            }
         });
       }
     };
