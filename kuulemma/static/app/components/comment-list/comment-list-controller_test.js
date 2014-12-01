@@ -26,7 +26,7 @@ describe('Controller: CommentListController', function () {
 
   describe('Logged in user', function() {
     beforeEach(function() {
-      commentGetHandler = $httpBackend.expectGET('/hearings/1/links/comments').respond(200, { comments: [] });
+      commentGetHandler = $httpBackend.expectGET('/hearings/1/links/comments?page=1&per_page=20&sort_by=created_at').respond(200, { comments: [] });
       likeGetHandler = $httpBackend.expectGET('/users/2/links/likes').respond(200, { comments: [] });
 
       createController = function() {
@@ -50,7 +50,7 @@ describe('Controller: CommentListController', function () {
     it('should load comments', function() {
       createController();
       expect(CommentListService.get.callCount).toBe(1);
-      expect(CommentListService.get).toHaveBeenCalledWith('1');
+      expect(CommentListService.get).toHaveBeenCalledWith({hearingId: '1'});
     });
 
     describe('Loading likes successfully', function() {
@@ -253,7 +253,7 @@ describe('Controller: CommentListController', function () {
 
   describe('User without login', function() {
     beforeEach(function() {
-      commentGetHandler = $httpBackend.expectGET('/hearings/1/links/comments').respond(200, { comments: [] });
+      commentGetHandler = $httpBackend.expectGET('/hearings/1/links/comments?page=1&per_page=20&sort_by=created_at').respond(200, { comments: [] });
 
       createController = function() {
         scope = $rootScope.$new();

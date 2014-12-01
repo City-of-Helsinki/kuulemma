@@ -3,8 +3,14 @@
 angular.module('kuulemmaApp')
   .factory('CommentListService', function ($http) {
 
-    function get(id) {
-      return $http.get('/hearings/' + id + '/links/comments');
+    function get(params) {
+      return $http.get('/hearings/' + params.hearingId + '/links/comments', {
+        params: {
+          sort_by: params.sortBy || 'created_at',
+          page: params.page || 1,
+          per_page: params.perPage || 20
+        }
+      });
     }
 
     function getUserLikes(userId) {

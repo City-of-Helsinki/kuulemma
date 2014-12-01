@@ -2,7 +2,7 @@
 
 angular.module('kuulemmaApp')
   .controller('CommentListController', function ($scope, $q, $rootScope, CommentListService, $timeout, $window) {
-    var hearingComments = CommentListService.get($scope.hearingId);
+    var hearingComments = CommentListService.get({hearingId: $scope.hearingId});
     var userLikes = $scope.userId ? CommentListService.getUserLikes($scope.userId) : {data: {}};
 
     $q.all([hearingComments, userLikes]).then(function(response) {
