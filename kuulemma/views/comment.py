@@ -18,13 +18,14 @@ comment = Blueprint(
 @comment.route('')
 def index(hearing_id):
     hearing = Hearing.query.get_or_404(hearing_id)
+
+    # Fetching comments.
     comments = (
         hearing
         .all_comments
         .options(db.joinedload(Comment.comment))
         .options(db.joinedload(Comment.image))
         .options(db.joinedload(Comment.alternative))
-        .order_by(db.desc(Comment.created_at))
     )
 
     if not (
@@ -33,11 +34,32 @@ def index(hearing_id):
     ):
         comments = comments.filter_by(is_hidden=False)
 
+    # Pagination.
+    page = request.args.get('page', 1, type=int)
+    per_page = request.args.get('per_page', 20, type=int)
+    order_by = request.args.get('order_by', 'created_at')
+
+    if order_by == 'like_count':
+        comments = (
+            comments
+            .filter(Comment.like_count > 0)
+            .order_by(
+                db.desc(Comment.like_count),
+                db.desc(Comment.id)
+            )
+        )
+    else:
+        comments = comments.order_by(db.desc(Comment.created_at))
+
+    pagination = comments.paginate(page, per_page)
+
+    # Serialization
     serialized = CommentSchema(
-        comments,
+        pagination.items,
         exclude=('object_type', 'object_id'),
         many=True
     )
+
     return jsonify({'comments': serialized.data}), 200
 
 

@@ -10,6 +10,8 @@ from sqlalchemy_utils import (
     assert_nullable
 )
 
+from kuulemma.extensions import db
+
 from ..factories import (
     AlternativeFactory,
     CommentFactory,
@@ -41,12 +43,6 @@ class TestComment(object):
             title=comment.title
         )
         assert repr(comment) == expected
-
-    def test_like_count(self, comment):
-        expected = 2
-        for _ in range(expected):
-            comment.likes.append(LikeFactory.build())
-        assert comment.like_count == expected
 
     def test_tag_when_comments_hearing(self, hearing, comment):
         comment.hearing = hearing
@@ -139,6 +135,13 @@ class TestCommentWithDatabase(object):
 
     def test_uses_versioning(self, comment):
         assert count_versions(comment) == 1
+
+    def test_like_count(self, comment):
+        expected = 2
+        for _ in range(expected):
+            comment.likes.append(LikeFactory())
+        db.session.commit()
+        assert comment.like_count == expected
 
 
 @pytest.mark.usefixtures('database')
