@@ -11,8 +11,6 @@ angular.module('kuulemmaApp')
         hearingId: '@'
       },
       link: function postLink(scope, element) {
-        scope.parsedComment = scope.$parent.comment.body.split('\n').join('<br>');
-        scope.parsedParentPreview = scope.$parent.comment.parent_preview.split('\n').join('<br>');
 
         function makeContainerTruncatable(params) {
           _.defer(function () {
