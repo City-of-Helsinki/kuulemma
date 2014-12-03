@@ -1,8 +1,8 @@
 <div ng-controller="AddCommentController">
-  <button ng-hide="commentBoxOpen" class="open-comment-box" ng-class="{ 'comment-comment': commentingOnComment() }" ng-click="openCommentBox()"><i class="fa fa-comment-o"></i>{{ buttonText || 'Kerro mielipiteesi' }}</button>
+  <button ng-hide="commentBoxOpen" class="open-comment-box" ng-class="{ 'comment-comment': commentingOnComment() }" ng-click="openCommentBox()"><i class="new-comment-icon"></i>{{ buttonText || 'Kerro mielipiteesi' }}</button>
   <section ng-hide="!commentBoxOpen" class="add-comment-box">
     <button class="close-button pull-right" ng-click="closeCommentBox()">X</button>
-    <h2 ng-if="!commentingOnComment()"><i class="fa fa-comment-o"></i>Uusi mielipide</h2>
+    <h2 ng-if="!commentingOnComment()"><i class="new-comment-icon"></i>Uusi mielipide</h2>
     <h2 ng-if="commentingOnComment()">Kommentoi</h2>
 
     <form class="form-horizontal" name="newCommentForm" ng-submit="saveComment(newCommentForm)" novalidate>
