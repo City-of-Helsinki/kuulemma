@@ -24,17 +24,18 @@ angular.module('kuulemmaApp')
     }
 
     function hideComment(params) {
-      return $http.put('/hearings/' + params.hearingId + '/links/comments/' + params.comment.id, {
-        is_hidden: true,
-        body: params.comment.body,
-        title: params.comment.title,
-        username: params.comment.username
-      });
+      var forcedParams = _.extend(params, {is_hidden: true});
+      return editComment(forcedParams);
     }
 
     function unhideComment(params) {
+      var forcedParams = _.extend(params, {is_hidden: false});
+      return editComment(forcedParams);
+    }
+
+    function editComment(params) {
       return $http.put('/hearings/' + params.hearingId + '/links/comments/' + params.comment.id, {
-        is_hidden: false,
+        is_hidden: params.comment.is_hidden,
         body: params.comment.body,
         title: params.comment.title,
         username: params.comment.username
@@ -47,6 +48,7 @@ angular.module('kuulemmaApp')
       unlike: unlike,
       getUserLikes: getUserLikes,
       hideComment: hideComment,
-      unhideComment: unhideComment
+      unhideComment: unhideComment,
+      editComment: editComment
     };
   });
