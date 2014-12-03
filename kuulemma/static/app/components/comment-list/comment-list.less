@@ -36,7 +36,12 @@
     position: relative;
     left: 12px;
     bottom: 12px;
-    z-index: 1;
+    z-index: 2;
+
+    hr {
+      margin-top: 9px;
+      margin-bottom: 13px;
+    }
 
     button {
       border-radius: 50%;
@@ -72,8 +77,9 @@
     padding-right: 32px;
     color: red;
     font-weight: bold;
-    font-size: 22px;
+    font-size: 19px;
     text-align: center;
+    z-index: 1;
   }
 
   .comment {
@@ -85,7 +91,8 @@
     .transition(0.2s ease-in opacity);
 
     &.hidden-comment {
-      opacity: 0.2;
+      opacity: 0.5;
+      border: 1px solid red;
     }
 
     h4 {
@@ -134,10 +141,6 @@
       }
     }
 
-    .body {
-      color: @text-color;
-    }
-
     .readmore, .readparent {
       .klm-heading-mini;
       border: none;
@@ -147,5 +150,20 @@
       margin-bottom: 0;
       font-style: normal;
     }
+  }
+
+  .comment-edit {
+    width: 100%;
+    .kml-paragraph !important;
+    background-color: lighten(@gray-background, 5%);
+    border: 1px dashed !important;
+  }
+
+  .title-edit {
+    width: 89%;
+    .klm-heading-small;
+    background-color: lighten(@gray-background, 5%);
+    border: 1px dashed;
+    padding-left: 0;
   }
 }

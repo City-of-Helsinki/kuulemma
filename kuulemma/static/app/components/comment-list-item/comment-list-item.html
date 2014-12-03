@@ -1,33 +1,53 @@
 <div ng-if="$parent.$parent.isAdmin === 'True' || $parent.$parent.isOfficial === 'True'" class="dropdown">
   <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" tabindex="-1">
-    <i class="fa fa-ban"></i>
+    <i class="fa fa-pencil"></i>
   </button>
   <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-    <li ng-click="$parent.$parent.hideComment($parent.$parent.comment)" ng-hide="$parent.comment.is_hidden" role="presentation">
+    <li ng-click="$parent.commentUnderEdit = true" ng-hide="$parent.commentUnderEdit" role="presentation">
+      <span ng-hide="$parent.comment.is_hidden" role="menuitem" tabindex="-1">Muokkaa kommenttia</span>
+      <span ng-hide="!$parent.comment.is_hidden" role="menuitem" tabindex="-1">Muokkaa piilotettua kommenttia</span>
+    </li>
+    <hr ng-hide="$parent.commentUnderEdit"/>
+    <li ng-click="$parent.$parent.hideComment($parent.comment); $parent.commentUnderEdit = false" ng-hide="$parent.comment.is_hidden" role="presentation">
       <span role="menuitem" tabindex="-1">Piilota kommentti</span>
     </li>
-    <li ng-click="$parent.$parent.unhideComment($parent.$parent.comment)" ng-hide="!$parent.comment.is_hidden" role="presentation">
+    <li ng-click="$parent.$parent.unhideComment($parent.comment)" ng-hide="!$parent.comment.is_hidden" role="presentation">
       <span role="menuitem" tabindex="-1">Palauta kommentti näkyviin</span>
     </li>
   </ul>
 </div>
 
-<p ng-hide="!$parent.comment.is_hidden" class="hidden-message">Ylläpito on piilottanut mielipiteen. Mielipiteen voi palauttaa näkyviin mielipiteen ylläpitovalikosta.</p>
+<div ng-if="$parent.$parent.isAdmin === 'True' || $parent.$parent.isOfficial === 'True'">
+  <p ng-hide="!$parent.$parent.comment.is_hidden || $parent.commentUnderEdit" class="hidden-message">Ylläpito on piilottanut mielipiteen. Mielipiteen voi palauttaa näkyviin mielipiteen ylläpitovalikosta.<br><br>Voit edelleen muokata kommenttia.</p>
+</div>
+
 <article class="comment" ng-class="{'hidden-comment': $parent.comment.is_hidden}" data-id="{{ $parent.comment.id }}">
-  <h4>{{ $parent.comment.title }}</h4>
+  <h4 ng-hide="commentUnderEdit">{{ $parent.comment.title }}</h4>
+  <input class="title-edit" type="text" ng-model="$parent.comment.title" ng-hide="!commentUnderEdit"/>
+
   <span class="like" ng-class="{ liked: $parent.alreadyLiked($parent.comment.id), active: $parent.userId }" ng-click="$parent.toggleLike($parent.comment.id)">
     <i class="fa fa-thumbs-o-up"></i>
     <span class="like_count">{{ $parent.comment.like_count }}</span>
   </span>
-  <p class="info">{{ $parent.comment.created_at | dateTimeFormat }} &middot; {{ $parent.comment.username }}</p>
+  <p class="info">{{ $parent.comment.created_at | dateTimeFormat }} &middot; <span ng-hide="commentUnderEdit">{{ $parent.comment.username }}</span><input
+    type="text" class="comment-edit" ng-model="$parent.comment.username" ng-hide="!commentUnderEdit"/></p>
   <ul ng-if="$parent.comment.tag" class="tags">
     <li>{{ $parent.$parent.comment.tag }}</li>
   </ul>
   <div ng-if="$parent.comment.parent_preview" class="parent-preview">
-    <p ng-bind-html="parsedParentPreview"></p>
+    <p ng-bind-html="$parent.comment.parent_preview | commentBodyFilter"></p>
   </div>
-  <div class="body">
-    <p ng-bind-html="parsedComment"></p>
+
+  <div class="comment-body" ng-hide="commentUnderEdit">
+    <p ng-bind-html="$parent.comment.body | commentBodyFilter"></p>
+  </div>
+
+  <div ng-if="$parent.$parent.isAdmin === 'True' || $parent.$parent.isOfficial === 'True'">
+    <div ng-hide="!$parent.commentUnderEdit">
+      <textarea class="comment-edit" cols="30" rows="10" ng-model="$parent.comment.body"></textarea>
+      <button ng-click="$parent.saveChanges()">Tallenna</button>
+      <button ng-click="$parent.cancelChanges()">Peruuta</button>
+    </div>
   </div>
   <div ng-if="!$parent.comment.parent_preview" comment-adder size="small" hearing-id="{{ $parent.hearingId }}" button-text="Kommentoi" context-list="comment-{{ $parent.$parent.comment.id }}:comment"></div>
 </article>
