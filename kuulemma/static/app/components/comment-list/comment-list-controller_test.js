@@ -86,6 +86,50 @@ describe('Controller: CommentListController', function () {
       });
     });
 
+    describe('Fetching more successfully', function() {
+      beforeEach(function() {
+        createController();
+        var newComments = [{id: 90}, {id: 91}, {id: 92}];
+        $httpBackend.expectGET('/hearings/1/links/comments?order_by=created_at&page=2&per_page=20').respond(200, { comments: newComments });
+      });
+
+      it('should add the fetched comments to the end of the comments list', function() {
+        scope.comments = [{id: 1}, {id: 2}];
+        scope.fetchMore();
+        $httpBackend.flush();
+        expect(_.pluck(scope.comments, 'id')).toEqual([1, 2, 90, 91, 92]);
+      });
+
+      it('should set commentsStillLeft to false if less comments were returned than was asked', function() {
+        scope.commentsStillLeft = true;
+        scope.fetchMore();
+        $httpBackend.flush();
+        expect(scope.commentsStillLeft).toBeFalsy();
+      });
+
+      it('should not set commentsStillLeft to false if returned the asked amount of comments', function() {
+        scope.commentsStillLeft = true;
+        scope.per_page = 3;
+        scope.fetchMore();
+        $httpBackend.flush();
+        expect(scope.commentsStillLeft).toBeTruthy();
+      });
+    });
+
+    describe('Fetching more unsuccessfully', function() {
+      beforeEach(function() {
+        createController();
+        $httpBackend.expectGET('/hearings/1/links/comments?order_by=created_at&page=2&per_page=20').respond(404);
+      });
+
+      it('should set commentsStillLeft to false', function() {
+        scope.commentsStillLeft = true;
+        scope.fetchMore();
+        $httpBackend.flush();
+        expect(scope.commentsStillLeft).toBeFalsy();
+      });
+    });
+
     describe('Toggle like', function() {
       beforeEach(function() {
         spyOn(CommentListService, 'like').andCallThrough();

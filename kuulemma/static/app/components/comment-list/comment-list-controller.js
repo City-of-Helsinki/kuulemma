@@ -10,6 +10,11 @@ angular.module('kuulemmaApp')
 
     $q.all([hearingComments, userLikes]).then(function(response) {
       $scope.comments = response[0].data.comments || [];
+      $scope.page = response[0].data.page || 1;
+      $scope.per_page = response[0].data.per_page || 20;
+      if (response[0].data.comments.length >= $scope.per_page) {
+        $scope.commentsStillLeft = true;
+      }
       $scope.userLikes = response[1].data.comments || [];
     });
 
@@ -64,6 +69,24 @@ angular.module('kuulemmaApp')
 
     $scope.alreadyLiked = function(commentId) {
       return _.contains($scope.userLikes, commentId);
+    };
+
+    $scope.fetchMore = function() {
+      CommentListService.get({
+        hearingId: $scope.hearingId,
+        orderBy: $scope.orderBy,
+        page: $scope.page + 1
+      }).
+        success(function(response) {
+          $scope.comments.push.apply($scope.comments, response.comments);
+          $scope.page = response.page;
+          if (response.comments.length < $scope.per_page) {
+            $scope.commentsStillLeft = false;
+          }
+        }).
+        error(function() {
+          $scope.commentsStillLeft = false;
+        });
     };
 
     $rootScope.$on('hearing-' + $scope.hearingId + '-comment-added', function(event, comment) {

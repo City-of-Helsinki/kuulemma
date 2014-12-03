@@ -60,7 +60,11 @@ def index(hearing_id):
         many=True
     )
 
-    return jsonify({'comments': serialized.data}), 200
+    return jsonify({
+        'comments': serialized.data,
+        'page': page,
+        'per_page': per_page
+    }), 200
 
 
 @comment.route('', methods=['POST'])
