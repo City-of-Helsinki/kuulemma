@@ -26,7 +26,7 @@ describe('Controller: CommentListController', function () {
 
   describe('Logged in user', function() {
     beforeEach(function() {
-      commentGetHandler = $httpBackend.expectGET('/hearings/1/links/comments?page=1&per_page=20&sort_by=created_at').respond(200, { comments: [] });
+      commentGetHandler = $httpBackend.expectGET('/hearings/1/links/comments?order_by=created_at&page=1&per_page=20').respond(200, { comments: [] });
       likeGetHandler = $httpBackend.expectGET('/users/2/links/likes').respond(200, { comments: [] });
 
       createController = function() {
@@ -86,40 +86,6 @@ describe('Controller: CommentListController', function () {
       });
     });
 
-    describe('Sorting comments', function() {
-      beforeEach(function() {
-        commentGetHandler.respond({
-          comments: [
-          {
-            id: 1,
-            like_count: 5,
-            created_at: '2014-03-11T12:47:35+00:00'
-          },
-          {
-            id: 2,
-            like_count: 7,
-            created_at: '2014-01-11T12:47:35+00:00'
-          },
-          {
-            id: 3,
-            like_count: 0,
-            created_at: '2014-02-11T12:47:35+00:00'
-          }
-        ]});
-        createController();
-      });
-
-      describe('Popular comments', function() {
-        it('should show only liked comments', function() {
-          expect(_.pluck(scope.popularComments, 'id')).not.toContain(3);
-        });
-
-        it('should sort comments by popularity automatically', function() {
-          expect(_.pluck(scope.popularComments, 'id')).toEqual([2, 1]);
-        });
-      });
-    });
-
     describe('Toggle like', function() {
       beforeEach(function() {
         spyOn(CommentListService, 'like').andCallThrough();
@@ -159,13 +125,6 @@ describe('Controller: CommentListController', function () {
           $httpBackend.flush();
           expect(_.findWhere(scope.comments, {id: 5}).like_count).toBe(1);
         });
-
-        it('should put a first time liked comment to popular likes', function() {
-          expect(_.pluck(scope.popularComments, 'id')).not.toContain(5);
-          scope.toggleLike(5);
-          $httpBackend.flush();
-          expect(_.pluck(scope.popularComments, 'id')).toContain(5);
-        });
       });
 
       describe('Failed liking', function() {
@@ -183,12 +142,6 @@ describe('Controller: CommentListController', function () {
           scope.toggleLike(5);
           $httpBackend.flush();
           expect(_.findWhere(scope.comments, {id: 5}).like_count).toBe(0);
-        });
-
-        it('should remove a first time liked comment from popular likes', function() {
-          scope.toggleLike(5);
-          $httpBackend.flush();
-          expect(_.pluck(scope.popularComments, 'id')).not.toContain(5);
         });
       });
 
@@ -215,13 +168,6 @@ describe('Controller: CommentListController', function () {
           $httpBackend.flush();
           expect(_.findWhere(scope.comments, {id: 1}).like_count).toBe(0);
         });
-
-        it('should remove an only once liked comment from popular likes', function() {
-          expect(_.pluck(scope.popularComments, 'id')).toContain(1);
-          scope.toggleLike(1);
-          $httpBackend.flush();
-          expect(_.pluck(scope.popularComments, 'id')).not.toContain(1);
-        });
       });
 
       describe('Failed unlinking', function() {
@@ -240,20 +186,13 @@ describe('Controller: CommentListController', function () {
           $httpBackend.flush();
           expect(_.findWhere(scope.comments, {id: 1}).like_count).toBe(1);
         });
-
-        it('should put an only once liked comment back to popular likes', function() {
-          expect(_.pluck(scope.popularComments, 'id')).toContain(1);
-          scope.toggleLike(1);
-          $httpBackend.flush();
-          expect(_.pluck(scope.popularComments, 'id')).toContain(1);
-        });
       });
     });
   });
 
   describe('User without login', function() {
     beforeEach(function() {
-      commentGetHandler = $httpBackend.expectGET('/hearings/1/links/comments?page=1&per_page=20&sort_by=created_at').respond(200, { comments: [] });
+      commentGetHandler = $httpBackend.expectGET('/hearings/1/links/comments?order_by=created_at&page=1&per_page=20').respond(200, { comments: [] });
 
       createController = function() {
         scope = $rootScope.$new();
@@ -282,5 +221,44 @@ describe('Controller: CommentListController', function () {
       scope.toggleLike(1);
       expect(_.findWhere).not.toHaveBeenCalled();
     });
+  });
+
+  describe('New comment added', function() {
+    beforeEach(function() {
+      commentGetHandler = $httpBackend.expectGET('/hearings/1/links/comments?order_by=created_at&page=1&per_page=20').respond(200, { comments: [] });
+
+      createController = function() {
+        scope = $rootScope.$new();
+        scope.userId = undefined;
+        scope.hearingId = '1';
+        scope.scrollToCommentsTop = jasmine.createSpy();
+        CommentListControllerCtrl = $controller('CommentListController', {
+          $scope: scope
+        });
+        $httpBackend.flush();
+      };
+      createController();
+    });
+
+    afterEach(function() {
+      $httpBackend.verifyNoOutstandingExpectation();
+      $httpBackend.verifyNoOutstandingRequest();
+    });
+
+    it('should add the new comment to comments ordered by created_at', inject(function($timeout) {
+      var newComment = {id: 20};
+      scope.orderBy = 'created_at'
+      $rootScope.$broadcast('hearing-' + scope.hearingId + '-comment-added', newComment);
+      $timeout.flush()
+      expect(_.pluck(scope.comments, 'id')).toContain(newComment.id);
+    }));
+
+    it('should not add the new comment to comments ordered by like_count', inject(function($timeout) {
+      var newComment = {id: 20};
+      scope.orderBy = 'like_count'
+      $rootScope.$broadcast('hearing-' + scope.hearingId + '-comment-added', newComment);
+      $timeout.flush()
+      expect(_.pluck(scope.comments, 'id')).not.toContain(newComment.id);
+    }));
   });
 });

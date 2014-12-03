@@ -141,8 +141,17 @@
         .clearfix();
         margin-top: @layout-margin-small;
       }
-      .comment-list {
+
+      .comment-lists {
         .make-row();
+      }
+
+      .latest-comments,
+      .popular-comments {
+        .make-column(6, 6, 6);
+        border-top: none !important;
+        margin-top: 30px !important;
+        padding-top: 0 !important;
       }
     }
   }

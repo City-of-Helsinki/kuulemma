@@ -10,14 +10,15 @@ angular.module('kuulemmaApp')
         userId: '@',
         hearingId: '@',
         isAdmin: '@',
-        isOfficial: '@'
+        isOfficial: '@',
+        orderBy: '@'
       },
       link: function postLink(scope) {
         scope.isAdmin = scope.isAdmin === 'True' ? true : false;
         scope.isOfficial = scope.isOfficial === 'True' ? true : false;
         scope.scrollToCommentsTop = function(params) {
           $('html, body').animate({
-            scrollTop: $('#comment-list').offset().top
+            scrollTop: $('.comment-lists').offset().top
           }, params.duration);
         };
       }

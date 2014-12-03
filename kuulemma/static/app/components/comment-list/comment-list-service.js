@@ -6,7 +6,7 @@ angular.module('kuulemmaApp')
     function get(params) {
       return $http.get('/hearings/' + params.hearingId + '/links/comments', {
         params: {
-          sort_by: params.sortBy || 'created_at',
+          order_by: params.orderBy || 'created_at',
           page: params.page || 1,
           per_page: params.perPage || 20
         }

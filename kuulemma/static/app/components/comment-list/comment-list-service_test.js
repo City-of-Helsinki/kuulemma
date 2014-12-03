@@ -27,7 +27,7 @@ describe('Service: CommentListService', function () {
     var getHandler, returnValue;
     beforeEach(function() {
       spyOn($http, 'get').andCallThrough();
-      getHandler = $httpBackend.expectGET('/hearings/1/links/comments?page=1&per_page=20&sort_by=created_at').respond(200);
+      getHandler = $httpBackend.expectGET('/hearings/1/links/comments?order_by=created_at&page=1&per_page=20').respond(200);
       returnValue = service.get({hearingId: 1});
       $httpBackend.flush();
     });
@@ -43,7 +43,7 @@ describe('Service: CommentListService', function () {
         '/hearings/1/links/comments',
         {
           params: {
-            sort_by: 'created_at',
+            order_by: 'created_at',
             page: 1,
             per_page: 20
           },
