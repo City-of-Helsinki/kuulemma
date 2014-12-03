@@ -72,6 +72,7 @@ angular.module('kuulemmaApp')
     };
 
     $scope.fetchMore = function() {
+      $scope.loadingComments = true;
       CommentListService.get({
         hearingId: $scope.hearingId,
         orderBy: $scope.orderBy,
@@ -83,9 +84,11 @@ angular.module('kuulemmaApp')
           if (response.comments.length < $scope.per_page) {
             $scope.commentsStillLeft = false;
           }
+          $scope.loadingComments = false;
         }).
         error(function() {
           $scope.commentsStillLeft = false;
+          $scope.loadingComments = false;
         });
     };
 

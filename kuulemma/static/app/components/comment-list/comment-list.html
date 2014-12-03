@@ -1,6 +1,6 @@
 <div comment-list-item comment="comment" hearing-id="{{ hearingId }}" ng-repeat="comment in comments"></div>
  <p ng-if="!comments.length">Ei mielipiteitä näytettävänä.</p>
-<a ng-if="comments.length && commentsStillLeft" ng-click="fetchMore()" class="fetch-more">
+<button ng-if="comments.length && commentsStillLeft" ng-click="fetchMore()" class="fetch-more" ladda="loadingComments" data-style="contract" data-spinner-color="#787776">
   <i class="fa fa-angle-down"></i>
   Lisää mielipiteitä
-</a>
+</button>

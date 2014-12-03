@@ -143,12 +143,15 @@
 }
 
 .fetch-more {
+  .reset-button-styles;
   display: block;
+  width: auto !important; // override the ladda predefined value.
   margin-top: @comment-external-margin;
   cursor: pointer;
   color: @gray;
   font-size: 18px;
   font-weight: 200;
+  outline: none;
 
   &:hover {
     color: @gray;
