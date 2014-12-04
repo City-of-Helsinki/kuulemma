@@ -20,10 +20,12 @@
     };
 
     $scope.saveFeedback = function() {
+      $scope.sendingFeedback = true;
       var request = FeedbackService.save($scope.form);
       request.success(function(response) {
         $rootScope.$broadcast('feedback-added', response.feedbacks);
         $scope.emptyForm();
+        $scope.sendingFeedback = false;
         $scope.thankUser();
       });
     };
