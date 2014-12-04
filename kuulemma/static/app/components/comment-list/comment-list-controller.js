@@ -2,12 +2,19 @@
 
 angular.module('kuulemmaApp')
   .controller('CommentListController', function ($scope, $q, $rootScope, CommentListService, $timeout, $window) {
-    var hearingComments = CommentListService.get($scope.hearingId);
+    var hearingComments = CommentListService.get({
+      hearingId: $scope.hearingId,
+      orderBy: $scope.orderBy
+    });
     var userLikes = $scope.userId ? CommentListService.getUserLikes($scope.userId) : {data: {}};
 
     $q.all([hearingComments, userLikes]).then(function(response) {
       $scope.comments = response[0].data.comments || [];
-      $scope.popularComments = getPopularComments();
+      $scope.page = response[0].data.page || 1;
+      $scope.per_page = response[0].data.per_page || 20;
+      if (response[0].data.comments.length >= $scope.per_page) {
+        $scope.commentsStillLeft = true;
+      }
       $scope.userLikes = response[1].data.comments || [];
     });
 
@@ -19,31 +26,19 @@ angular.module('kuulemmaApp')
       if($scope.alreadyLiked(commentId)) {
         $scope.userLikes = _.without($scope.userLikes, commentId);
         comment.like_count--;
-        if (comment.like_count < 1) {
-          $scope.popularComments = _.reject($scope.popularComments, { id: commentId });
-        }
         CommentListService.unlike({ userId: $scope.userId, commentId: commentId })
           .error(function() {
             $scope.userLikes.push(commentId);
             comment.like_count++;
-            if (comment.like_count === 1) {
-              $scope.popularComments.push(comment);
-            }
-        });
+          });
       } else {
         $scope.userLikes.push(commentId);
         comment.like_count++;
-        if (comment.like_count === 1) {
-          $scope.popularComments.push(comment);
-        }
         CommentListService.like({ userId: $scope.userId, commentId: commentId })
           .error(function() {
             $scope.userLikes = _.without($scope.userLikes, commentId);
             comment.like_count--;
-            if (comment.like_count < 1) {
-              $scope.popularComments = _.reject($scope.popularComments, { id: commentId });
-            }
-        });
+          });
       }
     };
 
@@ -76,21 +71,34 @@ angular.module('kuulemmaApp')
       return _.contains($scope.userLikes, commentId);
     };
 
-    function getPopularComments() {
-      var likedComments = _.filter($scope.comments, function(comment) {
-        return comment.like_count > 0;
-      });
-
-      return _.sortBy(likedComments, function(comment) {
-        return comment.like_count * -1;
-      });
-    }
+    $scope.fetchMore = function() {
+      $scope.loadingComments = true;
+      CommentListService.get({
+        hearingId: $scope.hearingId,
+        orderBy: $scope.orderBy,
+        page: $scope.page + 1
+      }).
+        success(function(response) {
+          $scope.comments.push.apply($scope.comments, response.comments);
+          $scope.page = response.page;
+          if (response.comments.length < $scope.per_page) {
+            $scope.commentsStillLeft = false;
+          }
+          $scope.loadingComments = false;
+        }).
+        error(function() {
+          $scope.commentsStillLeft = false;
+          $scope.loadingComments = false;
+        });
+    };
 
     $rootScope.$on('hearing-' + $scope.hearingId + '-comment-added', function(event, comment) {
-      var scrollDuration = 200;
-      $scope.scrollToCommentsTop({ duration: scrollDuration });
-      $timeout(function() {
-        $scope.comments.unshift(comment);
-      }, scrollDuration);
+      if ($scope.orderBy === 'created_at') {
+        var scrollDuration = 200;
+        $scope.scrollToCommentsTop({ duration: scrollDuration });
+        $timeout(function() {
+          $scope.comments.unshift(comment);
+        }, scrollDuration);
+      }
     });
   });

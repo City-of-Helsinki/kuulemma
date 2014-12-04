@@ -16,7 +16,7 @@ describe('Service: CommentListService', function () {
     $http = _$http_;
     $httpBackend = _$httpBackend_;
   }));
-  
+
   describe('Functions', function() {
     it('should have function get', function() {
       expect(angular.isFunction(service.get)).toBe(true);
@@ -27,8 +27,8 @@ describe('Service: CommentListService', function () {
     var getHandler, returnValue;
     beforeEach(function() {
       spyOn($http, 'get').andCallThrough();
-      getHandler = $httpBackend.expectGET('/hearings/1/links/comments').respond(200);
-      returnValue = service.get(1);
+      getHandler = $httpBackend.expectGET('/hearings/1/links/comments?order_by=created_at&page=1&per_page=20').respond(200);
+      returnValue = service.get({hearingId: 1});
       $httpBackend.flush();
     });
 
@@ -39,7 +39,18 @@ describe('Service: CommentListService', function () {
 
     it('should make a get request to correct api endpoint', function() {
       expect($http.get.callCount).toBe(1);
-      expect($http.get).toHaveBeenCalledWith('/hearings/1/links/comments');
+      expect($http.get).toHaveBeenCalledWith(
+        '/hearings/1/links/comments',
+        {
+          params: {
+            order_by: 'created_at',
+            page: 1,
+            per_page: 20
+          },
+          method: 'get',
+          url: '/hearings/1/links/comments'
+        }
+      );
     });
 
     it('should return promise', function() {

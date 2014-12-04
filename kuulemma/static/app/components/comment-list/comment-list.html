@@ -1,9 +1,6 @@
-<section class="latest-comments" ng-if="comments.length">
-  <h3>Uusimmat mielipiteet</h3>
-  <div comment-list-item comment="comment" hearing-id="{{ hearingId }}" ng-repeat="comment in comments"></div>
-</section>
-
-<section class="popular-comments" ng-if="comments.length">
-  <h3>Suosituimmat mielipiteet</h3>
-  <div comment-list-item comment="comment" hearing-id="{{ hearingId }}" ng-repeat="comment in popularComments"></div>
-</section>
+<div comment-list-item comment="comment" hearing-id="{{ hearingId }}" ng-repeat="comment in comments"></div>
+ <p ng-if="!comments.length">Ei mielipiteitä näytettävänä.</p>
+<button ng-if="comments.length && commentsStillLeft" ng-click="fetchMore()" class="fetch-more" ladda="loadingComments" data-style="contract" data-spinner-color="#787776">
+  <i class="fa fa-angle-down"></i>
+  Lisää mielipiteitä
+</button>

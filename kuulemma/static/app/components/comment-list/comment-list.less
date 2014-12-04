@@ -1,12 +1,4 @@
 *[comment-list] {
-  .latest-comments,
-  .popular-comments {
-    .make-column(6, 6, 6);
-    border-top: none !important;
-    margin-top: 30px !important;
-    padding-top: 0 !important;
-  }
-
   *[comment-list-item] {
     &.ng-enter,
     &.ng-leave {
@@ -147,5 +139,27 @@
       margin-bottom: 0;
       font-style: normal;
     }
+  }
+}
+
+.fetch-more {
+  .reset-button-styles;
+  display: block;
+  width: auto !important; // override the ladda predefined value.
+  margin-top: @comment-external-margin;
+  cursor: pointer;
+  color: @gray;
+  font-size: 18px;
+  font-weight: 200;
+  outline: none;
+
+  &:hover {
+    color: @gray;
+    text-decoration: none;
+  }
+
+  i {
+    font-size: 30px;
+    vertical-align: middle;
   }
 }

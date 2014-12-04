@@ -8,6 +8,7 @@ from tests.factories import (
     CommentFactory,
     HearingFactory,
     ImageFactory,
+    LikeFactory,
     UserFactory
 )
 from tests.utils import login_user
@@ -21,12 +22,13 @@ def test_index_url():
     )
 
 
-@pytest.mark.usefixtures('database', 'request_ctx')
-class TestIndexOnSuccess(object):
-    @pytest.fixture
-    def hearing(self):
-        return HearingFactory()
+@pytest.fixture
+def hearing():
+    return HearingFactory()
 
+
+@pytest.mark.usefixtures('database', 'request_ctx')
+class TestIndexOnSuccessWithoutParameters(object):
     @pytest.fixture
     def comments(self, hearing):
         return [
@@ -57,7 +59,7 @@ class TestIndexOnSuccess(object):
         assert comments[0].title in content
         assert comments[1].title in content
 
-    def test_returns_comments_ordered_desc_by_created_at(
+    def test_returns_comments_ordered_by_desc_created_at(
         self, client, hearing
     ):
         image = ImageFactory()
@@ -96,6 +98,80 @@ class TestIndexOnSuccess(object):
         )
         content = response.data.decode('utf8')
         assert comment.title in content
+
+
+@pytest.mark.usefixtures('database', 'request_ctx')
+class TestIndexOnSuccessWithParameters(object):
+    @pytest.fixture
+    def comments(self, hearing):
+        return [
+            CommentFactory(hearing=hearing),
+            CommentFactory(hearing=hearing),
+            CommentFactory(hearing=hearing)
+        ]
+
+    def test_uses_per_page_to_define_number_of_comments(
+        self, client, hearing, comments
+    ):
+        per_page = 1
+        response = client.get(
+            url_for('comment.index', hearing_id=hearing.id, per_page=per_page)
+        )
+        comments = json.loads(response.data.decode('utf8'))['comments']
+        assert len(comments) == per_page
+
+    def test_uses_page_to_define_which_page_to_return(
+        self, client, hearing, comments
+    ):
+        response = client.get(
+            url_for(
+                'comment.index',
+                hearing_id=hearing.id,
+                per_page=1,
+                page=2
+            )
+        )
+        paginated = json.loads(response.data.decode('utf8'))['comments']
+
+        assert len(paginated) == 1
+        assert comments[1].id == paginated[0]['id']
+
+    def test_returns_comments_ordered_by_like_count_with_order_by_like_count(
+        self, client, hearing, comments
+    ):
+        LikeFactory(comment=comments[0])
+        LikeFactory(comment=comments[0])
+        LikeFactory(comment=comments[1])
+        LikeFactory(comment=comments[1])
+        LikeFactory(comment=comments[1])
+        LikeFactory(comment=comments[2])
+
+        response = client.get(
+            url_for(
+                'comment.index', hearing_id=hearing.id, order_by='like_count'
+            )
+        )
+        paginated = json.loads(response.data.decode('utf8'))['comments']
+
+        assert paginated[0]['id'] == comments[1].id
+        assert paginated[1]['id'] == comments[0].id
+        assert paginated[2]['id'] == comments[2].id
+
+    def test_order_by_like_count_returns_only_liked_comments(
+        self, client, hearing, comments
+    ):
+        LikeFactory(comment=comments[0])
+
+        response = client.get(
+            url_for(
+                'comment.index', hearing_id=hearing.id, order_by='like_count'
+            )
+        )
+        content = response.data.decode('utf8')
+
+        assert comments[0].title in content
+        assert comments[1].title not in content
+        assert comments[2].title not in content
 
 
 @pytest.mark.usefixtures('database', 'request_ctx')

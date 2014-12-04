@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from sqlalchemy_utils import aggregated
+
 from kuulemma.extensions import db
 
 from .alternative import Alternative
@@ -8,7 +10,9 @@ from .text_item_mixin import TextItemMixin
 
 
 class Comment(db.Model, TextItemMixin):
-    __versioned__ = {}
+    __versioned__ = {
+        'exclude': ['like_count']
+    }
     __tablename__ = 'comment'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -97,34 +101,53 @@ class Comment(db.Model, TextItemMixin):
         server_default='FALSE'
     )
 
-    __table_args__ = (db.CheckConstraint(
-        db.or_(
-            db.and_(
-                comment_id.isnot(None),
-                hearing_id.is_(None),
-                alternative_id.is_(None),
-                image_id.is_(None)
-            ),
-            db.and_(
-                comment_id.is_(None),
-                hearing_id.isnot(None),
-                alternative_id.is_(None),
-                image_id.is_(None)
-            ),
-            db.and_(
-                comment_id.is_(None),
-                hearing_id.is_(None),
-                alternative_id.isnot(None),
-                image_id.is_(None)
-            ),
-            db.and_(
-                comment_id.is_(None),
-                hearing_id.is_(None),
-                alternative_id.is_(None),
-                image_id.isnot(None)
-            )
+    @aggregated(
+        'likes',
+        db.Column(
+            db.Integer,
+            default=0,
+            server_default='0',
+            nullable=False
         )
-    ), )
+    )
+    def like_count(self):
+        return db.func.count('1')
+
+    __table_args__ = (
+        db.CheckConstraint(
+            db.or_(
+                db.and_(
+                    comment_id.isnot(None),
+                    hearing_id.is_(None),
+                    alternative_id.is_(None),
+                    image_id.is_(None)
+                ),
+                db.and_(
+                    comment_id.is_(None),
+                    hearing_id.isnot(None),
+                    alternative_id.is_(None),
+                    image_id.is_(None)
+                ),
+                db.and_(
+                    comment_id.is_(None),
+                    hearing_id.is_(None),
+                    alternative_id.isnot(None),
+                    image_id.is_(None)
+                ),
+                db.and_(
+                    comment_id.is_(None),
+                    hearing_id.is_(None),
+                    alternative_id.is_(None),
+                    image_id.isnot(None)
+                )
+            )
+        ),
+        db.Index(
+            'ix_comment_like_count',
+            'like_count',
+            'id'
+        )
+    )
 
     @property
     def comments_on(self):
@@ -145,10 +168,6 @@ class Comment(db.Model, TextItemMixin):
     @property
     def object_id(self):
         return self.comments_on.id
-
-    @property
-    def like_count(self):
-        return len(self.likes)
 
     @property
     def tag(self):

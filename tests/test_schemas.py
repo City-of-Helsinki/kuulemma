@@ -1,3 +1,5 @@
+import pytest
+
 from kuulemma.schemas import CommentSchema
 from tests.factories import (
     CommentFactory,
@@ -7,16 +9,17 @@ from tests.factories import (
 )
 
 
+@pytest.mark.usefixtures('database')
 def test_comment_serializer():
-    hearing = HearingFactory.build(id=1)
-    comment = CommentFactory.build(
+    hearing = HearingFactory(id=1)
+    comment = CommentFactory(
         id=123,
         hearing=hearing,
         title='Awesome title',
         body='So much content.'
     )
-    user = UserFactory.build()
-    LikeFactory.build(user=user, comment=comment)
+    user = UserFactory()
+    LikeFactory(user=user, comment=comment)
     schema = CommentSchema()
     schema.contex = {'user': user}
     data, errors = schema.dump(comment)
@@ -25,7 +28,7 @@ def test_comment_serializer():
         'title': comment.title,
         'body': comment.body,
         'username': comment.username,
-        'created_at': comment.created_at,
+        'created_at': comment.created_at.isoformat() + '+00:00',
         'like_count': comment.like_count,
         'tag': comment.tag,
         'parent_preview': comment.parent_preview,
