@@ -63,13 +63,16 @@ def delete(user_id):
 
     comment_id = request.get_json().get('comment_id', 0)
 
-    rows = (
+    like = (
         Like.query
         .filter(Like.user_id == user_id, Like.comment_id == comment_id)
-        .delete(False)
+        .first()
     )
-    if not rows:
+
+    if not like:
         return (jsonify({'error': 'No comment was found.'}), 400)
 
+    db.session.delete(like)
     db.session.commit()
+
     return '', 204

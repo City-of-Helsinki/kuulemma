@@ -3,6 +3,7 @@ import json
 import pytest
 from flask import url_for
 
+from kuulemma.extensions import db
 from tests.factories import CommentFactory, LikeFactory, UserFactory
 from tests.utils import login_user
 
@@ -62,6 +63,19 @@ class TestDeleteLikeOnSuccess(DeleteLikeTestCase):
             content_type='application/json'
         )
         assert len(user.likes) == 0
+
+    def test_decreases_comment_like_count(
+        self, client, comment, user, like, delete_data
+    ):
+        db.session.commit()
+        assert comment.like_count == 1
+        login_user(client, user)
+        client.delete(
+            url_for('like.delete', user_id=user.id),
+            data=json.dumps(delete_data),
+            content_type='application/json'
+        )
+        assert comment.like_count == 0
 
 
 class TestDeleteLikeOnError(DeleteLikeTestCase):
