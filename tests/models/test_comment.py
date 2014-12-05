@@ -44,6 +44,10 @@ class TestComment(object):
         )
         assert repr(comment) == expected
 
+    def test_commentable_name(self, comment):
+        expected = 'Mielipide - {title}'.format(title=comment.title)
+        assert comment.commentable_name == expected
+
     def test_tag_when_comments_hearing(self, hearing, comment):
         comment.hearing = hearing
         assert comment.tag == ''
@@ -196,3 +200,30 @@ class TestCommentCheckConstraint(object):
                 comment_id=1,
                 image_id=1
             )
+
+
+@pytest.mark.usefixtures('database')
+class TestCsvValueArrayProperty(object):
+    @pytest.fixture
+    def comment(self):
+        return CommentFactory(body='This is a mock comment!')
+
+    def test_should_have_title_as_first_value(self, comment):
+        assert comment.csv_value_array[0] == comment.title
+
+    def test_should_have_comments_on_name_as_second_value(self, comment):
+        assert (
+            comment.csv_value_array[1] == comment.comments_on.commentable_name
+        )
+
+    def test_should_have_username_as_third_value(self, comment):
+        assert comment.csv_value_array[2] == comment.username
+
+    def test_should_have_created_at_in_right_format_as_fourth_value(
+        self, comment
+    ):
+        expected = comment.created_at.strftime('%d.%m.%Y klo %H:%M')
+        assert comment.csv_value_array[3] == expected
+
+    def test_should_have_body_as_third_value(self, comment):
+        assert comment.csv_value_array[4] == comment.body

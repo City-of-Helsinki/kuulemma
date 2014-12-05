@@ -296,6 +296,91 @@ class TestCommentCountProperty(object):
 
 
 @pytest.mark.usefixtures('database')
+class TestCommentsForReportProperty(object):
+    @pytest.fixture
+    def hearing(self):
+        return HearingFactory()
+
+    @pytest.fixture
+    def alternative(self):
+        return AlternativeFactory()
+
+    @pytest.fixture
+    def image(self):
+        return ImageFactory()
+
+    def test_should_not_return_hidden_comments(self, hearing):
+        CommentFactory(hearing=hearing, is_hidden=True)
+        assert hearing.comments_for_report.all() == []
+
+    def test_should_return_hearing_comments_before_alternative_comments(
+        self, hearing, alternative
+    ):
+        hearing.alternatives.append(alternative)
+        alternative_comment = CommentFactory(
+            hearing=None, alternative=alternative
+        )
+        hearing_comment = CommentFactory(hearing=hearing)
+
+        assert hearing.comments_for_report[0] == hearing_comment
+        assert hearing.comments_for_report[1] == alternative_comment
+
+    def test_should_return_alternative_comments_in_right_order(
+        self, hearing, alternative
+    ):
+        hearing.alternatives.append(alternative)
+        other_alternative = AlternativeFactory(hearing=hearing)
+
+        other_alternative_comment = CommentFactory(
+            hearing=None, alternative=other_alternative
+        )
+        alternative_comment = CommentFactory(
+            hearing=None, alternative=alternative
+        )
+
+        assert hearing.comments_for_report[0] == alternative_comment
+        assert hearing.comments_for_report[1] == other_alternative_comment
+
+    def test_should_return_image_comments_after_alternative_comments(
+        self, hearing, alternative, image
+    ):
+        hearing.alternatives.append(alternative)
+        hearing.images.append(image)
+
+        image_comment = CommentFactory(hearing=None, image=image)
+        alternative_comment = CommentFactory(
+            hearing=None, alternative=alternative
+        )
+
+        assert hearing.comments_for_report[0] == alternative_comment
+        assert hearing.comments_for_report[1] == image_comment
+
+    def test_should_return_comment_comments_after_image_comments(
+        self, hearing, image
+    ):
+        hearing.images.append(image)
+        parent = CommentFactory(hearing=hearing)
+
+        comment_comment = CommentFactory(hearing=None, comment=parent)
+        image_comment = CommentFactory(hearing=None, image=image)
+
+        assert hearing.comments_for_report[0] == parent
+        assert hearing.comments_for_report[1] == image_comment
+        assert hearing.comments_for_report[2] == comment_comment
+
+    def test_should_return_comments_ordered_secondarily_by_id(
+        self, hearing
+    ):
+        first_comment = CommentFactory(hearing=hearing)
+        second_comment = CommentFactory(hearing=hearing)
+        third_comment = CommentFactory(hearing=hearing)
+
+        assert hearing.comments_for_report[0] == first_comment
+        assert hearing.comments_for_report[1] == second_comment
+        assert hearing.comments_for_report[2] == third_comment
+
+
+@pytest.mark.usefixtures('database')
 class TestGetCommentableSectionsString(object):
     @pytest.fixture
     def image(self):
