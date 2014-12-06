@@ -162,6 +162,10 @@ class Comment(db.Model, TextItemMixin):
         return None
 
     @property
+    def commentable_name(self):
+        return 'Mielipide - {title}'.format(title=self.title)
+
+    @property
     def object_type(self):
         return self.comments_on.__class__.__tablename__
 
@@ -184,6 +188,16 @@ class Comment(db.Model, TextItemMixin):
         if self.comment:
             return self.comment.body
         return ''
+
+    @property
+    def csv_value_array(self):
+        return [
+            self.title,
+            self.comments_on.commentable_name,
+            self.username,
+            self.created_at.strftime('%d.%m.%Y klo %H:%M'),
+            self.body,
+        ]
 
 
 COMMENTABLE_TYPES = {

@@ -1,4 +1,15 @@
-from flask import abort, Blueprint, redirect, render_template, url_for
+import csv
+import io
+from datetime import datetime
+
+from flask import (
+    abort,
+    Blueprint,
+    make_response,
+    redirect,
+    render_template,
+    url_for
+)
 from flask.ext.login import current_user, login_required
 
 from ..models import Hearing
@@ -73,3 +84,42 @@ def hameentie():
         commentable_sections_string=commentable_sections_string,
         hearing_page_active=True
     )
+
+
+@hearing.route('/<slug>/report')
+def report(slug):
+    hearing = (
+        Hearing.query
+        .filter(Hearing.slug == slug)
+        .first()
+    )
+
+    if not (hearing and hearing.published):
+        return abort(404)
+
+    # Format csv string.
+    output = io.StringIO()
+    writer = csv.writer(output, quoting=csv.QUOTE_NONNUMERIC)
+    filename = '{slug}_report_{date}'.format(
+        slug=hearing.slug,
+        date=datetime.utcnow().strftime('%d-%m-%Y')
+    )
+
+    headers = [
+        'Otsikko',
+        'Viittaa',
+        'Kirjoittaja',
+        'Päivämäärä',
+        'Mielipide',
+    ]
+    writer.writerow(headers)
+
+    for comment in hearing.comments_for_report:
+        writer.writerow(comment.csv_value_array)
+
+    csv_as_string = output.getvalue()
+    response = make_response(csv_as_string)
+    response.headers['Content-Disposition'] = (
+        'attachment; filename={filename}.csv'.format(filename=filename)
+    )
+    return response

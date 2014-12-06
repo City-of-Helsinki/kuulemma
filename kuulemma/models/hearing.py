@@ -151,8 +151,23 @@ class Hearing(db.Model, TextItemMixin):
         from .comment import Comment
         return (
             self.all_comments
-            .filter(Comment.is_hidden.is_(False))
+            .filter(~Comment.is_hidden)
             .count()
+        )
+
+    @property
+    def comments_for_report(self):
+        from .comment import Comment
+        return (
+            self.all_comments
+            .filter(~Comment.is_hidden)
+            .order_by(
+                Comment.hearing_id,
+                Comment.alternative_id,
+                Comment.image_id,
+                Comment.comment_id,
+                Comment.id
+            )
         )
 
     def get_commentable_sections_string(self):
