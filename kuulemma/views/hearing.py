@@ -86,7 +86,7 @@ def hameentie():
     )
 
 
-@hearing.route('/<slug>/report')
+@hearing.route('/<slug>/raportti.csv')
 def report(slug):
     hearing = (
         Hearing.query
@@ -100,7 +100,7 @@ def report(slug):
     # Format csv string.
     output = io.StringIO()
     writer = csv.writer(output, quoting=csv.QUOTE_NONNUMERIC)
-    filename = '{slug}_report_{date}'.format(
+    filename = '{slug}_raportti_{date}'.format(
         slug=hearing.slug,
         date=datetime.utcnow().strftime('%d-%m-%Y')
     )

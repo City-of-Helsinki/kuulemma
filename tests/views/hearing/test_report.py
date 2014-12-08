@@ -8,7 +8,7 @@ from tests.factories import HearingFactory
 def test_report_url():
     assert (
         url_for('hearing.report', slug='some-slug') ==
-        '/some-slug/report'
+        '/some-slug/raportti.csv'
     )
 
 
