@@ -110,6 +110,7 @@ def report(slug):
         'Viittaa',
         'Kirjoittaja',
         'Saapunut',
+        'Kannatettu',
         'Mielipide',
     ]
     writer.writerow(headers)

@@ -29,7 +29,8 @@ class TestHearingReportOnSuccess(object):
 
     def test_returns_csv_file(self, response):
         assert response.data.decode('utf8') == (
-            '"Otsikko","Viittaa","Kirjoittaja","Saapunut","Mielipide"\r\n'
+            '"Otsikko","Viittaa","Kirjoittaja","Saapunut","Kannatettu"'
+            ',"Mielipide"\r\n'
         )
 
 
