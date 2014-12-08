@@ -109,7 +109,7 @@ def report(slug):
         'Otsikko',
         'Viittaa',
         'Kirjoittaja',
-        'Päivämäärä',
+        'Saapunut',
         'Mielipide',
     ]
     writer.writerow(headers)
