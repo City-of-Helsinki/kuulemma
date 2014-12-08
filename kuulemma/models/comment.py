@@ -196,6 +196,7 @@ class Comment(db.Model, TextItemMixin):
             self.comments_on.commentable_name,
             self.username,
             self.created_at.strftime('%d.%m.%Y klo %H:%M'),
+            self.like_count,
             self.body,
         ]
 

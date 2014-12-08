@@ -1,7 +1,7 @@
 import csv
 import io
-from datetime import datetime
 
+import xlsxwriter
 from flask import (
     abort,
     Blueprint,
@@ -86,8 +86,8 @@ def hameentie():
     )
 
 
-@hearing.route('/<slug>/report')
-def report(slug):
+@hearing.route('/<slug>/raportti.csv')
+def report_as_csv(slug):
     hearing = (
         Hearing.query
         .filter(Hearing.slug == slug)
@@ -97,29 +97,49 @@ def report(slug):
     if not (hearing and hearing.published):
         return abort(404)
 
-    # Format csv string.
     output = io.StringIO()
     writer = csv.writer(output, quoting=csv.QUOTE_NONNUMERIC)
-    filename = '{slug}_report_{date}'.format(
-        slug=hearing.slug,
-        date=datetime.utcnow().strftime('%d-%m-%Y')
-    )
 
-    headers = [
-        'Otsikko',
-        'Viittaa',
-        'Kirjoittaja',
-        'Päivämäärä',
-        'Mielipide',
-    ]
-    writer.writerow(headers)
-
+    writer.writerow(hearing.report_headers)
     for comment in hearing.comments_for_report:
         writer.writerow(comment.csv_value_array)
 
     csv_as_string = output.getvalue()
     response = make_response(csv_as_string)
     response.headers['Content-Disposition'] = (
-        'attachment; filename={filename}.csv'.format(filename=filename)
+        'attachment; filename={filename}.csv'.format(
+            filename=hearing.report_filename
+        )
+    )
+    return response
+
+
+@hearing.route('/<slug>/raportti.xlsx')
+def report_as_xlsx(slug):
+    hearing = (
+        Hearing.query
+        .filter(Hearing.slug == slug)
+        .first()
+    )
+
+    if not (hearing and hearing.published):
+        return abort(404)
+
+    output = io.BytesIO()
+    workbook = xlsxwriter.Workbook(output, {'in_memory': True})
+    worksheet = workbook.add_worksheet()
+
+    worksheet.write_row(0, 0, hearing.report_headers)
+    for index, comment in enumerate(hearing.comments_for_report, start=1):
+        worksheet.write_row(index, 0, comment.csv_value_array)
+
+    workbook.close()
+
+    xlsx_data = output.getvalue()
+    response = make_response(xlsx_data)
+    response.headers['Content-Disposition'] = (
+        'attachment; filename={filename}.xlsx'.format(
+            filename=hearing.report_filename
+        )
     )
     return response

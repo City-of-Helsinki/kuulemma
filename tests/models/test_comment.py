@@ -225,5 +225,8 @@ class TestCsvValueArrayProperty(object):
         expected = comment.created_at.strftime('%d.%m.%Y klo %H:%M')
         assert comment.csv_value_array[3] == expected
 
-    def test_should_have_body_as_third_value(self, comment):
-        assert comment.csv_value_array[4] == comment.body
+    def test_should_have_like_count_as_fifth_value(self, comment):
+        assert comment.csv_value_array[4] == comment.like_count
+
+    def test_should_have_body_as_sixt_value(self, comment):
+        assert comment.csv_value_array[5] == comment.body

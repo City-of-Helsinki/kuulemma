@@ -170,6 +170,24 @@ class Hearing(db.Model, TextItemMixin):
             )
         )
 
+    @property
+    def report_filename(self):
+        return '{slug}_raportti_{date}'.format(
+            slug=self.slug,
+            date=date.today().strftime('%d-%m-%Y')
+        )
+
+    @property
+    def report_headers(self):
+        return [
+            'Otsikko',
+            'Viittaa',
+            'Kirjoittaja',
+            'Saapunut',
+            'Kannatettu',
+            'Mielipide',
+        ]
+
     def get_commentable_sections_string(self):
         """
         Return in string format id, name pairs of all the commentable sections

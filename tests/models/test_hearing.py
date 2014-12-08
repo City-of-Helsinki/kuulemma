@@ -44,6 +44,24 @@ class TestHearing(object):
         )
         assert hearing.commentable_option == expected
 
+    def test_report_filename(self, hearing):
+        expected = '{slug}_raportti_{date}'.format(
+            slug=hearing.slug,
+            date=date.today().strftime('%d-%m-%Y')
+        )
+        assert hearing.report_filename == expected
+
+    def test_report_headers(self, hearing):
+        expected = [
+            'Otsikko',
+            'Viittaa',
+            'Kirjoittaja',
+            'Saapunut',
+            'Kannatettu',
+            'Mielipide',
+        ]
+        assert hearing.report_headers == expected
+
 
 class TestDaysOpenProperty(object):
     def test_should_return_number_of_days_the_hearing_is_still_open(self):
