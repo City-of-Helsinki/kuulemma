@@ -1,6 +1,5 @@
 import csv
 import io
-from datetime import datetime
 
 from flask import (
     abort,
@@ -97,30 +96,18 @@ def report(slug):
     if not (hearing and hearing.published):
         return abort(404)
 
-    # Format csv string.
     output = io.StringIO()
     writer = csv.writer(output, quoting=csv.QUOTE_NONNUMERIC)
-    filename = '{slug}_raportti_{date}'.format(
-        slug=hearing.slug,
-        date=datetime.utcnow().strftime('%d-%m-%Y')
-    )
 
-    headers = [
-        'Otsikko',
-        'Viittaa',
-        'Kirjoittaja',
-        'Saapunut',
-        'Kannatettu',
-        'Mielipide',
-    ]
-    writer.writerow(headers)
-
+    writer.writerow(hearing.report_headers)
     for comment in hearing.comments_for_report:
         writer.writerow(comment.csv_value_array)
 
     csv_as_string = output.getvalue()
     response = make_response(csv_as_string)
     response.headers['Content-Disposition'] = (
-        'attachment; filename={filename}.csv'.format(filename=filename)
+        'attachment; filename={filename}.csv'.format(
+            filename=hearing.report_filename
+        )
     )
     return response
