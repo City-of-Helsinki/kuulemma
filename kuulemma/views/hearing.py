@@ -129,7 +129,14 @@ def report_as_xlsx(slug):
     workbook = xlsxwriter.Workbook(output, {'in_memory': True})
     worksheet = workbook.add_worksheet()
 
-    worksheet.write_row(0, 0, hearing.report_headers)
+    # Cell formatting.
+    bolded = workbook.add_format({'bold': True})
+    worksheet.set_column('A:A', 30)
+    worksheet.set_column('B:D', 20)
+    worksheet.set_column('E:E', 10)
+    worksheet.set_column('F:F', 80)
+
+    worksheet.write_row(0, 0, hearing.report_headers, bolded)
     for index, comment in enumerate(hearing.comments_for_report, start=1):
         worksheet.write_row(index, 0, comment.csv_value_array)
 
