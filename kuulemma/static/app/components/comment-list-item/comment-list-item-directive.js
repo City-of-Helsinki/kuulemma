@@ -42,7 +42,7 @@ angular.module('kuulemmaApp')
         function makeContainerTruncatable(params) {
           _.defer(function () {
             var commentBodyContainer = element.find(params.selector);
-            commentBodyContainer.dotdotdot({height: 150, after: '<button class="' + params.readmore.slice(1) + '">Lue lisää</button>'});
+            commentBodyContainer.dotdotdot({height: 150, watch: true, after: '<button class="' + params.readmore.slice(1) + '">Lue lisää</button>'});
 
             commentBodyContainer.find(params.readmore).on('click', function() {
               commentBodyContainer.trigger('destroy.dot');
