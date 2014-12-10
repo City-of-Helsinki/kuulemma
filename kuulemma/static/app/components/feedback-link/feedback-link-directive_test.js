@@ -20,9 +20,9 @@ describe('Directive: feedbackLinkDirective', function () {
 
   beforeEach(module('kuulemmaApp'));
 
-  var element, scope, isolateScope;
+  var element, scope;
 
-  beforeEach(inject(function ($rootScope, $templateCache) {
+  beforeEach(inject(function ($rootScope) {
     scope = $rootScope.$new();
   }));
 

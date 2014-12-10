@@ -17,10 +17,33 @@
 'use strict';
 
 var gulp = require('gulp');
+var rev = require('gulp-rev');
+var gulpif = require('gulp-if');
+var uglify = require('gulp-uglify');
+var htmlmin = require('gulp-htmlmin');
+var templateCache = require('gulp-angular-templatecache');
 
 var config = require('../config');
 
 gulp.task('html', function() {
   return gulp.src(config.html.src)
+    .pipe(htmlmin({
+      collapseBooleanAttributes: true,
+      collapseWhitespace: true,
+      removeComments: true,
+      removeEmptyAttributes: true,
+      removeScriptTypeAttributes: true,
+      removeStyleLinkTypeAttributes: true,
+      removeCommentsFromCDATA: true,
+      caseSensitive: true,
+      keepClosingSlash: true,
+    }))
+    .pipe(templateCache({
+      standalone: true
+    }))
+    .pipe(uglify())
+    .pipe(gulpif(config.options.env === 'production', rev()))
+    .pipe(gulp.dest(config.html.dest))
+    .pipe(rev.manifest())
     .pipe(gulp.dest(config.html.dest));
 });

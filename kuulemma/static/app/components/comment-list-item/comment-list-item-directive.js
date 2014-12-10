@@ -18,7 +18,7 @@
 angular.module('kuulemmaApp')
   .directive('commentListItem', function ($rootScope, CommentListService) {
     return {
-      templateUrl: '/static/dist/partials/components/comment-list-item/comment-list-item.html',
+      templateUrl: 'components/comment-list-item/comment-list-item.html',
       restrict: 'A',
       scope: {
         comment: '=',
