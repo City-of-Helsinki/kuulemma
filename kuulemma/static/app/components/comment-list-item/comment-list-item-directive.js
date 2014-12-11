@@ -66,8 +66,10 @@ angular.module('kuulemmaApp')
           });
         }
 
-        makeContainerTruncatable({ selector: '.comment-body', readmore: '.readmore' });
-        makeContainerTruncatable({ selector: '.parent-preview', readmore: '.readparent' });
+        _.defer(function() {
+          makeContainerTruncatable({ selector: '.comment-body', readmore: '.readmore' });
+          makeContainerTruncatable({ selector: '.parent-preview', readmore: '.readparent' });
+        });
       }
     };
   });
