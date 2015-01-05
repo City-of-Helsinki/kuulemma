@@ -145,9 +145,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <section class="comments" id="hearing-comments">
         <header>
           <h2>Mielipiteet</h2>
-          <p>
-            Voit vaikuttaa valmistelussa oleviin tai sinne tuleviin asioihin kertomalla mielipiteesi. Mielipiteen antaminen onnistuu ilman rekisteröitymistä. Mielipiteen kannattaminen (=peukuttaminen) edellyttää <a href="{{ url_for('auth.sign_up') }}">rekisteröitymistä</a> käyttäjäksi.
-          </p>
+          {% if hearing.is_open %}
+            <p>
+              Voit vaikuttaa valmistelussa oleviin tai sinne tuleviin asioihin kertomalla mielipiteesi. Mielipiteen antaminen onnistuu ilman rekisteröitymistä. Mielipiteen kannattaminen (=peukuttaminen) edellyttää <a href="{{ url_for('auth.sign_up') }}">rekisteröitymistä</a> käyttäjäksi.
+            </p>
+          {% else %}
+            Tämä kuuleminen on sulkeutunut. Mielipiteiden antaminen ja kannattaminen ei enää ole mahdollista.
+          {% endif %}
         </header>
 
         <div comment-adder ng-if="{{ hearing.is_open }}" class="comment-adder" hearing-id="{{ hearing.id }}" context-list="{{ commentable_sections_string }}"></div>
