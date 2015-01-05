@@ -16,6 +16,24 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -#}
 
+{% macro render_hearing_info(hearing) %}
+  <div class="info">
+    {% if not hearing.is_open %}
+      <span class="label label-default">sulkeutunut</span>
+    {% else %}
+      <span class="days-open">
+        <i class="fa fa-clock-o"></i>
+        {{ hearing.days_open }} pv.
+      </span>
+    {% endif %}
+    <span class="comments">
+      <i class="fa fa-comment-o"></i>
+      {{ hearing.comment_count }} kpl.
+    </span>
+  </div>
+{% endmacro %}
+
+
 {% macro render_hearing_list_item(hearing) %}
   <li>
     <a href="{{ url_for('hearing.show', slug=hearing.slug) }}">
@@ -33,16 +51,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <time datetime="{{ hearing.opens_at }}" class="opened">{{ hearing.opens_at|dateformat }}</time>
       </span>
     </div>
-    <div class="info">
-      <span class="days-open">
-        <i class="fa fa-clock-o"></i>
-        {{ hearing.days_open }} pv.
-      </span>
-      <span class="comments">
-        <i class="fa fa-comment-o"></i>
-        {{ hearing.comment_count }} kpl.
-      </span>
-    </div>
+    {{ render_hearing_info(hearing) }}
   </li>
 {% endmacro %}
 

@@ -79,6 +79,22 @@ class TestHearing(object):
         assert hearing.report_headers == expected
 
 
+class TestIsOpenProperty(object):
+    def test_should_return_true_if_closes_at_has_not_passed(self):
+        closes_at = date.today() + timedelta(2)
+        hearing = HearingFactory.build(closes_at=closes_at)
+        assert hearing.is_open
+
+    def test_should_return_false_if_closes_at_has_not_passed(self):
+        closes_at = date.today() - timedelta(2)
+        hearing = HearingFactory.build(closes_at=closes_at)
+        assert not hearing.is_open
+
+    def test_should_return_false_if_closes_at_is_none(self):
+        hearing = HearingFactory.build(closes_at=None)
+        assert not hearing.is_open
+
+
 class TestDaysOpenProperty(object):
     def test_should_return_number_of_days_the_hearing_is_still_open(self):
         expected = 5

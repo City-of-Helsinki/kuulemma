@@ -42,7 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <h4 ng-hide="commentUnderEdit">{{ $parent.comment.title }}</h4>
   <input class="title-edit" type="text" ng-model="$parent.comment.title" ng-hide="!commentUnderEdit"/>
 
-  <span class="like" ng-class="{ liked: $parent.alreadyLiked($parent.comment.id), active: $parent.userId }" ng-click="$parent.toggleLike($parent.comment.id)">
+  <span class="like" ng-class="{ liked: $parent.alreadyLiked($parent.comment.id), active: $parent.userId && $parent.$parent.isOpen === 'True' }" ng-click="$parent.toggleLike($parent.comment.id)">
     <i class="fa fa-thumbs-o-up"></i>
     <span class="like_count">{{ $parent.comment.like_count }}</span>
   </span>
@@ -66,5 +66,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <button ng-click="$parent.cancelChanges()">Peruuta</button>
     </div>
   </div>
-  <div ng-if="!$parent.comment.parent_preview" comment-adder size="small" hearing-id="{{ $parent.hearingId }}" button-text="Kommentoi" context-list="comment-{{ $parent.$parent.comment.id }}:comment"></div>
+  <div ng-if="!$parent.comment.parent_preview && $parent.$parent.isOpen === 'True'" comment-adder size="small" hearing-id="{{ $parent.hearingId }}" button-text="Kommentoi" context-list="comment-{{ $parent.$parent.comment.id }}:comment"></div>
 </article>

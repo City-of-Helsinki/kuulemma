@@ -49,6 +49,7 @@ describe('Controller: CommentListController', function () {
         scope = $rootScope.$new();
         scope.userId = '2';
         scope.hearingId = '1';
+        scope.isOpen = 'True';
         scope.scrollToCommentsTop = jasmine.createSpy();
         CommentListControllerCtrl = $controller('CommentListController', {
           $scope: scope
@@ -245,6 +246,18 @@ describe('Controller: CommentListController', function () {
           scope.toggleLike(1);
           $httpBackend.flush();
           expect(_.findWhere(scope.comments, {id: 1}).like_count).toBe(1);
+        });
+      });
+
+      describe('Liking when hearing is closed', function() {
+        beforeEach(function() {
+          scope.isOpen = 'False';
+        });
+
+        it('should do nothing when like button is clicked', function() {
+          spyOn(_, 'findWhere');
+          scope.toggleLike(1);
+          expect(_.findWhere).not.toHaveBeenCalled();
         });
       });
     });

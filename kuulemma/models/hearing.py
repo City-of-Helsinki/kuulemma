@@ -117,6 +117,10 @@ class Hearing(db.Model, TextItemMixin):
         )
 
     @property
+    def is_open(self):
+        return self.closes_at and self.closes_at >= date.today()
+
+    @property
     def days_open(self):
         if self.closes_at:
             days_open = self.closes_at - date.today()

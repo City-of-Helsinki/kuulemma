@@ -42,12 +42,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <h2>Kuuleminen</h2>
       <div class="info">
         <span>
-          <i class="fa fa-clock-o"></i>
           {% if hearing.days_open < 1 %}
-            Sulkeutunut
+            <span class="label label-default">sulkeutunut</span>
           {% elif hearing.days_open == 1 %}
+            <i class="fa fa-clock-o"></i>
             1 päivän avoinna
           {% else %}
+            <i class="fa fa-clock-o"></i>
             {{ hearing.days_open }} päivää avoinna
           {% endif %}
         </span>
@@ -100,6 +101,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <div class="content">
       {{ render_image(hearing.main_image, 'Kuulemisen pääkuva') }}
       <section class="main-content">
+        {% if not hearing.is_open %}
+          <div class="alert alert-info">
+            Tämä kuuleminen on sulkeutunut. Mielipiteiden antaminen ja kannattaminen ei enää ole mahdollista.
+          </div>
+        {% endif %}
         <p class="lead">{{ hearing.lead }}</p>
         {{ hearing.body|safe }}
         {% for image in hearing.images %}
@@ -128,7 +134,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                   {% for image in alternative.images %}
                     {{ render_image(image, 'Vaihtoehdon kuva') }}
                   {% endfor %}
-                <div comment-adder button-text="Kerro mielipiteesi tästä vaihtoehdosta ({{ alternative.letter }})" hearing-id="{{ hearing.id }}" context-list="alternative-{{ alternative.id }}:alternative"></div>
+                <div comment-adder ng-if="{{ hearing.is_open }}" button-text="Kerro mielipiteesi tästä vaihtoehdosta ({{ alternative.letter }})" hearing-id="{{ hearing.id }}" context-list="alternative-{{ alternative.id }}:alternative"></div>
                 </section>
               </div>
             </article>
@@ -139,21 +145,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <section class="comments" id="hearing-comments">
         <header>
           <h2>Mielipiteet</h2>
-          <p>
-            Voit vaikuttaa valmistelussa oleviin tai sinne tuleviin asioihin kertomalla mielipiteesi. Mielipiteen antaminen onnistuu ilman rekisteröitymistä. Mielipiteen kannattaminen (=peukuttaminen) edellyttää <a href="{{ url_for('auth.sign_up') }}">rekisteröitymistä</a> käyttäjäksi.
-          </p>
+          {% if hearing.is_open %}
+            <p>
+              Voit vaikuttaa valmistelussa oleviin tai sinne tuleviin asioihin kertomalla mielipiteesi. Mielipiteen antaminen onnistuu ilman rekisteröitymistä. Mielipiteen kannattaminen (=peukuttaminen) edellyttää <a href="{{ url_for('auth.sign_up') }}">rekisteröitymistä</a> käyttäjäksi.
+            </p>
+          {% else %}
+            Tämä kuuleminen on sulkeutunut. Mielipiteiden antaminen ja kannattaminen ei enää ole mahdollista.
+          {% endif %}
         </header>
 
-        <div comment-adder class="comment-adder" hearing-id="{{ hearing.id }}" context-list="{{ commentable_sections_string }}"></div>
+        <div comment-adder ng-if="{{ hearing.is_open }}" class="comment-adder" hearing-id="{{ hearing.id }}" context-list="{{ commentable_sections_string }}"></div>
         <div class="comment-lists">
           <section class="latest-comments">
             <h3>Uusimmat mielipiteet</h3>
-            <div comment-list class="comment-list" hearing-id="{{ hearing.id }}" user-id="{{ current_user.id }}" is-admin="{{ current_user.is_admin }}" is-official="{{ current_user.is_official }}", order-by='created_at'></div>
+            <div comment-list class="comment-list" hearing-id="{{ hearing.id }}" user-id="{{ current_user.id }}" is-admin="{{ current_user.is_admin }}" is-official="{{ current_user.is_official }}" order-by='created_at' is-open="{{ hearing.is_open }}"></div>
           </section>
 
           <section class="popular-comments">
             <h3>Suosituimmat mielipiteet</h3>
-            <div comment-list class="comment-list" hearing-id="{{ hearing.id }}" user-id="{{ current_user.id }}" is-admin="{{ current_user.is_admin }}" is-official="{{ current_user.is_official }}", order-by='like_count'></div>
+            <div comment-list class="comment-list" hearing-id="{{ hearing.id }}" user-id="{{ current_user.id }}" is-admin="{{ current_user.is_admin }}" is-official="{{ current_user.is_official }}" order-by='like_count' is-open="{{ hearing.is_open }}"></div>
           </section>
         </div>
       </section>
