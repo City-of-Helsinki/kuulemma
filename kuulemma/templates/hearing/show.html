@@ -128,7 +128,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                   {% for image in alternative.images %}
                     {{ render_image(image, 'Vaihtoehdon kuva') }}
                   {% endfor %}
-                <div comment-adder button-text="Kerro mielipiteesi tästä vaihtoehdosta ({{ alternative.letter }})" hearing-id="{{ hearing.id }}" context-list="alternative-{{ alternative.id }}:alternative"></div>
+                <div comment-adder ng-if="{{ hearing.is_open }}" button-text="Kerro mielipiteesi tästä vaihtoehdosta ({{ alternative.letter }})" hearing-id="{{ hearing.id }}" context-list="alternative-{{ alternative.id }}:alternative"></div>
                 </section>
               </div>
             </article>
@@ -144,16 +144,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
           </p>
         </header>
 
-        <div comment-adder class="comment-adder" hearing-id="{{ hearing.id }}" context-list="{{ commentable_sections_string }}"></div>
+        <div comment-adder ng-if="{{ hearing.is_open }}" class="comment-adder" hearing-id="{{ hearing.id }}" context-list="{{ commentable_sections_string }}"></div>
         <div class="comment-lists">
           <section class="latest-comments">
             <h3>Uusimmat mielipiteet</h3>
-            <div comment-list class="comment-list" hearing-id="{{ hearing.id }}" user-id="{{ current_user.id }}" is-admin="{{ current_user.is_admin }}" is-official="{{ current_user.is_official }}", order-by='created_at'></div>
+            <div comment-list class="comment-list" hearing-id="{{ hearing.id }}" user-id="{{ current_user.id }}" is-admin="{{ current_user.is_admin }}" is-official="{{ current_user.is_official }}" order-by='created_at' is-open="{{ hearing.is_open }}"></div>
           </section>
 
           <section class="popular-comments">
             <h3>Suosituimmat mielipiteet</h3>
-            <div comment-list class="comment-list" hearing-id="{{ hearing.id }}" user-id="{{ current_user.id }}" is-admin="{{ current_user.is_admin }}" is-official="{{ current_user.is_official }}", order-by='like_count'></div>
+            <div comment-list class="comment-list" hearing-id="{{ hearing.id }}" user-id="{{ current_user.id }}" is-admin="{{ current_user.is_admin }}" is-official="{{ current_user.is_official }}" order-by='like_count' is-open="{{ hearing.is_open }}"></div>
           </section>
         </div>
       </section>

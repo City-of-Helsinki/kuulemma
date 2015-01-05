@@ -27,11 +27,13 @@ angular.module('kuulemmaApp')
         hearingId: '@',
         isAdmin: '@',
         isOfficial: '@',
-        orderBy: '@'
+        orderBy: '@',
+        isOpen: '@'
       },
       link: function postLink(scope) {
         scope.isAdmin = scope.isAdmin === 'True' ? true : false;
         scope.isOfficial = scope.isOfficial === 'True' ? true : false;
+        scope.isOpen = scope.isOpen === 'True' ? true : false;
         scope.scrollToCommentsTop = function(params) {
           $('html, body').animate({
             scrollTop: $('.comment-lists').offset().top

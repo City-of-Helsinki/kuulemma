@@ -35,7 +35,7 @@ angular.module('kuulemmaApp')
     });
 
     $scope.toggleLike = function(commentId) {
-      if(!$scope.userId) {
+      if(!($scope.userId && $scope.isOpen === 'True')) {
         return;
       }
       var comment = _.findWhere($scope.comments, { id: commentId });
