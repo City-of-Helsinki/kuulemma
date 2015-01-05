@@ -42,12 +42,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <h2>Kuuleminen</h2>
       <div class="info">
         <span>
-          <i class="fa fa-clock-o"></i>
           {% if hearing.days_open < 1 %}
-            Sulkeutunut
+            <span class="label label-default">sulkeutunut</span>
           {% elif hearing.days_open == 1 %}
+            <i class="fa fa-clock-o"></i>
             1 päivän avoinna
           {% else %}
+            <i class="fa fa-clock-o"></i>
             {{ hearing.days_open }} päivää avoinna
           {% endif %}
         </span>
@@ -100,6 +101,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <div class="content">
       {{ render_image(hearing.main_image, 'Kuulemisen pääkuva') }}
       <section class="main-content">
+        {% if not hearing.is_open %}
+          <div class="alert alert-info">
+            Tämä kuuleminen on sulkeutunut. Mielipiteiden antaminen ja kannattaminen ei enää ole mahdollista.
+          </div>
+        {% endif %}
         <p class="lead">{{ hearing.lead }}</p>
         {{ hearing.body|safe }}
         {% for image in hearing.images %}

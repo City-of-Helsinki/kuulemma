@@ -72,6 +72,11 @@
       text-align: right;
       bottom: @vertical-padding;
 
+      .label + .comments {
+        margin-top: 4px;
+        margin-left: 4px;
+      }
+
       @media (min-width: @screen-sm-min) {
         top: 50%;
         margin-top: -(@line-height / 2);
@@ -80,6 +85,9 @@
       @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
         span {
           display: block;
+          &.label {
+            display: inline;
+          }
 
           &.days-open {
             margin-right: 0;

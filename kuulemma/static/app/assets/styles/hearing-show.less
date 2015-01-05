@@ -45,9 +45,15 @@
       @media (min-width: @screen-md-min) {
         span {
           display: block;
+          &.label {
+            display: inline;
+          }
           + span {
             margin-left: 0;
           }
+        }
+        .label + span {
+          margin-top: 4px;
         }
       }
     }
