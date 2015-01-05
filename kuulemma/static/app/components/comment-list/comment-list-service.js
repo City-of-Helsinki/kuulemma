@@ -46,12 +46,14 @@ angular.module('kuulemmaApp')
     }
 
     function hideComment(params) {
-      var forcedParams = _.extend(params, {is_hidden: true});
+      var forcedParams = _.extend(params, {});
+      forcedParams.comment.is_hidden = true;
       return editComment(forcedParams);
     }
 
     function unhideComment(params) {
-      var forcedParams = _.extend(params, {is_hidden: false});
+      var forcedParams = _.extend(params, {});
+      forcedParams.comment.is_hidden = false;
       return editComment(forcedParams);
     }
 
