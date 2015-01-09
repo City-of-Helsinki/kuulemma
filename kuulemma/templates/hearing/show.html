@@ -134,7 +134,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                   {% for image in alternative.images %}
                     {{ render_image(image, 'Vaihtoehdon kuva') }}
                   {% endfor %}
-                <div comment-adder ng-if="{{ hearing.is_open }}" button-text="Kerro mielipiteesi tästä vaihtoehdosta ({{ alternative.letter }})" hearing-id="{{ hearing.id }}" context-list="alternative-{{ alternative.id }}:alternative"></div>
+                {% if hearing.is_open %}
+                  <div comment-adder button-text="Kerro mielipiteesi tästä vaihtoehdosta ({{ alternative.letter }})" hearing-id="{{ hearing.id }}" context-list="alternative-{{ alternative.id }}:alternative"></div>
+                {% endif %}
                 </section>
               </div>
             </article>
@@ -154,7 +156,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
           {% endif %}
         </header>
 
-        <div comment-adder ng-if="{{ hearing.is_open }}" class="comment-adder" hearing-id="{{ hearing.id }}" context-list="{{ commentable_sections_string }}"></div>
+        {% if hearing.is_open %}
+          <div comment-adder class="comment-adder" hearing-id="{{ hearing.id }}" context-list="{{ commentable_sections_string }}"></div>
+        {% endif %}
         <div class="comment-lists">
           <section class="latest-comments">
             <h3>Uusimmat mielipiteet</h3>
