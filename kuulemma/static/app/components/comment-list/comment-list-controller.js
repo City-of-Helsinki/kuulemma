@@ -70,6 +70,7 @@ angular.module('kuulemmaApp')
       })
         .success(function() {
           comment.is_hidden = true;
+          $rootScope.$broadcast('hearing-' + $scope.hearingId + '-comment-hidden');
         });
     };
 
@@ -80,6 +81,7 @@ angular.module('kuulemmaApp')
       })
         .success(function() {
           comment.is_hidden = false;
+          $rootScope.$broadcast('hearing-' + $scope.hearingId + '-comment-unhidden');
         });
     };
 

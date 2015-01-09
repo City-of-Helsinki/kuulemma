@@ -54,7 +54,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         </span>
         <span>
           <i class="fa fa-comment-o"></i>
-          {{ hearing.comment_count }} kpl.
+          <span comment-counter hearing-id="{{ hearing.id }}" count="{{ hearing.comment_count }}">
+            {{ hearing.comment_count }}
+          </span> kpl.
         </span>
       </div>
 
@@ -72,7 +74,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
           {% endif %}
           <a href="#hearing-comments" class="list-group-item">
             Mielipiteet
-            <span class="badge">{{ hearing.comment_count }}</span>
+            <span comment-counter hearing-id="{{ hearing.id }}" count="{{ hearing.comment_count }}" class="badge">{{ hearing.comment_count }}</span>
           </a>
         </div>
 
