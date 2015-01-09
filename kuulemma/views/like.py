@@ -54,6 +54,9 @@ def create(user_id):
     comment_id = request.get_json().get('comment_id', 0)
     comment = Comment.query.get_or_404(comment_id)
 
+    if not comment.related_hearing.is_open:
+        return jsonify({'error': 'The hearing is no longer open.'}), 400
+
     like = Like(
         user=user,
         comment=comment
