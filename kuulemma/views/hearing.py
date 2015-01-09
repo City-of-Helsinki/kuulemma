@@ -122,6 +122,7 @@ def report_as_csv(slug):
 
     csv_as_string = output.getvalue()
     response = make_response(csv_as_string)
+    response.mimetype = 'text/csv'
     response.headers['Content-Disposition'] = (
         'attachment; filename={filename}.csv'.format(
             filename=hearing.report_filename
@@ -160,6 +161,9 @@ def report_as_xlsx(slug):
 
     xlsx_data = output.getvalue()
     response = make_response(xlsx_data)
+    response.mimetype = (
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    )
     response.headers['Content-Disposition'] = (
         'attachment; filename={filename}.xlsx'.format(
             filename=hearing.report_filename
