@@ -178,6 +178,10 @@ class Comment(db.Model, TextItemMixin):
         return None
 
     @property
+    def related_hearing(self):
+        return self.comments_on.related_hearing
+
+    @property
     def commentable_name(self):
         return 'Mielipide - {title}'.format(title=self.title)
 

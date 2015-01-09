@@ -45,6 +45,9 @@ class TestHearing(object):
         expected = '<Hearing title=\'{title}\'>'.format(title=hearing.title)
         assert repr(hearing) == expected
 
+    def test_related_hearing_should_return_self(self, hearing):
+        assert hearing.related_hearing == hearing
+
     def test_commentable_id(self, hearing):
         expected = 'hearing-{id}'.format(id=hearing.id)
         assert hearing.commentable_id == expected

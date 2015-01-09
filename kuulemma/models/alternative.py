@@ -67,6 +67,11 @@ class Alternative(db.Model, TextItemMixin):
     position = db.Column(db.Integer)
 
     @property
+    def related_hearing(self):
+        from .hearing import Hearing
+        return Hearing.query.get(self.hearing_id)
+
+    @property
     def letter(self):
         ASCII_INDEX_OF_A = 65
         position = self.position or 0

@@ -113,6 +113,10 @@ class Image(db.Model):
             return self.alternative_main
 
     @property
+    def related_hearing(self):
+        return self.belongs_to.related_hearing
+
+    @property
     def is_main_image(self):
         return not (self.hearing_id or self.alternative_id)
 

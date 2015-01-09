@@ -24,6 +24,8 @@ from sqlalchemy_utils import (
     assert_nullable
 )
 
+from kuulemma.extensions import db
+
 from ..factories import AlternativeFactory, HearingFactory, ImageFactory
 
 
@@ -101,6 +103,12 @@ class TestAlternativeWithDatabase(object):
 
     def test_hearing_id_is_nullable(self, alternative):
         assert_nullable(alternative, 'hearing_id')
+
+    def test_related_hearing_should_return_hearing(self, alternative):
+        hearing = HearingFactory()
+        alternative.hearing = hearing
+        db.session.flush()
+        assert alternative.related_hearing == hearing
 
 
 @pytest.mark.usefixtures('database')
