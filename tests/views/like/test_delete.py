@@ -122,20 +122,32 @@ class TestDeleteLikeOnError(DeleteLikeTestCase):
         )
         assert response.status_code == 401
 
-    def test_returns_400_for_non_existent_comment(self, client, user, like):
+    def test_returns_404_for_non_existent_comment(self, client, user, like):
         login_user(client, user)
         response = client.delete(
             url_for('like.delete', user_id=user.id),
             data=json.dumps({'comment_id': 999}),
             content_type='application/json'
         )
-        assert response.status_code == 400
+        assert response.status_code == 404
 
-    def test_returns_400_for_non_existent_like(self, client, user):
+    def test_returns_400_for_non_existent_like(self, client, user, comment):
         login_user(client, user)
         response = client.delete(
             url_for('like.delete', user_id=user.id),
-            data=json.dumps({'comment_id': 999}),
+            data=json.dumps({'comment_id': comment.id}),
+            content_type='application/json'
+        )
+        assert response.status_code == 400
+
+    def test_returns_400_if_hearing_is_closed(self, client, user):
+        login_user(client, user)
+        hearing = HearingFactory(closes_at=date.today() - timedelta(2))
+        comment = CommentFactory(hearing=hearing)
+        LikeFactory(user=user, comment=comment)
+        response = client.delete(
+            url_for('like.delete', user_id=user.id),
+            data=json.dumps({'comment_id': comment.id}),
             content_type='application/json'
         )
         assert response.status_code == 400
