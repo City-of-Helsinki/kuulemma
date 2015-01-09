@@ -26,7 +26,7 @@ from flask import (
     render_template,
     url_for
 )
-from flask.ext.login import current_user, login_required
+from flask.ext.login import current_user
 
 from ..models import Hearing
 
@@ -67,29 +67,6 @@ def show(slug):
         current_user.is_authenticated() and
         (current_user.is_official or current_user.is_admin)
     ):
-        return abort(404)
-
-    commentable_sections_string = hearing.get_commentable_sections_string()
-
-    return render_template(
-        'hearing/show.html',
-        hearing=hearing,
-        commentable_sections_string=commentable_sections_string,
-        hearing_page_active=True
-    )
-
-
-# This route is only for demo and preview purposes.
-@hearing.route('/hameentie-ennakko')
-@login_required
-def hameentie():
-    if not (current_user.is_official or current_user.is_admin):
-        return abort(404)
-
-    HAMEENTIE_HEARING_ID = 11
-    hearing = Hearing.query.get(HAMEENTIE_HEARING_ID)
-
-    if not hearing:
         return abort(404)
 
     commentable_sections_string = hearing.get_commentable_sections_string()
