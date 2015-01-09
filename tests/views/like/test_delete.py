@@ -16,12 +16,18 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import json
+from datetime import date, timedelta
 
 import pytest
 from flask import url_for
 
 from kuulemma.extensions import db
-from tests.factories import CommentFactory, LikeFactory, UserFactory
+from tests.factories import (
+    CommentFactory,
+    HearingFactory,
+    LikeFactory,
+    UserFactory
+)
 from tests.utils import login_user
 
 
@@ -40,19 +46,23 @@ class DeleteLikeTestCase(object):
         return UserFactory()
 
     @pytest.fixture
-    def comment(self):
-        return CommentFactory()
+    def hearing(self):
+        return HearingFactory(closes_at=date.today() + timedelta(2))
+
+    @pytest.fixture
+    def comment(self, hearing):
+        return CommentFactory(hearing=hearing)
 
     @pytest.fixture
     def delete_data(self, comment):
         return {'comment_id': comment.id}
 
-
-class TestDeleteLikeOnSuccess(DeleteLikeTestCase):
     @pytest.fixture
     def like(self, user, comment):
         return LikeFactory(user=user, comment=comment)
 
+
+class TestDeleteLikeOnSuccess(DeleteLikeTestCase):
     @pytest.fixture
     def response(self, client, user, comment, delete_data, like):
         login_user(client, user)
@@ -96,21 +106,23 @@ class TestDeleteLikeOnSuccess(DeleteLikeTestCase):
 
 
 class TestDeleteLikeOnError(DeleteLikeTestCase):
-    @pytest.fixture
-    def response(self, client, user, delete_data):
-        return client.delete(
-            url_for('like.delete', user_id=user.id),
-            data=json.dumps(delete_data),
-            content_type='application/json'
-        )
-
     def test_returns_404_for_non_existent_user(self, client):
         response = client.delete(
             url_for('like.delete', user_id=999)
         )
         assert response.status_code == 404
 
-    def test_returns_400_for_non_existent_comment(self, client, user):
+    def test_returns_401_if_user_is_not_logged_in(
+        self, client, user, comment, like
+    ):
+        response = client.delete(
+            url_for('like.delete', user_id=user.id),
+            data=json.dumps({'comment_id': comment.id}),
+            content_type='application/json'
+        )
+        assert response.status_code == 401
+
+    def test_returns_400_for_non_existent_comment(self, client, user, like):
         login_user(client, user)
         response = client.delete(
             url_for('like.delete', user_id=user.id),
@@ -119,5 +131,11 @@ class TestDeleteLikeOnError(DeleteLikeTestCase):
         )
         assert response.status_code == 400
 
-    def test_returns_401_if_user_is_not_logged_in(self, response):
-        assert response.status_code == 401
+    def test_returns_400_for_non_existent_like(self, client, user):
+        login_user(client, user)
+        response = client.delete(
+            url_for('like.delete', user_id=user.id),
+            data=json.dumps({'comment_id': 999}),
+            content_type='application/json'
+        )
+        assert response.status_code == 400
