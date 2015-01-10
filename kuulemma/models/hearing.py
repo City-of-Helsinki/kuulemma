@@ -98,6 +98,10 @@ class Hearing(db.Model, TextItemMixin):
     _area = db.Column(Geometry('POLYGON'))
 
     @property
+    def related_hearing(self):
+        return self
+
+    @property
     def commentable_id(self):
         return 'hearing-{id}'.format(id=self.id)
 

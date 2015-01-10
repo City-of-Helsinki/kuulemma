@@ -16,6 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import json
+from datetime import date, timedelta
 
 import pytest
 from flask import url_for
@@ -29,6 +30,11 @@ from tests.factories import (
 )
 
 
+@pytest.fixture
+def hearing():
+    return HearingFactory(closes_at=date.today() + timedelta(2))
+
+
 @pytest.mark.usefixtures('request_ctx')
 def test_create_url():
     assert (
@@ -39,10 +45,6 @@ def test_create_url():
 
 @pytest.mark.usefixtures('database', 'request_ctx')
 class TestCreateCommentOnSuccess(object):
-    @pytest.fixture
-    def hearing(self):
-        return HearingFactory()
-
     @pytest.fixture
     def comment_data(self, hearing):
         return {
@@ -106,10 +108,6 @@ class TestCommentingAlternative(object):
         }
 
     @pytest.fixture
-    def hearing(self):
-        return HearingFactory()
-
-    @pytest.fixture
     def response(self, client, hearing, comment_data):
         return client.post(
             url_for('comment.create', hearing_id=hearing.id),
@@ -148,10 +146,6 @@ class TestCommentingImage(object):
             'object_type': 'image',
             'object_id': image.id
         }
-
-    @pytest.fixture
-    def hearing(self):
-        return HearingFactory()
 
     @pytest.fixture
     def response(self, client, hearing, comment_data):
@@ -194,10 +188,6 @@ class TestCommentingComment(object):
         }
 
     @pytest.fixture
-    def hearing(self):
-        return HearingFactory()
-
-    @pytest.fixture
     def response(self, client, hearing, comment_data):
         return client.post(
             url_for('comment.create', hearing_id=hearing.id),
@@ -224,10 +214,6 @@ class TestCommentingComment(object):
 @pytest.mark.usefixtures('database', 'request_ctx')
 class TestCreateCommentOnError(object):
     @pytest.fixture
-    def hearing(self):
-        return HearingFactory()
-
-    @pytest.fixture
     def no_hearing_response(self, client):
         return client.post(
             url_for('comment.create', hearing_id=999)
@@ -246,6 +232,22 @@ class TestCreateCommentOnError(object):
 
     def test_returns_400_if_data_is_missing(self, missing_data_response):
         assert missing_data_response.status_code == 400
+
+    def test_returns_400_if_hearing_has_closed(self, client):
+        hearing = HearingFactory(closes_at=date.today() - timedelta(2))
+        comment_data = {
+            'title': 'Hello World!',
+            'body': 'I really don\'t like this death star idea!',
+            'username': 'Luke Skywalker',
+            'object_type': 'hearing',
+            'object_id': hearing.id
+        }
+        response = client.post(
+            url_for('comment.create', hearing_id=hearing.id),
+            data=json.dumps(comment_data),
+            content_type='application/json'
+        )
+        assert response.status_code == 400
 
     def test_returns_missing_fields_in_error_message(
         self, missing_data_response
@@ -307,10 +309,6 @@ class TestCreateCommentOnError(object):
 
 @pytest.mark.usefixtures('database', 'request_ctx')
 class TestCreateCommentHoneyPotSpamFilter(object):
-    @pytest.fixture
-    def hearing(self):
-        return HearingFactory()
-
     @pytest.fixture
     def comment_data(self, hearing):
         return {

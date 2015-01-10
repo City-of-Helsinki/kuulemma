@@ -165,6 +165,48 @@ class TestCommentWithDatabase(object):
 
 
 @pytest.mark.usefixtures('database')
+class TestRelatedHearingProperty(object):
+    @pytest.fixture
+    def hearing(self):
+        return HearingFactory.build()
+
+    @pytest.fixture
+    def alternative(self, hearing):
+        return AlternativeFactory(hearing=hearing)
+
+    @pytest.fixture
+    def image(self):
+        return ImageFactory.build()
+
+    @pytest.fixture
+    def another_comment(self, hearing):
+        return CommentFactory(hearing=hearing)
+
+    def test_should_return_hearing_if_comments_on_hearing(self, hearing):
+        comment = CommentFactory(hearing=hearing)
+        assert comment.related_hearing == hearing
+
+    def test_should_return_hearing_if_comments_on_alternative(
+        self, hearing, alternative, image
+    ):
+        comment = CommentFactory(hearing=None, alternative=alternative)
+        assert comment.related_hearing == hearing
+
+    def test_should_return_hearing_if_comments_on_image(
+        self, hearing, image
+    ):
+        hearing.main_image = image
+        comment = CommentFactory(hearing=None, image=image)
+        assert comment.related_hearing == hearing
+
+    def test_should_return_hearing_if_comments_on_another_comment(
+        self, hearing, another_comment
+    ):
+        comment = CommentFactory(hearing=None, comment=another_comment)
+        assert comment.related_hearing == hearing
+
+
+@pytest.mark.usefixtures('database')
 class TestCommentCheckConstraint(object):
     def test_comment_must_reference_something(self):
         with pytest.raises(IntegrityError):

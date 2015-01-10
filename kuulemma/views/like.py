@@ -54,6 +54,9 @@ def create(user_id):
     comment_id = request.get_json().get('comment_id', 0)
     comment = Comment.query.get_or_404(comment_id)
 
+    if not comment.related_hearing.is_open:
+        return jsonify({'error': 'The hearing is no longer open.'}), 400
+
     like = Like(
         user=user,
         comment=comment
@@ -79,6 +82,9 @@ def delete(user_id):
         abort(401)
 
     comment_id = request.get_json().get('comment_id', 0)
+    comment = Comment.query.get_or_404(comment_id)
+    if not comment.related_hearing.is_open:
+        return jsonify({'error': 'The hearing is no longer open.'}), 400
 
     like = (
         Like.query
@@ -87,7 +93,7 @@ def delete(user_id):
     )
 
     if not like:
-        return (jsonify({'error': 'No comment was found.'}), 400)
+        return (jsonify({'error': 'No comment or like was found.'}), 400)
 
     db.session.delete(like)
     db.session.commit()

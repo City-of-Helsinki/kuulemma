@@ -86,13 +86,16 @@ def index(hearing_id):
 
 @comment.route('', methods=['POST'])
 def create(hearing_id):
-    Hearing.query.get_or_404(hearing_id)
+    hearing = Hearing.query.get_or_404(hearing_id)
 
     schema = CommentSchema()
     data, errors = schema.load(request.get_json())
 
     if errors:
         return jsonify({'error': errors}), 400
+
+    if not hearing.is_open:
+        return jsonify({'error': 'The hearing is no longer open.'}), 400
 
     if is_spam(request.get_json()):
         abort(400)

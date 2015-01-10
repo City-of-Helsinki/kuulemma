@@ -16,12 +16,18 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import json
+from datetime import date, timedelta
 
 import pytest
 from flask import url_for
 
 from kuulemma.models import Like
-from tests.factories import CommentFactory, LikeFactory, UserFactory
+from tests.factories import (
+    CommentFactory,
+    HearingFactory,
+    LikeFactory,
+    UserFactory
+)
 from tests.utils import login_user
 
 
@@ -40,8 +46,12 @@ class CreateLikeTestCase(object):
         return UserFactory()
 
     @pytest.fixture
-    def comment(self):
-        return CommentFactory()
+    def hearing(self):
+        return HearingFactory(closes_at=date.today() + timedelta(2))
+
+    @pytest.fixture
+    def comment(self, hearing):
+        return CommentFactory(hearing=hearing)
 
     @pytest.fixture
     def create_data(self, comment):
@@ -122,3 +132,14 @@ class TestCreateLikeOnError(CreateLikeTestCase):
     def test_returns_error_message_if_like_already_exists(self, response):
         message = 'User has already liked the comment.'
         assert message in response.data.decode('utf8')
+
+    def test_returns_400_if_hearing_is_closed(self, client, user):
+        hearing = HearingFactory(closes_at=date.today() - timedelta(2))
+        comment = CommentFactory(hearing=hearing)
+        login_user(client, user)
+        response = client.post(
+            url_for('like.create', user_id=user.id),
+            data=json.dumps({'comment_id': comment.id}),
+            content_type='application/json'
+        )
+        assert response.status_code == 400

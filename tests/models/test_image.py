@@ -156,6 +156,45 @@ class TestImageWithDatabase(object):
 
 
 @pytest.mark.usefixtures('database')
+class TestRelatedHearingProperty(object):
+    @pytest.fixture
+    def hearing(self):
+        return HearingFactory.build()
+
+    @pytest.fixture
+    def alternative(self, hearing):
+        return AlternativeFactory(hearing=hearing)
+
+    @pytest.fixture
+    def image(self):
+        return ImageFactory.build()
+
+    def test_should_return_hearing_if_is_hearing_main_image(
+        self, hearing, image
+    ):
+        hearing.main_image = image
+        assert image.related_hearing == hearing
+
+    def test_should_return_hearing_if_is_hearing_image(
+        self, hearing, image
+    ):
+        hearing.images.append(image)
+        assert image.related_hearing == hearing
+
+    def test_should_return_alternative_hearing_if_is_alternative_main_image(
+        self, hearing, alternative, image
+    ):
+        alternative.main_image = image
+        assert image.related_hearing == hearing
+
+    def test_should_return_alternative_hearing_if_is_alternative_image(
+        self, hearing, alternative, image
+    ):
+        alternative.images.append(image)
+        assert image.related_hearing == hearing
+
+
+@pytest.mark.usefixtures('database')
 class TestImageCheckConstraint(object):
     def test_position_must_be_none_if_hearing_and_alternative_id_are_none(
         self
