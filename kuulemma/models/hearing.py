@@ -132,6 +132,22 @@ class Hearing(db.Model, TextItemMixin):
         return 0
 
     @property
+    def slugs(self):
+        if self.slug == 'hameentie':
+            return [
+                {'name': 'Liikenne', 'type': 'traffic'},
+                {'name': 'Kallio', 'type': 'area'},
+                {'name': 'Sörnäinen', 'type': 'area'},
+            ]
+        if self.slug == 'sturenkatu':
+            return [
+                {'name': 'Liikenne', 'type': 'traffic'},
+                {'name': 'Alppiharju', 'type': 'area'},
+                {'name': 'Vallila', 'type': 'area'},
+            ]
+        return []
+
+    @property
     def all_comments(self):
         from .comment import Comment
         from .image import Image

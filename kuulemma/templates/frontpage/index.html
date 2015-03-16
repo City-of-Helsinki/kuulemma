@@ -15,7 +15,7 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -#}
-{% from "_hearing_helpers.html" import render_hearing_info, render_hearing_list_item %}
+{% from "_hearing_helpers.html" import  render_hearing_slugs, render_hearing_info, render_hearing_list_item %}
 {% extends "layout.html" %}
 
 {% block title_base %}Kerrokantasi{% endblock %}
@@ -33,11 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <img src="{{ url_for('static', filename=featured_hearing.main_image.filename) }}" alt="{{ featured_hearing.main_image.caption }}">
           </figure>
         </a>
-        <ul class="tags small">
-          <li class="tag-traffic">Liikenne</li>
-          <li class="tag-area">Kallio</li>
-          <li class="tag-area">Sörnäinen</li>
-        </ul>
+        {{ render_hearing_slugs(featured_hearing, 'small') }}
         {{ render_hearing_info(featured_hearing) }}
         <h2>
           <a href="{{ url_for('hearing.show', slug=featured_hearing.slug) }}">
