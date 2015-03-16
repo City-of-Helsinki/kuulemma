@@ -43,6 +43,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 {% endmacro %}
 
 
+{% macro render_hearing_opening_and_closing_times(hearing) %}
+  <span opening-and-closing-times>
+    Avattu
+    <time datetime="{{ hearing.opens_at }}" class="opened">{{ hearing.opens_at|dateformat }}</time>
+    <br>
+    {% if hearing.is_open %}
+      Sulkeutuu
+    {% else %}
+      Sulkeutui
+    {% endif %}
+    <time datetime="{{ hearing.opens_at }}" class="opened">{{ hearing.closes_at|dateformat }}</time>
+  </span>
+{% endmacro %}
+
+
 {% macro render_hearing_list_item(hearing) %}
   <li>
     <a href="{{ url_for('hearing.show', slug=hearing.slug) }}">
@@ -51,10 +66,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     {{ render_hearing_slugs(hearing, 'small') }}
     <div class="content">
       <h3><a href="{{ url_for('hearing.show', slug=hearing.slug) }}">{{ hearing.title }}</a></h3>
-      <span class="opened">
-        Avattu
-        <time datetime="{{ hearing.opens_at }}" class="opened">{{ hearing.opens_at|dateformat }}</time>
-      </span>
+      {{ render_hearing_opening_and_closing_times(hearing) }}
     </div>
     {{ render_hearing_info(hearing) }}
   </li>
