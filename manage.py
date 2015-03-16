@@ -85,7 +85,8 @@ def add_user():
         username='john',
         password='john1234',
         is_admin=True,
-        is_official=True
+        is_official=True,
+        active=True,
     )
     db.session.add(user)
     db.session.commit()
