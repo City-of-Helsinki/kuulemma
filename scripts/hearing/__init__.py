@@ -32,13 +32,16 @@ def _add_hearing(hearing_data):
         opens_at=hearing_data['opens_at'],
         closes_at=hearing_data['closes_at'],
         published=hearing_data['published'],
-        area=shape(hearing_data['area']),
     )
 
     hearing.main_image = Image(
         filename=hearing_data['main_image']['filename'],
         caption=hearing_data['main_image']['caption']
     )
+
+    if hearing_data['area']:
+        hearing.area = shape(hearing_data['area'])
+
     print('Main content added.')
 
     for index, alternative_data in enumerate(hearing_data['alternatives']):
@@ -63,4 +66,9 @@ def _add_hearing(hearing_data):
 
 def add_hameentie():
     from .hameentie import hearing
+    _add_hearing(hearing)
+
+
+def add_sturenkatu():
+    from .sturenkatu import hearing
     _add_hearing(hearing)
