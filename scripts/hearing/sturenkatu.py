@@ -81,8 +81,9 @@ body = '''
     <p>
     Sturenkadun pyörätiet ovat osa kantakaupungin pyöräliikenteen pääverkkoa,
     jonka kaupunkisuunnittelulautakunta hyväksyi toukokuussa 2012.
+    Pyöräteiden rakentaminen voidaan aloittaa aikaisintaan vuonna 2017.
     </p>
-    <p>
+    <p class="lead">
     Kerro, mitä mieltä olet suunnitelmaluonnoksista. Mikä niissä on hyvää ja
     mikä kaipaa vielä kehittämistä?
     Kommentoi suunnitelmaluonnoksia 8.4.2015 saakka!
