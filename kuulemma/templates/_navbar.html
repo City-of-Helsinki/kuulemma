@@ -31,8 +31,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     </div>
     <div id="navbar-collapse" class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
-        <li {% if hearing_page_active %}class="active"{% endif %}>
-          <a class="navbar-info-link" href="{{ url_for('hearing.index') }}">
+        <li {% if request.endpoint == 'frontpage.index' %}class="active"{% endif %}>
+          <a class="navbar-info-link" href="{{ url_for('frontpage.index') }}">
             <span class="heading">Kuulemiset</span>
             <span class="info">
               Antamalla mielipiteesi voit vaikuttaa käsiteltävinä olevien asioiden valmisteluun
