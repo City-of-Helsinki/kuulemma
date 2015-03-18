@@ -67,10 +67,12 @@ describe('Controller: AddFeedbackController', function () {
       content : 'My Feedback!'
     };
 
+    var userAgentText = '\n\nPalautteen lähettäjän käyttämä selain: ' + navigator.userAgent;
+
     beforeEach(function() {
       scope.form = initialValues;
       $httpBackend.expectPOST('/feedback', {
-        content: initialValues.content,
+        content: initialValues.content + userAgentText,
       }).respond(201, {
         feedbacks:
         {
@@ -90,7 +92,8 @@ describe('Controller: AddFeedbackController', function () {
 
     it('should call feedback service\'s save function', function() {
       expect(FeedbackService.save.callCount).toBe(1);
-      expect(FeedbackService.save).toHaveBeenCalledWith(initialValues);
+      expect(FeedbackService.save.mostRecentCall.args[0].content)
+        .toContain('My Feedback!');
       $httpBackend.flush();
     });
 
@@ -98,10 +101,7 @@ describe('Controller: AddFeedbackController', function () {
       spyOn($rootScope, '$broadcast');
       $httpBackend.flush();
       expect($rootScope.$broadcast.callCount).toBe(1);
-      expect($rootScope.$broadcast).toHaveBeenCalledWith('feedback-added', {
-        id: 1,
-        content: initialValues.content,
-      });
+      expect($rootScope.$broadcast.mostRecentCall.args[0]).toBe('feedback-added');
     }));
   });
 });
