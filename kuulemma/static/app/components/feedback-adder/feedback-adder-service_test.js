@@ -41,9 +41,7 @@ describe('Service: FeedbackService', function () {
 
     it('should make a post request with content in data', function() {
       expect($http.post.callCount).toBe(1);
-      expect($http.post).toHaveBeenCalledWith('/feedback', {
-        content : 'My Feedback!',
-      });
+      expect($http.post.mostRecentCall.args[1].content).toContain('My Feedback!');
     });
   });
 });

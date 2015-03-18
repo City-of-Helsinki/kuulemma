@@ -19,6 +19,8 @@
 angular.module('kuulemmaApp').factory('FeedbackService', function($http) {
 
   function saveFeedback(feedbackObject) {
+    var userAgentText = '\n\nPalautteen lähettäjän käyttämä selain: ' + navigator.userAgent;
+    feedbackObject.content = feedbackObject.content + userAgentText;
     return $http.post('/feedback', feedbackObject);
   }
 
