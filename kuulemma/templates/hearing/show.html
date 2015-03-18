@@ -83,9 +83,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
           <!-- This will be hidden but will handle the clicks. -->
           <div class="addthis_sharing_toolbox"></div>
         </div>
-
-        <p>
-        </p>
       </div>
       {% if hearing.area != None %}
         <div location-map class="location-map"
@@ -100,6 +97,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       {{ render_image(hearing.main_image, 'Kuulemisen pääkuva') }}
       <section class="main-content">
         {% if not hearing.is_open %}
+          {% if hearing.slug == 'hameentie' %}
+            <p>
+              Kiitos kaikille verkkokeskusteluun ja tilaisuuksiin osallistuneille sekä muuten näkemyksiään Hämeentien suunnittelusta antaneille. Olemme saaneet monipuolisen ja hyvän käsityksen keskeisistä huomioon otettavista seikoista ja eri näkökulmista. Työ jatkuu nyt läpiajotutkimuksin, risteyslaskennoin sekä lähialueiden saavutettavuus- ja huoltoliikennetarkasteluin. Lisäksi tutkimme mallinnuksilla laajemman alueen pääverkon kapasiteettia ja Kallion lähikaduille kohdistuvaa kuormitusta. Lähempään tarkasteluun otamme myös liikenneturvallisuuden sekä koetun turvallisuuden ja arvioimme melu- ja päästövaikutuksia. Myös kadunvarren yrittäjille tehdyissä haastatteluissa esiin nousseita seikkoja pohditaan. Näiden selvitys- ja mallinnustöiden tekemisessä menee kevät ja alkukesä. Tulosten perusteella kaupunkisuunnitteluvirasto esittää luonnoksen ratkaisumallista alkusyksystä, jolloin toivomme taas kaikkien kiinnostuneiden osallistuvan luonnoksen arviointiin ja kehittämiseen.
+            </p>
+          {% endif %}
           <div class="alert alert-info">
             Tämä kuuleminen on sulkeutunut. Mielipiteiden antaminen ja kannattaminen ei enää ole mahdollista.
           </div>
