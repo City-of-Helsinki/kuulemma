@@ -60,7 +60,7 @@ angular.module('kuulemmaApp')
             var commentBodyContainer = element.find(params.selector);
             commentBodyContainer.dotdotdot({height: 150, watch: true, after: '<button class="' + params.readmore.slice(1) + '">Lue lisää</button>'});
 
-            commentBodyContainer.find(params.readmore).on('click', function() {
+            commentBodyContainer.on('click', (params.readmore), function() {
               commentBodyContainer.trigger('destroy.dot');
             });
           });
