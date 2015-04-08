@@ -127,8 +127,8 @@ class Hearing(db.Model, TextItemMixin):
     @property
     def days_open(self):
         if self.closes_at:
-            days_open = self.closes_at - date.today()
-            return max(0, days_open.days)
+            days_open = (self.closes_at - date.today()).days + 1
+            return max(0, days_open)
         return 0
 
     @property
