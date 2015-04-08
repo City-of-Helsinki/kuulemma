@@ -103,7 +103,7 @@ class TestDaysOpenProperty(object):
         expected = 5
         closes_at = date.today() + timedelta(days=expected)
         hearing = HearingFactory.build(closes_at=closes_at)
-        assert hearing.days_open == expected
+        assert hearing.days_open == expected + 1
 
     def test_should_return_zero_if_closing_date_has_passed(self):
         closes_at = date.today() - timedelta(days=4)
