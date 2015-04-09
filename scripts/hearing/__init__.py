@@ -72,3 +72,8 @@ def add_hameentie():
 def add_sturenkatu():
     from .sturenkatu import hearing
     _add_hearing(hearing)
+
+
+def add_maria():
+    from .maria import hearing
+    _add_hearing(hearing)
