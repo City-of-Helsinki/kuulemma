@@ -145,6 +145,13 @@ class Hearing(db.Model, TextItemMixin):
                 {'name': 'Alppiharju', 'type': 'area'},
                 {'name': 'Vallila', 'type': 'area'},
             ]
+        if self.slug == 'maria':
+            return [
+                {'name': 'Täydennysrakentaminen', 'type': 'building'},
+                {'name': 'Kamppi', 'type': 'area'},
+                {'name': 'Mechelininkatu', 'type': 'area'},
+                {'name': 'Baana', 'type': 'area'},
+            ]
         return []
 
     @property
