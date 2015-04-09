@@ -16,7 +16,9 @@
  */
 (function() {
   'use strict';
-  angular.module('kuulemmaApp').directive('locationMap', function($window) {
+  angular.module('kuulemmaApp').directive('locationMap', function(
+    $window, $timeout
+  ) {
     return {
       restrict: 'A',
       scope: {
@@ -49,7 +51,10 @@
           var poly = L.geoJson(JSON.parse(scope.polygon));
           poly.addTo(map);
           // Center and zoom map
-          map.fitBounds(poly.getBounds());
+          // The timeout is needed because of a race condition bug in leaflet.
+          $timeout(function() {
+            map.fitBounds(poly.getBounds());
+          }, 0);
         }
       }
     };
