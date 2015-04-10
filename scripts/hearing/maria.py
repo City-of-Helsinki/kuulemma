@@ -40,29 +40,23 @@ lead = '''
 body = '''
 
     <p>
+    Marian sairaala-alueelle etsitään uutta käyttöä. Täydennysrakentamista
+    suunnitellaan sekä asumiseen että toimitiloille ja palveluille. Alue
+    halutaan kytkeä liikenteellisesti ja toiminnallisesti paremmin ympäröivään
+    kaupunkiin.
+    </p>
+    <p>
     Sairaalatoiminta historiallisella alueella päättyi syksyllä 2014.
-    Sairaalarakennukset ovat jääneet pääosin tyhjilleen. Säilyville
-    rakennuksille määritellään uusi käyttö. Kulttuurihistoriallisesti
-    huomattavan arvokkaat rakennukset suojellaan myös sisätilojen osalta.
+    Tyhjilleen jääneille säilyville rakennuksille etsitään uutta käyttöä.
+    Kulttuurihistoriallisesti huomattavan arvokkaat rakennukset suojellaan
+    myös sisätilojen osalta.
     </p>
     <p>
     Mechelininkadun vilkas liikenne aiheuttaa haittoja erityisesti alueen
-    lounaisosassa. Se edellyttää erityisratkaisuja täydennysrakentamissa.
-    </p>
-    <p>
-    Alueen itäosa on parhaiten suojassa liikenteen melulta ja päästöiltä.
-    Sinne on alustavasti suunniteltu sosiaali- ja terveysviraston monipuolista
-    palvelukeskusta, jonne tulisi ryhmäkoteja muistisairaille sekä palveluita
-    esimerkiksi kotona asuville ikääntyneille. Rakentamisajaksi on arvioitu
-    vuotta 2023. Päätöstä keskuksen toteuttamisesta ja toiminnoista ei ole
-    vielä tehty.
-    </p>
-    <p>
-    Marian sairaalan alue halutaan kytkeä liikenteellisesti ja toiminnallisesti
-    paremmin ympäröivään kaupunkiin. Lastenkodinkadun jatkeeksi ehdotetaan
-    siltaa Baanan yli alueelle ja pohjoisesta avataan jalankulkukulkuyhteys
-    alueen läpi. Porkkalankadun liikennejärjestelyjä tutkitaan osana
-    Länsisataman liikenneratkaisua.
+    lounaisosassa. Itäosa on parhaiten suojassa melulta ja päästöiltä. Sinne
+    on alustavasti suunniteltu sosiaali- ja terveysviraston monipuolista
+    palvelukeskusta. Rakentamisajaksi on arvioitu vuotta 2023. Päätöstä
+    keskuksen toteuttamisesta ja toiminnoista ei ole vielä tehty.
     </p>
     <p>
     Lisäksi keskustellaan Baanan eteläpään ja Työmiehenpuistikon
@@ -70,18 +64,16 @@ body = '''
     avautuvaa ja sitä elävöittävää toimintaa. Puisia sairaalarakennuksia voi
     olla mahdollista siirtää esimerkiksi Työmiehenpuistikkoon.
     </p>
-    <p>
+    <p class="lead">
     Kerro näkemyksesi hankkeen lähtökohdista sekä visiokuvan ajatuksista 8.5.
     mennessä!
     </p>
     <p>
-    Hankkeen osallistumis- ja arviointisuunnitelma on nähtävillä 13.4.–8.5.
-    Kirjalliset mielipiteet tulee jättää nähtävilläoloaikana Helsingin
-    kaupungin kirjaamoon. Saadun palautteen pohjalta valmistellaan
-    kaavaehdotus, joka on tarkoitus esitellä kaupunkisuunnittelulautakunnalle
-    vuoden 2015 lopulla.
+    Saadun palautteen pohjalta valmistellaan kaavaehdotus, joka on tarkoitus
+    esitellä kaupunkisuunnittelulautakunnalle vuoden 2015 lopulla. Hankkeen
+    osallistumis- ja arviointisuunnitelma on nähtävillä 13.4.–8.5.
     </p>
-    <p class="lead">
+    <p>
     Millainen Marian sairaala-alue on tulevaisuudessa?
     </p>
     <p>
@@ -92,10 +84,9 @@ body = '''
     <p>
     Miten järjestäisit liikenteen alueella? Millaisia pyöräilyn, kävelyn ja
     julkisen liikenteen yhteyksiä tarvitaan? Miten pysäköinti toimii Baanan
-    alla? Miten kehittäisit Baanan eteläpäätä ja yhteyksiä alueelle?
-    Miten Työmiehenpuistikkoa voisi elävöittää? Miten palvelukeskuksen
-    toiminta kytkeytyy alueen muuhun toimintaan? Millaisia yrityksiä alueelle
-    voisi tulla?
+    alla? Miten kehittäisit Baanaa, yhteyksiä alueelle ja Työmiehenpuistikkoa?
+    Miten palvelukeskus kytkeytyy alueen muuhun toimintaan? Millaisia
+    yrityksiä alueelle voisi tulla?
     </p>
     <h4>Linkit</h4>
     <ul>
