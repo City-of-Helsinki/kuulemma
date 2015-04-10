@@ -31,20 +31,15 @@ main_image = {
 
 lead = '''
 
-    Marian sairaala-alueelle etsitään uutta käyttöä.
-    Täydennysrakentamista suunnitellaan sekä asumiseen että toimitiloille ja
-    palveluille.
+    Marian sairaala-alueelle etsitään uutta käyttöä. Täydennysrakentamista
+    suunnitellaan sekä asumiseen että toimitiloille ja palveluille. Alue
+    halutaan kytkeä liikenteellisesti ja toiminnallisesti paremmin ympäröivään
+    kaupunkiin.
 
 '''
 
 body = '''
 
-    <p>
-    Marian sairaala-alueelle etsitään uutta käyttöä. Täydennysrakentamista
-    suunnitellaan sekä asumiseen että toimitiloille ja palveluille. Alue
-    halutaan kytkeä liikenteellisesti ja toiminnallisesti paremmin ympäröivään
-    kaupunkiin.
-    </p>
     <p>
     Sairaalatoiminta historiallisella alueella päättyi syksyllä 2014.
     Tyhjilleen jääneille säilyville rakennuksille etsitään uutta käyttöä.
