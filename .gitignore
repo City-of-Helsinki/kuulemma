@@ -4,3 +4,4 @@ htmlcov/
 kuulemma/static/bower_components/
 kuulemma/static/dist/
 node_modules/
+env/
