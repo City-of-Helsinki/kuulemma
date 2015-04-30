@@ -78,6 +78,7 @@ def add_maria():
     from .maria import hearing
     _add_hearing(hearing)
 
+
 def add_latokartanontie():
     from .latokartanontie import hearing
     _add_hearing(hearing)
