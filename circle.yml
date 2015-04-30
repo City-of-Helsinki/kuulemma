@@ -1,6 +1,6 @@
 machine:
   node:
-    version: 0.10.28
+    version: 0.12.2
   python:
     version: 3.4.1
   services:
@@ -12,7 +12,7 @@ dependencies:
   override:
     - pip install -r requirements-dev.txt
     - npm install
-    - bower install
+    - ./node_modules/.bin/bower install
 
 test:
   override:
