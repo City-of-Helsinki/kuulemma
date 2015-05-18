@@ -92,3 +92,8 @@ def add_myllypuronkoulut():
 def add_pikkuhuopalahti():
     from .pikkuhuopalahti import hearing
     _add_hearing(hearing)
+
+
+def add_pakilankoulut():
+    from .pakilankoulut import hearing
+    _add_hearing(hearing)
