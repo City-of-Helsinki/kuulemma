@@ -87,3 +87,8 @@ def add_latokartanontie():
 def add_myllypuronkoulut():
     from .myllypuronkoulut import hearing
     _add_hearing(hearing)
+
+
+def add_pikkuhuopalahti():
+    from .pikkuhuopalahti import hearing
+    _add_hearing(hearing)

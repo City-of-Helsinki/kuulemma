@@ -162,6 +162,11 @@ class Hearing(db.Model, TextItemMixin):
                 {'name': 'Kouluverkko', 'type': 'schools'},
                 {'name': 'Myllypuro', 'type': 'area'},
             ]
+        if self.slug == 'pikkuhuopalahti':
+            return [
+                {'name': 'Kaavoitus', 'type': 'building'},
+                {'name': 'Pikku Huopalahti', 'type': 'area'},
+            ]
         return []
 
     @property
