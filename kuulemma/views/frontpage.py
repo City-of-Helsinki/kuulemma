@@ -41,7 +41,7 @@ def index():
         Hearing.query
         .filter(Hearing.published)
         .order_by(db.desc(Hearing.opens_at))
-        .limit(5)
+        .limit(20)
     )
 
     return render_template(
