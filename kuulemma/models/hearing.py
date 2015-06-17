@@ -61,6 +61,10 @@ TAGS = {
         {'name': 'Alppiharju', 'type': 'area'},
         {'name': 'Vallila', 'type': 'area'},
     ],
+    'servicenatsodra': [
+        {'name': 'Skolservicenätet', 'type': 'school'},
+        {'name': 'Södra området', 'type': 'area'},
+    ],
 }
 
 
