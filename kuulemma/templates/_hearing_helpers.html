@@ -16,10 +16,10 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -#}
 
-{% macro render_hearing_slugs(hearing, classes) %}
+{% macro render_hearing_tags(hearing, classes) %}
   <ul class="tags {{ classes }}">
-    {% for slug in hearing.slugs %}
-      <li class="tag-{{ slug.type }}">{{ slug.name }}</li>
+    {% for tag in hearing.tags %}
+      <li class="tag-{{ tag.type }}">{{ tag.name }}</li>
     {% endfor %}
   </ul>
 {% endmacro %}
@@ -63,7 +63,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <a href="{{ url_for('hearing.show', slug=hearing.slug) }}">
       <img src="{{ url_for('static', filename=hearing.main_image.filename) }}">
     </a>
-    {{ render_hearing_slugs(hearing, 'small') }}
+    {{ render_hearing_tags(hearing, 'small') }}
     <div class="content">
       <h3><a href="{{ url_for('hearing.show', slug=hearing.slug) }}">{{ hearing.title }}</a></h3>
       {{ render_hearing_opening_and_closing_times(hearing) }}

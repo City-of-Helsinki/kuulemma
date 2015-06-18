@@ -15,7 +15,7 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -#}
-{% from "_hearing_helpers.html" import render_hearing_slugs, render_image %}
+{% from "_hearing_helpers.html" import render_hearing_tags, render_image %}
 {% extends "layout.html" %}
 
 {% block title %}{{ hearing.title }}{% endblock %}
@@ -30,7 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 {% block content %}
   <article class="hearing" id="hearing">
     <header>
-      {{ render_hearing_slugs(hearing) }}
+      {{ render_hearing_tags(hearing) }}
       <h1>{{ hearing.title }}</h1>
     </header>
 
