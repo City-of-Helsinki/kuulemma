@@ -27,6 +27,42 @@ from .alternative import Alternative
 from .image import Image
 from .text_item_mixin import TextItemMixin
 
+SLUGS = {
+    'hameentie': [
+        {'name': 'Liikenne', 'type': 'traffic'},
+        {'name': 'Kallio', 'type': 'area'},
+        {'name': 'Sörnäinen', 'type': 'area'},
+    ],
+    'latokartanontie': [
+        {'name': 'Liikenne', 'type': 'traffic'},
+        {'name': 'Malmi', 'type': 'area'},
+    ],
+    'maria': [
+        {'name': 'Täydennysrakentaminen', 'type': 'building'},
+        {'name': 'Kamppi', 'type': 'area'},
+        {'name': 'Mechelininkatu', 'type': 'area'},
+        {'name': 'Baana', 'type': 'area'},
+    ],
+    'myllypuronkoulut': [
+        {'name': 'Kouluverkko', 'type': 'schools'},
+        {'name': 'Myllypuro', 'type': 'area'},
+    ],
+    'pakilankoulut': [
+        {'name': 'Oppilaaksiottoalue', 'type': 'schools'},
+        {'name': 'Pakila', 'type': 'area'},
+        {'name': 'Torpparinmäki', 'type': 'area'},
+    ],
+    'pikkuhuopalahti': [
+        {'name': 'Kaavoitus', 'type': 'building'},
+        {'name': 'Pikku Huopalahti', 'type': 'area'},
+    ],
+    'sturenkatu': [
+        {'name': 'Liikenne', 'type': 'traffic'},
+        {'name': 'Alppiharju', 'type': 'area'},
+        {'name': 'Vallila', 'type': 'area'},
+    ],
+}
+
 
 class Hearing(db.Model, TextItemMixin):
     __versioned__ = {}
@@ -133,46 +169,8 @@ class Hearing(db.Model, TextItemMixin):
 
     @property
     def slugs(self):
-        if self.slug == 'hameentie':
-            return [
-                {'name': 'Liikenne', 'type': 'traffic'},
-                {'name': 'Kallio', 'type': 'area'},
-                {'name': 'Sörnäinen', 'type': 'area'},
-            ]
-        if self.slug == 'sturenkatu':
-            return [
-                {'name': 'Liikenne', 'type': 'traffic'},
-                {'name': 'Alppiharju', 'type': 'area'},
-                {'name': 'Vallila', 'type': 'area'},
-            ]
-        if self.slug == 'maria':
-            return [
-                {'name': 'Täydennysrakentaminen', 'type': 'building'},
-                {'name': 'Kamppi', 'type': 'area'},
-                {'name': 'Mechelininkatu', 'type': 'area'},
-                {'name': 'Baana', 'type': 'area'},
-            ]
-        if self.slug == 'latokartanontie':
-            return [
-                {'name': 'Liikenne', 'type': 'traffic'},
-                {'name': 'Malmi', 'type': 'area'},
-            ]
-        if self.slug == 'myllypuronkoulut':
-            return [
-                {'name': 'Kouluverkko', 'type': 'schools'},
-                {'name': 'Myllypuro', 'type': 'area'},
-            ]
-        if self.slug == 'pikkuhuopalahti':
-            return [
-                {'name': 'Kaavoitus', 'type': 'building'},
-                {'name': 'Pikku Huopalahti', 'type': 'area'},
-            ]
-        if self.slug == 'pakilankoulut':
-            return [
-                {'name': 'Oppilaaksiottoalue', 'type': 'schools'},
-                {'name': 'Pakila', 'type': 'area'},
-                {'name': 'Torpparinmäki', 'type': 'area'},
-            ]
+        if self.slug in SLUGS:
+            return SLUGS[self.slug]
         return []
 
     @property
