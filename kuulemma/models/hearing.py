@@ -27,7 +27,7 @@ from .alternative import Alternative
 from .image import Image
 from .text_item_mixin import TextItemMixin
 
-SLUGS = {
+TAGS = {
     'hameentie': [
         {'name': 'Liikenne', 'type': 'traffic'},
         {'name': 'Kallio', 'type': 'area'},
@@ -168,9 +168,9 @@ class Hearing(db.Model, TextItemMixin):
         return 0
 
     @property
-    def slugs(self):
-        if self.slug in SLUGS:
-            return SLUGS[self.slug]
+    def tags(self):
+        if self.slug in TAGS:
+            return TAGS[self.slug]
         return []
 
     @property
