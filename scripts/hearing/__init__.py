@@ -102,3 +102,8 @@ def add_pakilankoulut():
 def add_servicenatsodra():
     from .servicenatsodra import hearing
     _add_hearing(hearing)
+
+
+def add_kalasatamankoulu():
+    from .kalasatamankoulu import hearing
+    _add_hearing(hearing)
