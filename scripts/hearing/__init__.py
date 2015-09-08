@@ -107,3 +107,8 @@ def add_servicenatsodra():
 def add_kalasatamankoulu():
     from .kalasatamankoulu import hearing
     _add_hearing(hearing)
+
+
+def add_vesalankoulut():
+    from .vesalankoulut import hearing
+    _add_hearing(hearing)
