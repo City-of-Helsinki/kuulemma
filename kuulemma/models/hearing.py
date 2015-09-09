@@ -19,6 +19,7 @@ from datetime import date
 
 from geoalchemy2 import Geometry
 from geoalchemy2.shape import from_shape, to_shape
+from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.ext.orderinglist import ordering_list
 
 from kuulemma.extensions import db
@@ -168,7 +169,7 @@ class Hearing(db.Model, TextItemMixin):
             name=self.commentable_name
         )
 
-    @property
+    @hybrid_property
     def is_open(self):
         return self.closes_at and self.closes_at >= date.today()
 
