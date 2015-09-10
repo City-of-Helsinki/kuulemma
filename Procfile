@@ -1,1 +1,1 @@
-web: gunicorn --config=gunicorn.conf.py 'kuulemma:Application()'
+web: gunicorn --config=gunicorn.conf.py kuulemma.wsgi:app
