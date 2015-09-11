@@ -17,6 +17,7 @@
 
 .hearing-list {
   @image-width: 120px;
+  @image-height: 100px;
   @info-width: 170px;
   @horizontal-padding: @layout-margin-small;
   @vertical-padding: @layout-margin-mini;
@@ -32,7 +33,8 @@
     img {
       display: none;
       float: left;
-      width: @image-width;
+      max-width: @image-width;
+      max-height: @image-height;
 
       @media (min-width: @screen-sm-min) {
         display: block;
