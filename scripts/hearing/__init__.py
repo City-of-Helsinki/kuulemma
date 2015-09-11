@@ -117,3 +117,8 @@ def add_vesalankoulut():
 def add_ylamalminkoulut():
     from .ylamalminkoulut import hearing
     _add_hearing(hearing)
+
+
+def add_kannelmaenkoulut():
+    from .kannelmaenkoulut import hearing
+    _add_hearing(hearing)
