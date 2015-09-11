@@ -112,3 +112,8 @@ def add_kalasatamankoulu():
 def add_vesalankoulut():
     from .vesalankoulut import hearing
     _add_hearing(hearing)
+
+
+def add_ylamalminkoulut():
+    from .ylamalminkoulut import hearing
+    _add_hearing(hearing)
