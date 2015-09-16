@@ -127,3 +127,8 @@ def add_kannelmaenkoulut():
 def add_pukinmaenkoulut():
     from .pukinmaenkoulut import hearing
     _add_hearing(hearing)
+
+
+def add_lauttasaarenkoulut():
+    from .lauttasaarenkoulut import hearing
+    _add_hearing(hearing)
