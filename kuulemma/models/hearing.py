@@ -82,6 +82,11 @@ TAGS = {
         {'name': 'Kouluverkko', 'type': 'schools'},
         {'name': 'Kannelmäki', 'type': 'area'},
     ],
+    'pukinmaenkoulut': [
+        {'name': 'Oppilaaksiottoalue', 'type': 'schools'},
+        {'name': 'Pukinmäki', 'type': 'area'},
+        {'name': 'Malmi', 'type': 'area'},
+    ],
 }
 
 
