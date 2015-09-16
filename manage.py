@@ -62,7 +62,7 @@ def run(script):
 def add_hearing(name):
     """Prevents having to add a separate function for each hearing.
 
-    Example: python manage.py add_hearing(hameentie)
+    Example: python manage.py add_hearing hameentie
     """
     script_module = importlib.import_module('scripts.hearing')
     hearing_module = importlib.import_module('scripts.hearing.' + name)
