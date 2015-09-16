@@ -59,6 +59,17 @@ def run(script):
 
 
 @manager.command
+def add_hearing(name):
+    """Prevents having to add a separate function for each hearing.
+
+    Example: python manage.py add_hearing(hameentie)
+    """
+    script_module = importlib.import_module('scripts.hearing')
+    hearing_module = importlib.import_module('scripts.hearing.' + name)
+    getattr(script_module, '_add_hearing')(hearing_module.hearing)
+
+
+@manager.command
 def add_sample_data():
     """
         Generates 5 hearings with randomized starting and closing dates.
