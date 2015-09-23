@@ -20,6 +20,7 @@ from sqlalchemy_utils import aggregated
 from kuulemma.extensions import db
 
 from .alternative import Alternative
+from .section import Section
 from .hearing import Hearing
 from .image import Image
 from .text_item_mixin import TextItemMixin
@@ -76,8 +77,25 @@ class Comment(db.Model, TextItemMixin):
         ),
     )
 
+    section_id = db.Column(
+        db.Integer,
+        db.ForeignKey(
+            Section.id,
+            ondelete='CASCADE'
+        ),
+    )
+
     alternative = db.relationship(
         Alternative,
+        backref=db.backref(
+            'comments',
+            cascade='all, delete-orphan',
+            passive_deletes=True
+        )
+    )
+
+    section = db.relationship(
+        Section,
         backref=db.backref(
             'comments',
             cascade='all, delete-orphan',
@@ -129,6 +147,7 @@ class Comment(db.Model, TextItemMixin):
     def like_count(self):
         return db.func.count('1')
 
+    # this is ugly, doesn't sqlalchemy have xor???
     __table_args__ = (
         db.CheckConstraint(
             db.or_(
@@ -136,24 +155,35 @@ class Comment(db.Model, TextItemMixin):
                     comment_id.isnot(None),
                     hearing_id.is_(None),
                     alternative_id.is_(None),
+                    section_id.is_(None),
                     image_id.is_(None)
                 ),
                 db.and_(
                     comment_id.is_(None),
                     hearing_id.isnot(None),
                     alternative_id.is_(None),
+                    section_id.is_(None),
                     image_id.is_(None)
                 ),
                 db.and_(
                     comment_id.is_(None),
                     hearing_id.is_(None),
                     alternative_id.isnot(None),
+                    section_id.is_(None),
                     image_id.is_(None)
                 ),
                 db.and_(
                     comment_id.is_(None),
                     hearing_id.is_(None),
                     alternative_id.is_(None),
+                    section_id.isnot(None),
+                    image_id.is_(None)
+                ),
+                db.and_(
+                    comment_id.is_(None),
+                    hearing_id.is_(None),
+                    alternative_id.is_(None),
+                    section_id.is_(None),
                     image_id.isnot(None)
                 )
             )
@@ -171,6 +201,8 @@ class Comment(db.Model, TextItemMixin):
             return self.hearing
         if self.alternative:
             return self.alternative
+        if self.section:
+            return self.section
         if self.image:
             return self.image
         if self.comment:
@@ -197,6 +229,8 @@ class Comment(db.Model, TextItemMixin):
     def tag(self):
         if self.alternative:
             return self.alternative.commentable_name
+        if self.section:
+            return self.section.commentable_name
         if self.image:
             return self.image.commentable_name
         if self.comment:
@@ -223,6 +257,7 @@ class Comment(db.Model, TextItemMixin):
 
 COMMENTABLE_TYPES = {
     'alternative': Alternative,
+    'section': Section
     'comment': Comment,
     'image': Image,
     'hearing': Hearing

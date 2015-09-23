@@ -25,6 +25,7 @@ from sqlalchemy.ext.orderinglist import ordering_list
 from kuulemma.extensions import db
 
 from .alternative import Alternative
+from .section import Section
 from .image import Image
 from .text_item_mixin import TextItemMixin
 
@@ -134,6 +135,15 @@ class Hearing(db.Model, TextItemMixin):
         collection_class=ordering_list('position'),
     )
 
+    sections = db.relationship(
+        Section,
+        cascade='all, delete-orphan',
+        passive_deletes=True,
+        backref='hearing',
+        order_by='Section.position',
+        collection_class=ordering_list('position'),
+    )
+
     main_image_id = db.Column(
         db.Integer,
         db.ForeignKey(
@@ -213,6 +223,11 @@ class Hearing(db.Model, TextItemMixin):
             alternative.main_image_id for alternative in self.alternatives
         ]
 
+        section_ids = [section.id for section in self.sections]
+        section_main_image_ids = [
+            section.main_image_id for section in self.sections
+        ]
+
         image_criteria = [Image.hearing_id == self.id]
         comment_criteria = [
             Comment.hearing_id == self.id,
@@ -225,10 +240,19 @@ class Hearing(db.Model, TextItemMixin):
         if alternative_main_image_ids:
             image_criteria.append(Image.id.in_(alternative_main_image_ids))
 
+        if section_main_image_ids:
+            image_criteria.append(Image.id.in_(section_main_image_ids))
+
         if alternative_ids:
             image_criteria.append(Image.alternative_id.in_(alternative_ids))
             comment_criteria.append(
                 Comment.alternative_id.in_(alternative_ids)
+            )
+
+        if section_ids:
+            image_criteria.append(Image.section_id.in_(section_ids))
+            comment_criteria.append(
+                Comment.section_id.in_(section_ids)
             )
 
         hearing_image_ids = db.session.query(Image.id).filter(
@@ -260,6 +284,7 @@ class Hearing(db.Model, TextItemMixin):
             .order_by(
                 Comment.hearing_id,
                 Comment.alternative_id,
+                Comment.section_id,
                 Comment.image_id,
                 Comment.comment_id,
                 Comment.id
@@ -306,6 +331,11 @@ class Hearing(db.Model, TextItemMixin):
         for alternative in self.alternatives:
             sections_string += (
                 ';' + alternative.get_commentable_sections_string()
+            )
+
+        for section in self.sections:
+            sections_string += (
+                ';' + section.get_commentable_sections_string()
             )
 
         return sections_string
