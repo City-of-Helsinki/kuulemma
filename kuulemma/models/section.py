@@ -20,15 +20,26 @@ from sqlalchemy.ext.orderinglist import ordering_list
 from kuulemma.extensions import db
 
 from .image import Image
-from .alternative import Alternative
+from .text_item_mixin import TextItemMixin
 
 
-class Section(Alternative):
+class Section(db.Model, TextItemMixin):
     """
     Implements a hearing subsection, modeled on a hearing alternative.
     """
 
+    __versioned__ = {}
     __tablename__ = 'section'
+
+    id = db.Column(db.Integer, primary_key=True)
+
+    hearing_id = db.Column(
+        db.Integer,
+        db.ForeignKey(
+            'hearing.id',
+            ondelete='CASCADE'
+        )
+    )
 
     main_image_id = db.Column(
         db.Integer,
@@ -57,6 +68,19 @@ class Section(Alternative):
         backref='section'
     )
 
+    position = db.Column(db.Integer)
+
+    @property
+    def related_hearing(self):
+        from .hearing import Hearing
+        return Hearing.query.get(self.hearing_id)
+
+    @property
+    def letter(self):
+        ASCII_INDEX_OF_A = 65
+        position = self.position or 0
+        return chr(ASCII_INDEX_OF_A + position)
+
     @property
     def commentable_id(self):
         return 'section-{id}'.format(id=self.id)
@@ -64,3 +88,32 @@ class Section(Alternative):
     @property
     def commentable_name(self):
         return 'Osa-alue {letter}'.format(letter=self.letter)
+
+    @property
+    def commentable_option(self):
+        """
+        Returns a "id:name" string representation that can be used in the
+        frontend when commenting on this section.
+        """
+        return '{id}:{name}'.format(
+            id=self.commentable_id,
+            name=self.commentable_name
+        )
+
+    def get_commentable_sections_string(self):
+        """
+        Return in string format id, name pairs of all the commentable sections
+        related to this alternative.
+        """
+        sections = []
+        sections.append(self.commentable_option)
+        if self.images:
+            if self.main_image:
+                sections.append(
+                    self.main_image.commentable_option
+                )
+            for image in self.images:
+                sections.append(
+                    image.commentable_option
+                )
+        return ';'.join(sections)

@@ -257,7 +257,7 @@ class Comment(db.Model, TextItemMixin):
 
 COMMENTABLE_TYPES = {
     'alternative': Alternative,
-    'section': Section
+    'section': Section,
     'comment': Comment,
     'image': Image,
     'hearing': Hearing
