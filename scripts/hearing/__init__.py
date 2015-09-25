@@ -44,35 +44,37 @@ def _add_hearing(hearing_data):
 
     print('Main content added.')
 
-    for index, alternative_data in enumerate(hearing_data['alternatives']):
-        alternative = Alternative(
-            title=alternative_data['title'].strip(),
-            lead=alternative_data['lead'].strip(),
-            body=alternative_data['body'].strip(),
-        )
+    if 'alternatives' in hearing_data:
+        for index, alternative_data in enumerate(hearing_data['alternatives']):
+            alternative = Alternative(
+                title=alternative_data['title'].strip(),
+                lead=alternative_data['lead'].strip(),
+                body=alternative_data['body'].strip(),
+            )
 
-        alternative.main_image = Image(
-            filename=alternative_data['main_image']['filename'],
-            caption=alternative_data['main_image']['caption']
-        )
+            alternative.main_image = Image(
+                filename=alternative_data['main_image']['filename'],
+                caption=alternative_data['main_image']['caption']
+            )
 
-        hearing.alternatives.append(alternative)
-        print('Alternative {index} added.'.format(index=index + 1))
+            hearing.alternatives.append(alternative)
+            print('Alternative {index} added.'.format(index=index + 1))
 
-    for index, section_data in enumerate(hearing_data['sections']):
-        section = Section(
-            title=section_data['title'].strip(),
-            lead=section_data['lead'].strip(),
-            body=section_data['body'].strip(),
-        )
+    if 'hearing' in hearing_data:
+        for index, section_data in enumerate(hearing_data['sections']):
+            section = Section(
+                title=section_data['title'].strip(),
+                lead=section_data['lead'].strip(),
+                body=section_data['body'].strip(),
+            )
 
-        section.main_image = Image(
-            filename=section_data['main_image']['filename'],
-            caption=section_data['main_image']['caption']
-        )
+            section.main_image = Image(
+                filename=section_data['main_image']['filename'],
+                caption=section_data['main_image']['caption']
+            )
 
-        hearing.sections.append(section)
-        print('Section {index} added.'.format(index=index + 1))
+            hearing.sections.append(section)
+            print('Section {index} added.'.format(index=index + 1))
 
     db.session.add(hearing)
     db.session.commit()
