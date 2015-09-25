@@ -92,6 +92,11 @@ TAGS = {
         {'name': 'Koulut', 'type': 'schools'},
         {'name': 'Lauttasaari', 'type': 'area'},
     ],
+    'merirastila': [
+        {'name': 'Puistot', 'type': 'building'},
+        {'name': 'Meri-Rastila', 'type': 'area'},
+    ],
+
 }
 
 
