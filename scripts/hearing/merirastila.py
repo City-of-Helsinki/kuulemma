@@ -26,7 +26,7 @@ title = 'Hyökkääkö Cthulhu Meri-Rastilaan?'
 slug = 'merirastila'
 
 main_image = {
-    'filename': 'images/merirastila/main_image.jpg',
+    'filename': 'images/{slug}/main_image.jpg'.format(slug=slug),
     'caption': (
         'Cthulhun sijainti Meri-Rastilan lähivesillä. '
         '(Helsingin kaupungin aineistopankki / Seppo Laakso)'
@@ -69,9 +69,9 @@ body = '''
 
 '''
 
-opens_at = date.today()
+opens_at = date(2015, 10, 1)
 
-closes_at = date(2014, 12, 31)
+closes_at = date(2015, 10, 30)
 
 published = True
 
@@ -181,7 +181,7 @@ area = {
 section_1_title = 'Eka puisto'
 
 section_1_main_image = {
-    'filename': 'images/hameentie/section_1/main_image.jpg',
+    'filename': 'images/{slug}/section_1/main_image.jpg'.format(slug=slug),
     'caption': 'Vaihtoehdon 1 esimerkkikuva.'
 }
 
@@ -216,7 +216,7 @@ section_1_body = '''
 section_2_title = 'Toka puisto'
 
 section_2_main_image = {
-    'filename': 'images/hameentie/section_2/main_image.jpg',
+    'filename': 'images/{slug}/section_2/main_image.jpg'.format(slug=slug),
     'caption': 'Vaihtoehdon 2 esimerkkikuva.'
 }
 
@@ -260,7 +260,7 @@ section_2_body = '''
 section_3_title = 'Joku muu'
 
 section_3_main_image = {
-    'filename': 'images/hameentie/section_3/main_image.jpg',
+    'filename': 'images/{slug}/section_3/main_image.jpg'.format(slug=slug),
     'caption': 'Vaihtoehdon 3 esimerkkikuva.'
 }
 
