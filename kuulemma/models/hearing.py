@@ -96,6 +96,11 @@ TAGS = {
         {'name': 'Puistot', 'type': 'building'},
         {'name': 'Meri-Rastila', 'type': 'area'},
     ],
+    'hameentiesuunnitelma': [
+        {'name': 'Liikenne', 'type': 'traffic'},
+        {'name': 'Kallio', 'type': 'area'},
+        {'name': 'Sörnäinen', 'type': 'area'},
+    ],
 
 }
 
