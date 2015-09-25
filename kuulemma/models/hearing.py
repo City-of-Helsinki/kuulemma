@@ -91,6 +91,12 @@ TAGS = {
         {'name': 'Koulut', 'type': 'schools'},
         {'name': 'Lauttasaari', 'type': 'area'},
     ],
+    'hameentiesuunnitelma': [
+        {'name': 'Liikenne', 'type': 'traffic'},
+        {'name': 'Kallio', 'type': 'area'},
+        {'name': 'Sörnäinen', 'type': 'area'},
+    ],
+
 }
 
 
