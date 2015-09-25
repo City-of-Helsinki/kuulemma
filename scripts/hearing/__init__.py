@@ -18,7 +18,7 @@
 from shapely.geometry import shape
 
 from kuulemma.extensions import db
-from kuulemma.models import Alternative, Hearing, Image
+from kuulemma.models import Alternative, Hearing, Image, Section
 
 
 def _add_hearing(hearing_data):
@@ -58,6 +58,21 @@ def _add_hearing(hearing_data):
 
         hearing.alternatives.append(alternative)
         print('Alternative {index} added.'.format(index=index + 1))
+
+    for index, section_data in enumerate(hearing_data['sections']):
+        section = Section(
+            title=section_data['title'].strip(),
+            lead=section_data['lead'].strip(),
+            body=section_data['body'].strip(),
+        )
+
+        section.main_image = Image(
+            filename=section_data['main_image']['filename'],
+            caption=section_data['main_image']['caption']
+        )
+
+        hearing.sections.append(section)
+        print('Section {index} added.'.format(index=index + 1))
 
     db.session.add(hearing)
     db.session.commit()
