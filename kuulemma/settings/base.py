@@ -91,8 +91,8 @@ SENTRY_DSN = os.environ.get('SENTRY_DSN')
 MAIL_DEFAULT_SENDER = 'No Reply <noreply@hel.fi>'
 
 FEEDBACK_RECIPIENTS = [
-    'lauri@fastmonkeys.com',
-    'Heli.K.Rantanen@hel.fi'
+    'joonas.pekkanen@hel.fi',
+    'riku.oja@hel.fi'
 ]
 
 
