@@ -60,7 +60,7 @@ def _add_hearing(hearing_data):
             hearing.alternatives.append(alternative)
             print('Alternative {index} added.'.format(index=index + 1))
 
-    if 'hearing' in hearing_data:
+    if 'sections' in hearing_data:
         for index, section_data in enumerate(hearing_data['sections']):
             section = Section(
                 title=section_data['title'].strip(),
