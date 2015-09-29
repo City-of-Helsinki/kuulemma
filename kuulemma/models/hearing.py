@@ -92,9 +92,11 @@ TAGS = {
         {'name': 'Koulut', 'type': 'schools'},
         {'name': 'Lauttasaari', 'type': 'area'},
     ],
-    'merirastila': [
-        {'name': 'Puistot', 'type': 'building'},
+    'meri-rastila': [
+        {'name': 'Kaavoitus', 'type': 'building'},
+        {'name': 'Täydennysrakentaminen', 'type': 'building'},
         {'name': 'Meri-Rastila', 'type': 'area'},
+        {'name': 'Vuosaari', 'type': 'area'},
     ],
     'hameentiesuunnitelma': [
         {'name': 'Liikenne', 'type': 'traffic'},
