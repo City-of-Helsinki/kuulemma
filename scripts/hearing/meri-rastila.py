@@ -28,7 +28,7 @@ slug = 'meri-rastila'
 main_image = {
     'filename': 'images/{slug}/main_image.jpg'.format(slug=slug),
     'caption': (
-        'Yleiskuva. '
+        'Täydennysrakentaminen Meri-Rastilassa. '
         '(Kaupunkisuunnitteluvirasto / Linda Wiksten)'
     )
 }
@@ -259,7 +259,7 @@ section_1_title = 'Virkistysalue- ja puistosuunnitelmat'
 
 section_1_main_image = {
     'filename': 'images/{slug}/section_1/main_image.jpg'.format(slug=slug),
-    'caption': 'Osa-alueen esimerkkikuva.'
+    'caption': 'Virkistysalue- ja puistosuunnitelmat.'
 }
 
 section_1_lead = '''
@@ -349,7 +349,9 @@ section_2_title = 'Lisärakentaminen nykyisillä tonteilla, metroaseman' \
 
 section_2_main_image = {
     'filename': 'images/{slug}/section_2/main_image.jpg'.format(slug=slug),
-    'caption': 'Osa-alueen esimerkkikuva.'
+    'caption': 'Lisärakentaminen nykyisillä tonteilla, metroaseman'
+               'lähistöllä sekä Rysäpuiston ja Ole Kandelinin puiston'
+               'laidoilla.'
 }
 
 section_2_lead = '''
@@ -395,7 +397,7 @@ section_3_title = 'Haruspuiston alue'
 
 section_3_main_image = {
     'filename': 'images/{slug}/section_3/main_image.jpg'.format(slug=slug),
-    'caption': 'Osa-alueen esimerkkikuva.'
+    'caption': 'Haruspuiston alue.'
 }
 
 section_3_lead = '''
@@ -445,7 +447,7 @@ section_4_title = 'Pohjavedenpuiston alue'
 
 section_4_main_image = {
     'filename': 'images/{slug}/section_4/main_image.jpg'.format(slug=slug),
-    'caption': 'Osa-alueen esimerkkikuva.'
+    'caption': 'Pohjavedenpuiston alue.'
 }
 
 section_4_lead = '''
@@ -497,7 +499,7 @@ section_5_title = 'Ison Kallahdenpuiston alue'
 
 section_5_main_image = {
     'filename': 'images/{slug}/section_5/main_image.jpg'.format(slug=slug),
-    'caption': 'Osa-alueen esimerkkikuva.'
+    'caption': 'Ison Kallahdenpuiston alue.'
 }
 
 section_5_lead = '''
