@@ -64,6 +64,10 @@ body = '''
     kyseistä aluetta pitäisi kehittää
     </li>
     <li>
+    millainen rakentaminen sopii kuhunkin paikkaan ja millaisia asuntoja ja
+    pihoja tarvitaan
+    </li>
+    <li>
     mikä täydennysrakentamisen paikka on hyvä tai mikä huono – ja miksi
     </li>
     <li>
@@ -83,7 +87,8 @@ body = '''
       target="_blank">Hankkeen suunnitteluaineistot</a></li>
       <li><a
       href="http://helsinki.creamailer.fi/subscribe/54d4cbd49c42c"
-      target="_blank">Tilaa uutiskirje sähköpostiisi</a></li>
+      target="_blank">Tilaa Meri-Rastilan kaupunkiuudistuksen uutiskirje
+      sähköpostiisi</a></li>
       <li><a href="https://www.facebook.com/helsinkisuunnittelee/events">
       Kävelykierros ja keskustelu alueella 5. ja 7. lokakuuta klo 17</a>. Tervetuloa!</li>
     </ul>
@@ -264,7 +269,7 @@ section_1_main_image = {
 
 section_1_lead = '''
 
-    Meri-Rastilan viheralueiden ja kaupunkitilojen kehittämisen
+    Helsingin lähiöprojektin teettämä Meri-Rastilan kaupunkitilojen
     ideasuunnitelma tähtää alueen puistojen, aukioiden, katujen ja raittien
     parantamiseen. Lähtökohtana on kehittää Meri-Rastilan keskeisiä
     vetovoimatekijöitä: vehreitä kävelyreittejä, arvokkaita luontoarvoja
