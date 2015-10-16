@@ -62,10 +62,11 @@ body = '''
     Koulupalvelujen kehittämisessä mietitään nyt eri vaihtoehtoja. Meilahden ja Pikku Huopalahden kouluverkkotarkastelun ehdotukset on tuotettu ideariihessä, jossa olivat mukana koulujen johtokunnat ja henkilöstön edustus. Ideariihen jälkeen koulut ovat kommentoineet ehdotuksia ja täydentäneet niitä omilla näkemyksillään.
     </p>
     <p>
-    Esillä olevissa vaihtoehdoissa koulujen toimintaedellytyksiä tasataan aluemuutoksen ja opetuksen painotusten avulla
+    Esillä olevissa vaihtoehdoissa koulujen toimintaedellytyksiä tasataan aluemuutoksen ja opetuksen painotusten avulla.
     </p>
     <p class="lead">
-    Mikä vaihtoehdoista 1-3 olisi sinusta paras kouluverkkoratkaisu Meilahden ja Pikku Huopalahden alueella? Voit myös esittää muuta ratkaisua.    </p>
+    Kysymys:
+    Mikä vaihtoehdoista 1-3 olisi sinusta paras kouluverkkoratkaisu Meilahden ja Pikku Huopalahden alueella? Voit myös esittää muuta ratkaisua.</p>
     </p>
     <p>
     Kommentoi ehdotuksia 25.10. saakka. Saatua palautetta hyödynnetään jatkosuunnittelussa.
@@ -264,7 +265,7 @@ alternative_1_main_image = {
 
 alternative_1_lead = '''
 
-    Yhtenäinen peruskoulu
+    Yhtenäinen peruskoulu:
 
 '''
 
@@ -273,7 +274,10 @@ alternative_1_body = '''
 <p>
 Pikku Huopalahden ala-asteen koulu ja Meilahden yläasteen koulu yhdistyvät yhtenäiseksi peruskouluksi 1.8.2017 alkaen. Meilahden ala-asteen koulu säilyy nykyisellään.
 </p>
-<p><ul>Vaihtoehtoisesti joko:
+<p>
+Vaihtoehtoisesti joko:
+</p>
+<p><ul>
 <li>Kiinan kielen opetus siirretään osittain tai kokonaan Meilahden ala-asteen koulusta Pikku Huopalahden ala-asteen kouluun.</li>
 <li>Ruskeasuon alue siirretään Meilahden ala-asteen koulun oppilaaksiottoalueelta Pikku Huopalahden ala-asteen koulun oppilaaksiottoalueeseen.</li>
 </ul></p>
@@ -296,14 +300,14 @@ alternative_2_main_image = {
 
 alternative_2_lead = '''
 
-    Yhtenäinen peruskoulu
+    Yhtenäinen peruskoulu:
 
 '''
 
 alternative_2_body = '''
 
 <p>
-Vanhan Ruskeasuon alue liitetään Pikku Huopalahden ala-asteen koulun oppilaaksiottoalueeseen 1.8.2017 alkaen. Koulun oppilasmäärä kasvaa vähitellen noin sadalla oppilaalla. Vastaavasti Meilahden ala-asteen koulun oppilasmäärä ei kasva. Pikku-Huopalahden ala-asteen koulussa alkaa kokeiluna 1. luokalta lähtien varhennettu A-kielen (englanti) opetus. Koulussa painotetaan kuvataiteen opetusta
+Vanhan Ruskeasuon alue liitetään Pikku Huopalahden ala-asteen koulun oppilaaksiottoalueeseen 1.8.2017 alkaen. Koulun oppilasmäärä kasvaa vähitellen noin sadalla oppilaalla. Vastaavasti Meilahden ala-asteen koulun oppilasmäärä ei kasva. Pikku-Huopalahden ala-asteen koulussa alkaa kokeiluna 1. luokalta lähtien varhennettu A-kielen (englanti) opetus. Koulussa painotetaan kuvataiteen opetusta.
 </p>
 
 '''
@@ -321,7 +325,7 @@ alternative_3_main_image = {
 
 alternative_3_lead = '''
 
-    Meilahden yhteinen oppilaaksiottoalue
+    Meilahden yhteinen oppilaaksiottoalue:
 
 '''
 
@@ -330,8 +334,11 @@ alternative_3_body = '''
 <p>
 Meilahden ja Pikku Huopalahden ala-asteen koulut muodostavat yhteisen oppilaaksiottoalueen.
 </p>
-<p><ol>Opetusviraston perusopetuslinjan aluepäällikkö päättää vuosittain, miten uudet oppilaat sijoitetaan kouluihin. Päätöksenteon pohjana ovat opetuslautakunnan määrittelemät
-<a href="http://www.hel.fi/www/Helsinki/fi/paivahoito-ja-koulutus/perusopetus/oppilaaksiotto/>oppilaaksioton kriteerit</a>:
+<p>
+Opetusviraston perusopetuslinjan aluepäällikkö päättää vuosittain, miten uudet oppilaat sijoitetaan kouluihin. Päätöksenteon pohjana ovat opetuslautakunnan määrittelemät
+<a href="http://www.hel.fi/www/Helsinki/fi/paivahoito-ja-koulutus/perusopetus/oppilaaksiotto/">oppilaaksioton kriteerit</a>:
+</p>
+<p><ol type="a">
 <li>Nuoremmalle samassa osoitteessa asuvalle sisarukselle osoitetaan sama koulu, jossa vanhempi sisarus on oppilaana päätöksentekohetkellä. Periaatetta ei sovelleta, jos vanhempi sisarus on koulun ylimmällä luokalla, hänet on otettu hakemuksen perusteella kouluun, tai koulu on osoitettu hänelle, koska hän on erityisoppilas.</li>
 <li>Oppilaan koulumatka on mahdollisimman turvallinen ja lyhyt.</li>
 </ol></p>
