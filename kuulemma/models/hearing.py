@@ -107,6 +107,10 @@ TAGS = {
         {'name': 'Koulut', 'type': 'schools'},
         {'name': 'Vuosaari', 'type': 'area'},
     ],
+    'meilahdenkoulut': [
+        {'name': 'Koulut', 'type': 'schools'},
+        {'name': 'Meilahti', 'type': 'area'},
+    ]
 }
 
 
