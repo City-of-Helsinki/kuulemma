@@ -110,7 +110,12 @@ TAGS = {
     'meilahdenkoulut': [
         {'name': 'Koulut', 'type': 'schools'},
         {'name': 'Meilahti', 'type': 'area'},
-    ]
+    ],
+    'kulosaarenostari': [
+        {'name': 'Kaavoitus', 'type': 'building'},
+        {'name': 'Täydennysrakentaminen', 'type': 'building'},
+        {'name': 'Kulosaari', 'type': 'area'},
+    ],
 }
 
 
