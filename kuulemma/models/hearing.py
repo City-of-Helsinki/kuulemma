@@ -116,6 +116,10 @@ TAGS = {
         {'name': 'Täydennysrakentaminen', 'type': 'building'},
         {'name': 'Kulosaari', 'type': 'area'},
     ],
+    'herttoniemensairaala': [
+        {'name': 'Kaavoitus', 'type': 'building'},
+        {'name': 'Herttoniemi', 'type': 'area'},
+    ],
 }
 
 
