@@ -270,6 +270,7 @@ section_1_main_image = {
 section_1_lead = '''
 
     Helsingin lähiöprojektin teettämä Meri-Rastilan kaupunkitilojen
+    Meri-Rastilan viheralueiden ja kaupunkitilojen kehittämisen
     ideasuunnitelma tähtää alueen puistojen, aukioiden, katujen ja raittien
     parantamiseen. Lähtökohtana on kehittää Meri-Rastilan keskeisiä
     vetovoimatekijöitä: vehreitä kävelyreittejä, arvokkaita luontoarvoja

@@ -19,6 +19,7 @@ import sqlalchemy as sa
 
 from .alternative import Alternative  # noqa
 from .section import Section
+from .question import Question
 from .comment import Comment  # noqa
 from .feedback import Feedback  # noqa
 from .hearing import Hearing  # noqa

@@ -74,6 +74,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
               <span class="badge">{{ hearing.sections|length }}</span>
             </a>
           {% endif %}
+          {% if hearing.questions %}
+            <a href="#hearing-questions" class="list-group-item">
+              Kysymykset
+              <span class="badge">{{ hearing.questions|length }}</span>
+            </a>
+          {% endif %}
           <a href="#hearing-comments" class="list-group-item">
             Mielipiteet
             <span comment-counter hearing-id="{{ hearing.id }}" count="{{ hearing.comment_count }}" class="badge">{{ hearing.comment_count }}</span>
@@ -173,6 +179,37 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                   {% endfor %}
                 {% if hearing.is_open %}
                   <div comment-adder button-text="Kerro mielipiteesi tästä osa-alueesta ({{ section.letter }})" hearing-id="{{ hearing.id }}" context-list="section-{{ section.id }}:section"></div>
+                {% endif %}
+                </section>
+              </div>
+            </article>
+          {% endfor %}
+        </section>
+      {% endif %}
+      {% if hearing.questions %}
+        <section class="questions" id="hearing-questions">
+          <h2>Kysymykset</h2>
+          {% for question in hearing.questions %}
+            <article class="question">
+              <section class="preview">
+                <a data-toggle="collapse" href="#question-{{ question.id }}" class="collapser collapsed">
+                  <span class="option">{{ question.letter }}</span>
+                  {{ render_image(question.main_image, 'Kysymyksen pääkuva') }}
+                  <span class="preview-text">
+                    <h3><span>{{ question.title }}</span></h3>
+                    <p>{{ question.lead }}</p>
+                  </span>
+                </a>
+              </section>
+              <div class="collapse" id="question-{{ question.id }}">
+                <section class="content">
+                  {{ render_image(question.main_image, 'Kysymyksen kuva', class='main-image') }}
+                  {{ question.body|safe }}
+                  {% for image in question.images %}
+                    {{ render_image(image, 'Osa-alueen kuva') }}
+                  {% endfor %}
+                {% if hearing.is_open %}
+                  <div comment-adder button-text="Kerro mielipiteesi tästä kysymyksestä ({{ question.letter }})" hearing-id="{{ hearing.id }}" context-list="question-{{ question.id }}:question"></div>
                 {% endif %}
                 </section>
               </div>

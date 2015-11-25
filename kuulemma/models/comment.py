@@ -21,6 +21,7 @@ from kuulemma.extensions import db
 
 from .alternative import Alternative
 from .section import Section
+from .question import Question
 from .hearing import Hearing
 from .image import Image
 from .text_item_mixin import TextItemMixin
@@ -85,6 +86,14 @@ class Comment(db.Model, TextItemMixin):
         ),
     )
 
+    question_id = db.Column(
+        db.Integer,
+        db.ForeignKey(
+            Question.id,
+            ondelete='CASCADE'
+        ),
+    )
+
     alternative = db.relationship(
         Alternative,
         backref=db.backref(
@@ -96,6 +105,15 @@ class Comment(db.Model, TextItemMixin):
 
     section = db.relationship(
         Section,
+        backref=db.backref(
+            'comments',
+            cascade='all, delete-orphan',
+            passive_deletes=True
+        )
+    )
+
+    question = db.relationship(
+        Question,
         backref=db.backref(
             'comments',
             cascade='all, delete-orphan',
@@ -156,6 +174,7 @@ class Comment(db.Model, TextItemMixin):
                     hearing_id.is_(None),
                     alternative_id.is_(None),
                     section_id.is_(None),
+                    question_id.is_(None),
                     image_id.is_(None)
                 ),
                 db.and_(
@@ -163,6 +182,7 @@ class Comment(db.Model, TextItemMixin):
                     hearing_id.isnot(None),
                     alternative_id.is_(None),
                     section_id.is_(None),
+                    question_id.is_(None),
                     image_id.is_(None)
                 ),
                 db.and_(
@@ -170,6 +190,7 @@ class Comment(db.Model, TextItemMixin):
                     hearing_id.is_(None),
                     alternative_id.isnot(None),
                     section_id.is_(None),
+                    question_id.is_(None),
                     image_id.is_(None)
                 ),
                 db.and_(
@@ -177,6 +198,7 @@ class Comment(db.Model, TextItemMixin):
                     hearing_id.is_(None),
                     alternative_id.is_(None),
                     section_id.isnot(None),
+                    question_id.is_(None),
                     image_id.is_(None)
                 ),
                 db.and_(
@@ -184,6 +206,15 @@ class Comment(db.Model, TextItemMixin):
                     hearing_id.is_(None),
                     alternative_id.is_(None),
                     section_id.is_(None),
+                    question_id.isnot(None),
+                    image_id.is_(None)
+                ),
+                db.and_(
+                    comment_id.is_(None),
+                    hearing_id.is_(None),
+                    alternative_id.is_(None),
+                    section_id.is_(None),
+                    question_id.is_(None),
                     image_id.isnot(None)
                 )
             )
@@ -203,6 +234,8 @@ class Comment(db.Model, TextItemMixin):
             return self.alternative
         if self.section:
             return self.section
+        if self.question:
+            return self.question
         if self.image:
             return self.image
         if self.comment:
@@ -231,6 +264,8 @@ class Comment(db.Model, TextItemMixin):
             return self.alternative.commentable_name
         if self.section:
             return self.section.commentable_name
+        if self.question:
+            return self.question.commentable_name
         if self.image:
             return self.image.commentable_name
         if self.comment:
@@ -258,6 +293,7 @@ class Comment(db.Model, TextItemMixin):
 COMMENTABLE_TYPES = {
     'alternative': Alternative,
     'section': Section,
+    'question': Question,
     'comment': Comment,
     'image': Image,
     'hearing': Hearing
