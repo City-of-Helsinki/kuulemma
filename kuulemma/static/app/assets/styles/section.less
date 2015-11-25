@@ -1,0 +1,187 @@
+/* Kuulemma
+ * Copyright (C) 2014, Fast Monkeys Oy
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+.question {
+  @letter-width: 50px;
+  @letter-font-size: 60px;
+  @collapser-font-size: 24px;
+
+  border-top: 1px solid @border-color;
+  margin-top: @layout-margin-small;
+
+  .preview {
+    .clearfix();
+    position: relative;
+
+    .collapser {
+      display: block;
+
+      // Expanded styles
+      // ---------------
+
+      figure {
+        display: none;
+
+        @media (min-width: @screen-sm-min) {
+          display: block;
+          width: 100%;
+          .transition(all 0.5s);
+
+          figcaption {
+            display: block;
+            .transition(all 0.5s);
+            height: auto;
+          }
+        }
+      }
+
+      .preview-text {
+        @media (min-width: @screen-sm-min) {
+          display: block;
+          max-width: @layout-column-width-max;
+        }
+      }
+
+      // Collapsed styles
+      // ----------------
+
+      &.collapsed {
+        figure {
+          display: none;
+          figcaption {
+            height: 0;
+            padding: 0;
+            overflow: hidden;
+            .transition(all 0.5s);
+          }
+
+          @media (min-width: @screen-sm-min) {
+            display: block;
+            .make-fixed-column(left, @layout-column-width-medium-tablet);
+          }
+
+          @media (min-width: @screen-md-min) {
+            .make-fixed-column(left, @layout-column-width-medium);
+          }
+        }
+
+        .preview-text {
+          @media (min-width: @screen-sm-min) {
+            display: block;
+            max-width: inherit;
+            .make-fluid-column(right, @layout-column-width-medium-tablet + @layout-margin-small);
+          }
+
+          @media (min-width: @screen-md-min) {
+            .make-fluid-column(right, @layout-column-width-medium + @layout-margin-small);
+          }
+        }
+      }
+
+      // Collapse icon styles
+      // --------------------
+
+      &:after {
+        position: absolute;
+        height: @letter-font-size;
+        top: @layout-margin-mini + (@letter-font-size / 2) - (@collapser-font-size / 2);
+        right: 0;
+        content: "\f077";
+        font-family: FontAwesome;
+        font-size: @collapser-font-size;
+        color: @blue-dark;
+
+        @media (min-width: @screen-sm-min) {
+          margin-top: -(@collapser-font-size / 2);
+          top: 0;
+          margin-top: 0;
+          width: @letter-font-size;
+          text-align: center;
+          line-height: @letter-font-size;
+        }
+      }
+
+      &:hover {
+        text-decoration: none;
+
+        &:after {
+          color: @blue-darker;
+        }
+      }
+
+      &.collapsed:after {
+        content: "\f078";
+      }
+    }
+  }
+
+  .option {
+    position: absolute;
+    top: @layout-margin-small;
+    left: 0;
+    z-index: 20;
+    height: @letter-font-size;
+    width: @letter-width;
+    font-size: @letter-font-size;
+    line-height: @letter-font-size;
+    font-weight: normal;
+    color: @blue-dark;
+    background-color: white;
+
+    @media (min-width: @screen-sm-min) {
+      top: 0;
+      width: @letter-font-size;
+      text-align: center;
+      line-height: 70px;
+    }
+  }
+
+  h3 {
+    .vertically-align-text(@letter-font-size / 2);
+    padding-left: @letter-width;
+    padding-right: @collapser-font-size + @layout-margin-mini;
+    font-size: 18px;
+
+    @media (min-width: @screen-sm-min) {
+      padding-left: 0;
+      min-height: inherit;
+      line-height: inherit;
+      font-size: 23px;
+      span {
+        line-height: inherit
+      }
+    }
+  }
+
+  .content {
+    figure {
+      margin-bottom: @layout-margin-mini;
+    }
+
+    @media (min-width: @screen-sm-min) {
+      max-width: @layout-column-width-max;
+      .main-image {
+        display: none;
+      }
+    }
+  }
+
+  div[comment-adder] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+}

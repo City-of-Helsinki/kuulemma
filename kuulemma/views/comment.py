@@ -43,6 +43,8 @@ def index(hearing_id):
         .options(db.joinedload(Comment.comment))
         .options(db.joinedload(Comment.image))
         .options(db.joinedload(Comment.alternative))
+        .options(db.joinedload(Comment.section))
+        .options(db.joinedload(Comment.question))
     )
 
     if not (

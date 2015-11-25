@@ -59,6 +59,24 @@ class Image(db.Model):
         index=True
     )
 
+    section_id = db.Column(
+        db.Integer,
+        db.ForeignKey(
+            'section.id',
+            ondelete='CASCADE'
+        ),
+        index=True
+    )
+
+    question_id = db.Column(
+        db.Integer,
+        db.ForeignKey(
+            'question.id',
+            ondelete='CASCADE'
+        ),
+        index=True
+    )
+
     filename = db.Column(
         db.Unicode(255),
         nullable=False,
@@ -80,16 +98,36 @@ class Image(db.Model):
             db.and_(
                 hearing_id.is_(None),
                 alternative_id.is_(None),
+                section_id.is_(None),
+                question_id.is_(None),
                 position.is_(None),
             ),
             db.and_(
                 hearing_id.isnot(None),
                 alternative_id.is_(None),
+                section_id.is_(None),
+                question_id.is_(None),
                 position >= 0
             ),
             db.and_(
                 hearing_id.is_(None),
                 alternative_id.isnot(None),
+                section_id.is_(None),
+                question_id.is_(None),
+                position >= 0
+            ),
+            db.and_(
+                hearing_id.is_(None),
+                alternative_id.is_(None),
+                section_id.isnot(None),
+                question_id.is_(None),
+                position >= 0
+            ),
+            db.and_(
+                hearing_id.is_(None),
+                alternative_id.is_(None),
+                section_id.is_(None),
+                question_id.isnot(None),
                 position >= 0
             ),
         )
@@ -107,10 +145,18 @@ class Image(db.Model):
             return self.hearing
         if self.hearing_main:
             return self.hearing_main
+        if self.section:
+            return self.section
+        if self.section_main:
+            return self.section_main
         if self.alternative:
             return self.alternative
         if self.alternative_main:
             return self.alternative_main
+        if self.question:
+            return self.question
+        if self.question_main:
+            return self.question_main
 
     @property
     def related_hearing(self):
@@ -118,7 +164,7 @@ class Image(db.Model):
 
     @property
     def is_main_image(self):
-        return not (self.hearing_id or self.alternative_id)
+        return not (self.hearing_id or self.alternative_id or self.section_id or self.question_id)
 
     @property
     def number(self):
