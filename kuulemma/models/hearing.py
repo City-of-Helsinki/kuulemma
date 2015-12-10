@@ -134,6 +134,10 @@ TAGS = {
         {'name': 'Koulut', 'type': 'schools'},
         {'name': 'Vuosaari', 'type': 'area'},
     ],
+    'digitaalinenhelsinki': [
+        {'name': 'Palvelut', 'type': 'services'},
+        {'name': 'Helsinki', 'type': 'area'},
+    ],
 }
 
 
