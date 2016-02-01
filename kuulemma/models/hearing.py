@@ -138,6 +138,10 @@ TAGS = {
         {'name': 'Palvelut', 'type': 'services'},
         {'name': 'Helsinki', 'type': 'area'},
     ],
+    'gardenianmyynti': [
+        {'name': 'Palvelut', 'type': 'services'},
+        {'name': 'Viikki', 'type': 'area'},
+    ]
 }
 
 
