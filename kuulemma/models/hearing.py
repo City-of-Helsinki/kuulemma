@@ -141,7 +141,11 @@ TAGS = {
     'gardenianmyynti': [
         {'name': 'Palvelut', 'type': 'services'},
         {'name': 'Viikki', 'type': 'area'},
-    ]
+    ],
+    'lauttasaarenuusikoulutila': [
+        {'name': 'Koulut', 'type': 'schools'},
+        {'name': 'Lauttasaari', 'type': 'area'},
+    ],
 }
 
 
